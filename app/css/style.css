@@ -1,0 +1,28 @@
+/* FONTE GERAL */
+
+@font-face {
+    font-family: NotoSansJP-Regular;
+    src: url('../assets/font/NotoSansJP-Regular.otf');
+}
+
+@font-face {
+    font-family: NotoSansJP-Medium;
+    src: url('../assets/font/NotoSansJP-Medium.otf');
+}
+
+@font-face {
+    font-family: NotoSansJP-Bold;
+    src: url('../assets/font/NotoSansJP-Bold.otf');
+}
+
+body {
+    font-family: NotoSansJP-Regular;
+}
+
+
+/* inputs login */
+
+.input {
+    border-color: #137eba;
+    border-radius: 0px
+}
