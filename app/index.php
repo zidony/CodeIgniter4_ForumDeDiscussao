@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require_once('Views/includes/head.php'); ?>  
     <title>Document</title>
 </head>
-
-
-<?php 
-    // require 'Controller/Logout.php';
-    require 'Controller/NivelAcesso.php';
-    acessoSite();
-    permissaoGeral();
-    moderador();
-    adm();
-    
- ?>
-
-
 <body>
+
+    <div class="container">
+    <?php 
+        // require 'Controller/Logout.php';
+        require 'Controller/NivelAcesso.php';
+        acessoSite();
+        permissaoGeral();
+        moderador();
+        adm();
+        
+    ?>
+
     <h1>Sou a index.</h1>
 
-    <h1><BR>- ALÉM DO NÍVEL DE ACESSO, CONSERTA FALHA DE SEGURANÇA VIA URL<br>- TELA DE RECUPERAR SENHA<br>- TELA DE AJUDA DO SUPORTE PARA O LOGIN<br><br><br><br>- ENTRE ESSES, PENSAR SOBRE COMO VAMOS TRATAR O RESGATE DA SENHA E AJUDA DO SUPORTE</h1>
+    <h1><BR>- ALÉM DO NÍVEL DE ACESSO, CONSERTA FALHA DE SEGURANÇA VIA URL<br>- TELA DE AJUDA DO SUPORTE PARA O LOGIN<BR>- FAZER A PARTE DO DESATIVAMENTEO DO PERFIL<BR>- RECUPERAÇÃO DE SENHA (PENSANDO EM UMA SOLUÇÃO)<br>- ADM REALIZANDO AS VERIFICAÇÕES NAS CONSULTAS DE USUÁRIOS CADASTRADOS (PODENDO DESATIVAR, ALTERAR SENHA, BADGES)</h1>
     
+    </div>
+    <!-- fim container -->
 </body>
 </html>
