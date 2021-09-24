@@ -9,7 +9,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/FORUM_TESTE_CODE/css/bootstrap/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="/FORUM_TESTE_CODE/css/style.css">
 

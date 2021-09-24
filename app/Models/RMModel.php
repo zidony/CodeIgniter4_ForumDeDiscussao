@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class BhaskaraModel extends Model
+class RMModel extends Model
 {
     protected $table      = 'rm';
     protected $primaryKey = 'id';

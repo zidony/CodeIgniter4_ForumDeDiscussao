@@ -1,12 +1,17 @@
-<br><br><h1>Sou a Home!</h1>
-<br>
-<!-- <a href="usuario/login">Realizar login</a> -->
 
-<?php
-
-
-
-   
-
-
-?>
+    <title>Página inicial - Fórum</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Sou a index</h1>
+        <br><br>
+        <p>Login - feito</p>
+        <p>Cadastro usuário - feito</p>
+        <p>Recuperar senha - não feito</p>
+        <p></p>
+        <p></p>
+        <p>Lista de usuário para adm - andamento</p>
+    </div>
+    
+</body>
+</html>

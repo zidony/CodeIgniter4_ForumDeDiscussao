@@ -42,7 +42,7 @@
                     <div class="text-center mt-5">
                         <a href="esqueceu-senha.php" class="link-login" title="Clique aqui caso tenha esquecido a sua senha!">ESQUECEU SUA SENHA?</a>
                         <br>
-                        <a href="criar-conta.php" class="link-login" title="Clique aqui caso não tenha uma conta e deseja se cadastrar!">REGISTRE-SE </a>
+                        <a href="registraUsuario" class="link-login" title="Clique aqui caso não tenha uma conta e deseja se cadastrar!">REGISTRE-SE </a>
                         | 
                         <a href="ajuda-suporte-login.php" class="link-login" title="Clique aqui caso tenha alguma dúvida e deseje solicitar o suporte!"> AJUDA SUPORTE</a>
                     </div>
