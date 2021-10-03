@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Usuario::index');
 
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

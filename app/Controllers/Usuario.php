@@ -7,16 +7,6 @@ class Usuario extends BaseController
     # INDEX
     public function index()
 	{
-        if (session()->has('id'))
-        {
-            echo "<br><br><div class='container'><a href='usuario/logout'>Logout</a><br><br>";
-            //chama o método nivel que terá as permissões para cada tipo de usuário logado (usuario, mod e adm)
-            $this->nivel();
-            echo '</div>';
-        } else {
-            echo "<div class='container'><a href='usuario/login'>faça login para ter acesso ilimitado ao site!</a></div>";
-        }
-        
 		return view('includes/head') . view('home');
 	}
 
@@ -87,7 +77,7 @@ class Usuario extends BaseController
         $builder->select('ID, Nome, Nivel, Ativo');
         // $builder->where('Nivel', session()->nivel);
         $builder->where('ID', session()->id);
-        $builder->where('Ativo', session()->ativo);
+        // $builder->where('Ativo', session()->ativo);
         $query = $builder->get()->getResultArray();
 
         session()->set([
@@ -95,7 +85,12 @@ class Usuario extends BaseController
             'usuario' => $query[0]['Nome'],
             'nivel' => $query[0]['Nivel'],
             'ativo' => $query[0]['Ativo'],
-        ]); 
+        ]);
+
+        if (session()->ativo != 1)
+        {
+            session()->destroy();
+        }
     }
 
     public function nivel()
@@ -107,7 +102,7 @@ class Usuario extends BaseController
         //usuario = 1
         if (session()->nivel == 1) 
         {
-        }
+        } 
 
         //moderador = 2
         if (session()->nivel == 2) 
