@@ -5,6 +5,17 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 	</head>
 	<body>
+		<?php 
+			use App\Controllers\ValidaSessao;
+			$usuario = new ValidaSessao();
+			$usuario->validar();
+
+			if (!session()->has('id')) {
+				throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+			}
+
+
+		?>
 		<div class="container">
 			<br />
 			<br />

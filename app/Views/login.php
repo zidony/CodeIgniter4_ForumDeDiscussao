@@ -18,7 +18,7 @@
 
                     <!-- user -->
                     <div class="form-group box-group mb-4 text-center">
-                        <input class="form-control" type="text" name="usuario" required placeholder="Digite seu nome de usuário..." maxlength="25" title="Digite seu nome de usuário aqui!"/>
+                        <input class="form-control" type="text" name="usuario" required placeholder="Digite seu email institucional..." maxlength="100" title="Digite seu email institucional aqui!"/>
                     </div>
 
                     <!-- password -->

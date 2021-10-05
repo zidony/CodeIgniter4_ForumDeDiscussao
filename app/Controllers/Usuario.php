@@ -4,12 +4,6 @@ namespace App\Controllers;
 
 class Usuario extends BaseController
 {
-    # INDEX
-    public function index()
-	{
-		return view('includes/head') . view('home');
-	}
-
     //============================================================================
     # INICIAR LOGIN
 	public function login()
@@ -42,15 +36,15 @@ class Usuario extends BaseController
         //consulta sql personalizada
         $db      = \Config\Database::connect();
         $builder = $db->table('usuario');
-        $builder->select('ID, Nome, Senha, Nivel, Ativo');
-        $builder->where('Nome', $this->usuario);
+        $builder->select('ID, Nome, Email, Senha, Nivel, Ativo');
+        $builder->where('Email', $this->usuario);
         $builder->where('Senha', md5($this->senha));
         $builder->where('RM', $this->rm);
         $builder->where('Ativo', 1);
         $query = $builder->get()->getResultArray();
 
         //verifica como que está a estrutura do select
-        // $sql = $builder->getCompiledSelect();
+        // var_dump($builder->getCompiledSelect());
 
         if ($query == false) {
             return redirect()->to('usuario/login?error'); 
@@ -60,6 +54,7 @@ class Usuario extends BaseController
             session()->set([
                 'id' => $query[0]['ID'],
                 'usuario' => $query[0]['Nome'],
+                'email' => $query[0]['Email'],
                 'nivel' => $query[0]['Nivel'],
                 'ativo' => $query[0]['Ativo'],
             ]);
@@ -75,9 +70,7 @@ class Usuario extends BaseController
         $db      = \Config\Database::connect();
         $builder = $db->table('usuario');
         $builder->select('ID, Nome, Nivel, Ativo');
-        // $builder->where('Nivel', session()->nivel);
         $builder->where('ID', session()->id);
-        // $builder->where('Ativo', session()->ativo);
         $query = $builder->get()->getResultArray();
 
         session()->set([
@@ -120,7 +113,7 @@ class Usuario extends BaseController
             echo '<br>';
             echo '<a href="">Cria categoria</a>'; 
             echo '<br>';
-            echo '<a href="administrador/listaUsuarios" class="btn btn-primary">Usuários registrados</a>'; 
+            echo '<a href="administrador/index" class="btn btn-primary">Usuários registrados</a>'; 
             echo '<br>';
         }
     }
@@ -147,51 +140,70 @@ class Usuario extends BaseController
     {
         $this->recebeDadosCadastro();
 
-        // consulta sql personalizada
         $db      = \Config\Database::connect();
         $builder = $db->table('rm');
-        $builder->select('rm, nome');
-        $builder->where('rm', $this->rm);
+        $builder->select('RM');
+        $builder->where('Ativo', 0);
+        $query = $builder->get()->getResultArray();
+
+        if ($query == true) 
+        {
+            return redirect()->to('usuario/registraUsuario?UsuarioInativo=s');
+            exit;
+        }
+
+        $builder = $db->table('rm');
+        $builder->select('Email');
+        $builder->where('Email', $this->email);
         $builder->where('Ativo', 1);
         $query = $builder->get()->getResultArray();
 
         if ($query == false)
         {
-            # Cadastro não feito, cerifique se o RM foi digitado corretamente ou se esse RM ainda está ativo em nosso banco de dados
-            return redirect()->to('usuario/registraUsuario?error'); 
+            return redirect()->to('usuario/registraUsuario?Email-Invalido=s');
+            exit; 
+        } 
+
+        $builder = $db->table('rm');
+        $builder->select('Email');
+        $builder->where('Email', $this->email);
+        $builder->where('Ativo', 1);
+        $query = $builder->get()->getResultArray();
+
+        if ($query == false)
+        {
+            return redirect()->to('usuario/registraUsuario?RM-Invalido=s');
+            exit;
+        }
+
+        $builder = $db->table('usuario');
+        $builder->select('RM');
+        $builder->where('RM', $this->rm);
+        $query = $builder->get()->getResultArray();
+
+        if ($query == true)
+        {
+            return redirect()->to('usuario/registraUsuario?RM-JaRegistrado=s'); 
+            exit;
         } else {
-            // consulta sql personalizada
-            $db      = \Config\Database::connect();
-            $builder = $db->table('usuario');
-            $builder->select('rm');
-            $builder->where('rm', $this->rm);
-            // $builder->where('Ativo', 1);
-            $query = $builder->get()->getResultArray();
+            $db = new \App\Models\UsuarioModel();
 
-            if ($query == true)
-            {
-                return redirect()->to('usuario/registraUsuario?error2'); 
-            } else {
-                $db = new \App\Models\UsuarioModel();
+            $this->primaryKey = 'id';
 
-                $this->primaryKey = 'id';
+            $data = [
+                'Nome' => $this->usuario,
+                'Sobrenome' => $this->sobrenome,
+                'DataNascimento' => $this->dtnascimento,
+                'Email' => $this->email,
+                'Senha' => md5($this->senha),
+                'Foto' => '',
+                'RM' => $this->rm,
+                'Nivel' => 1,
+                'Ativo' => 1,
+            ];	
 
-                $data = [
-                    'Nome' => $this->usuario,
-                    'Sobrenome' => $this->sobrenome,
-                    'DataNascimento' => $this->dtnascimento,
-                    'Email' => $this->email,
-                    'Senha' => md5($this->senha),
-                    'Foto' => '',
-                    'RM' => $this->rm,
-                    'Badges' => 1,
-                    'Nivel' => 1,
-                    'Ativo' => 1,
-                ];	
-
-                $db->save($data);
-                return redirect()->to('usuario/sucesso'); 
-            }
+            $db->save($data);
+            return redirect()->to('usuario/sucesso'); 
         }
     }
 
