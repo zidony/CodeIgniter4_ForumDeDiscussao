@@ -8,7 +8,7 @@ class Usuario extends BaseController
     # INICIAR LOGIN
 	public function login()
 	{
-		return view('includes/head') . view('login');
+		return view('includes/head') . view('login/login');
 	}
 
     //============================================================================
@@ -122,7 +122,7 @@ class Usuario extends BaseController
     #CADASTRO DE USUÁRIO
     public function registraUsuario()
     {
-        return view('includes/head') . view('registre-se');
+        return view('includes/head') . view('login/registre-se');
     }
 
     public function recebeDadosCadastro()
@@ -136,7 +136,7 @@ class Usuario extends BaseController
          $this->senha = $this->request->getPost()['senha'];
     }
 
-    public function cadastrarUsuario()
+    public function cadastroUsuario()
     {
         $this->recebeDadosCadastro();
 
@@ -203,14 +203,14 @@ class Usuario extends BaseController
             ];	
 
             $db->save($data);
-            return redirect()->to('usuario/sucesso'); 
+            return view('includes/head') . view('login/sucesso'); 
         }
     }
 
     //============================================================================
-    #CADASTRO DE USUÁRIO - REDIRECIONAMENTO CASO A CONTA SEJA CRIADA
-    public function sucesso()
+    
+    public function esqueceuSenha()
     {
-        return view('includes/head') . view('sucesso');
+        return view('login/esqueceu-senha');
     }
 }

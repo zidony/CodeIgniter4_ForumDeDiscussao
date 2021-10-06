@@ -7,14 +7,8 @@
 	<body>
 		<?php 
 			use App\Controllers\ValidaSessao;
-			$usuario = new ValidaSessao();
-			$usuario->validar();
-
-			if (!session()->has('id')) {
-				throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-			}
-
-
+			$adm = new ValidaSessao();
+			$adm->validarPermissaoAdm();
 		?>
 		<div class="container">
 			<br />

@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://localhost/FORUM_TESTE_CODE/public/';
+	public $baseURL = 'http://localhost/FORUM_CODEIGNITER/public/';
 
 	/**
 	 * --------------------------------------------------------------------------

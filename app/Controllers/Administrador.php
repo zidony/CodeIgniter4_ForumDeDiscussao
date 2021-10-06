@@ -45,7 +45,6 @@ class Administrador extends BaseController
                             <th>Sobrenome</th>
 							<th>Email</th>
 							<th>RM</th>
-                            <th>Badges</th>
                             <th>Nível</th>
                             <th>Ativo</th>
                             <th>Gerar senha</th>
@@ -56,17 +55,6 @@ class Administrador extends BaseController
 			foreach($data as $key => $row)
 			{
                 $row->GerarSenha = '<a href="senha/' . $row->ID . '">Gerar senha</a>';
-
-                //Badges (nome amigável)
-                if ($row->Badges == 1) {
-                    $row->Badges = 'Novato';
-                }
-                else if ($row->Badges == 2) {
-                    $row->Badges = 'Veterano';
-                }
-                else if ($row->Badges == 3) {
-                    $row->Badges = 'Mestre';
-                }
 
                 //nivel de usuário (nome amigável)
                 if ($row->Nivel == 1) {
@@ -94,7 +82,6 @@ class Administrador extends BaseController
                             <td>'.$row->Sobrenome.'</td>
 							<td>'.$row->Email.'</td>
 							<td>'.$row->RM.'</td>
-                            <td>'.$row->Badges.'</td>
                             <td>'.$row->Nivel.'</td>
                             <td>'.$row->Ativo.'</td>
                             <td>'.$row->GerarSenha.'</td>

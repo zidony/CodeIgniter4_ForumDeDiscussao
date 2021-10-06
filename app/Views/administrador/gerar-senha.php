@@ -3,6 +3,10 @@
 // echo '<pre>';
 // var_dump();
 
+    use App\Controllers\ValidaSessao;
+    $adm = new ValidaSessao();
+    $adm->validarPermissaoAdm();
+
 helper('form');
     echo form_open('Administrador/senhaGerada');
         echo form_label('ID');

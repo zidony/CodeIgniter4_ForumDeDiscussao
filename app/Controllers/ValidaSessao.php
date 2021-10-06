@@ -5,16 +5,15 @@ use App\Controllers;
 
 class ValidaSessao extends BaseController
 {
-    public function validar()
+    public function validarPermissaoAdm()
     {
-        // $usuario = new usuario();
-        // $usuario->consultaNivel();
-
+        //caso a sessão não seja do nivel 3 'ADM', proíbe o acesso
         if (!session()->has('id')) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        // else if (!session()->nivel != 3) {
-        //     throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        // }
+
+        if (session()->nivel != 3) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        } 
     }
 }
