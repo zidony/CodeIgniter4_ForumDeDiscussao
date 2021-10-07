@@ -111,7 +111,7 @@ class Usuario extends BaseController
             echo '<br>';
             echo '<a href="">Banner notícias</a>'; 
             echo '<br>';
-            echo '<a href="">Cria categoria</a>'; 
+            echo '<a href="administrador/categoria" class="btn btn-primary">Cria categoria</a>'; 
             echo '<br>';
             echo '<a href="administrador/index" class="btn btn-primary">Usuários registrados</a>'; 
             echo '<br>';

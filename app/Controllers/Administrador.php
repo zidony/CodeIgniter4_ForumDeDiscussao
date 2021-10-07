@@ -160,4 +160,31 @@ class Administrador extends BaseController
         }
         
     }
+
+    public function categoria()
+    {
+        return view('administrador/categoria');
+    }
+
+    public function criar_categoria()
+    {
+        $db = new \App\Models\CategoriaModel(); 
+
+        $this->titulo = $this->request->getPost()['titulo'];
+        $this->img = $this->request->getPost()['img'];
+        $this->conteudo = $this->request->getPost()['conteudo'];
+        $this->link = $this->request->getPost()['link'];
+
+        $data = [
+            'Titulo' => $this->titulo,
+            'Imagem' => $this->img,
+            'Conteudo' => $this->conteudo,
+            'LinkAmigavel' => $this->link,
+            'Ativo' => 1,
+        ];
+
+        $query = $db->save($data);
+
+        return redirect()->to('Home/index'); 
+    }
 }

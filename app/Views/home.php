@@ -17,6 +17,8 @@
                 echo "<a href='usuario/login'>faça login para ter acesso ilimitado ao site!</a>";
             }
 
+
+
         ?>
         <h1>Sou a index</h1>
         <br><br>
@@ -31,7 +33,24 @@
         <p>Realizar pesquisa via input - feito</p>
         <p>Quando o usuário é desativado, pós recarregar a tela ele é deslogado do sistema - feito</p>
         <p>)</p>
-    </div>
+    
+
+
+    <h2>Categorias</h2>
+    <?php
+
+
+            use App\Controllers\Home;
+
+            $obj = new Home();
+
+            $obj->consulta_categoria();
+
+    ?>
+
+
+</div>
+<!-- fim container -->
     
 </body>
 </html>
