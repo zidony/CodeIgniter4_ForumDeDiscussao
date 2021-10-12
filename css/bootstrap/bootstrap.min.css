@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /*!
- * Bootstrap v5.1.1 (https://getbootstrap.com/)
+ * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -478,6 +478,10 @@ legend+* {
     padding: 0
 }
 
+::-webkit-file-upload-button {
+    font: inherit
+}
+
 ::file-selector-button {
     font: inherit
 }
@@ -625,7 +629,7 @@ progress {
 }
 
 .blockquote-footer::before {
-    content: "— "
+    content: "— "
 }
 
 .img-fluid {
@@ -720,9 +724,9 @@ progress {
     --bs-gutter-y: 0;
     display: flex;
     flex-wrap: wrap;
-    margin-top: calc(var(--bs-gutter-y) * -1);
-    margin-right: calc(var(--bs-gutter-x) * -.5);
-    margin-left: calc(var(--bs-gutter-x) * -.5)
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x))
 }
 
 .row>* {
@@ -1823,8 +1827,8 @@ progress {
     vertical-align: bottom
 }
 
-.table>:not(:last-child)>:last-child>* {
-    border-bottom-color: currentColor
+.table>:not(:first-child) {
+    border-top: 2px solid currentColor
 }
 
 .caption-top {
@@ -1847,7 +1851,11 @@ progress {
     border-bottom-width: 0
 }
 
-.table-striped>tbody>tr:nth-of-type(odd) {
+.table-borderless>:not(:first-child) {
+    border-top-width: 0
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
     --bs-table-accent-bg: var(--bs-table-striped-bg);
     color: var(--bs-table-striped-color)
 }
@@ -1857,7 +1865,7 @@ progress {
     color: var(--bs-table-active-color)
 }
 
-.table-hover>tbody>tr:hover {
+.table-hover>tbody>tr:hover>* {
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: var(--bs-table-hover-color)
 }
@@ -2088,6 +2096,23 @@ progress {
     opacity: 1
 }
 
+.form-control::-webkit-file-upload-button {
+    padding: .375rem .75rem;
+    margin: -.375rem -.75rem;
+    -webkit-margin-end: .75rem;
+    margin-inline-end: .75rem;
+    color: #212529;
+    background-color: #e9ecef;
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: 1px;
+    border-radius: 0;
+    -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+}
+
 .form-control::file-selector-button {
     padding: .375rem .75rem;
     margin: -.375rem -.75rem;
@@ -2105,9 +2130,17 @@ progress {
 }
 
 @media (prefers-reduced-motion:reduce) {
+    .form-control::-webkit-file-upload-button {
+        -webkit-transition: none;
+        transition: none
+    }
     .form-control::file-selector-button {
         transition: none
     }
+}
+
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: #dde0e3
 }
 
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
@@ -2167,6 +2200,13 @@ progress {
     border-radius: .2rem
 }
 
+.form-control-sm::-webkit-file-upload-button {
+    padding: .25rem .5rem;
+    margin: -.25rem -.5rem;
+    -webkit-margin-end: .5rem;
+    margin-inline-end: .5rem
+}
+
 .form-control-sm::file-selector-button {
     padding: .25rem .5rem;
     margin: -.25rem -.5rem;
@@ -2186,6 +2226,13 @@ progress {
     padding: .5rem 1rem;
     font-size: 1.25rem;
     border-radius: .3rem
+}
+
+.form-control-lg::-webkit-file-upload-button {
+    padding: .5rem 1rem;
+    margin: -.5rem -1rem;
+    -webkit-margin-end: 1rem;
+    margin-inline-end: 1rem
 }
 
 .form-control-lg::file-selector-button {
@@ -2287,14 +2334,16 @@ textarea.form-control-lg {
     padding-top: .25rem;
     padding-bottom: .25rem;
     padding-left: .5rem;
-    font-size: .875rem
+    font-size: .875rem;
+    border-radius: .2rem
 }
 
 .form-select-lg {
     padding-top: .5rem;
     padding-bottom: .5rem;
     padding-left: 1rem;
-    font-size: 1.25rem
+    font-size: 1.25rem;
+    border-radius: .3rem
 }
 
 .form-check {
@@ -6990,15 +7039,15 @@ fieldset:disabled .btn {
 }
 
 .ratio-4x3 {
-    --bs-aspect-ratio: calc(3 / 4 * 100%)
+    --bs-aspect-ratio: 75%
 }
 
 .ratio-16x9 {
-    --bs-aspect-ratio: calc(9 / 16 * 100%)
+    --bs-aspect-ratio: 56.25%
 }
 
 .ratio-21x9 {
-    --bs-aspect-ratio: calc(9 / 21 * 100%)
+    --bs-aspect-ratio: 42.8571428571%
 }
 
 .fixed-top {

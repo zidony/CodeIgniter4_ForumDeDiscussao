@@ -1,0 +1,45 @@
+.titulo-duvidas h2,
+.titulo-duvidas h4 {
+    color: #137eba;
+    font-weight: bold;
+}
+
+.cards-forum {
+    background: #137dba18;
+    padding: 10px 40px;
+    margin: 20px 40px;
+    transition: box-shadow 2s, background-color 2s;
+}
+
+.cards-forum:hover {
+    box-shadow: 1px 1px 15px 1px #137eba;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.cards-forum h3 {
+    color: #bb262e;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cards-forum p {
+    color: #4b5b64;
+}
+
+.button-duvidas {
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    background: #137eba;
+    display: block;
+    margin: 5px 10px;
+    padding: 10px 0;
+    border-radius: 5px;
+    transition: background-color 1.5s;
+}
+
+.button-duvidas:hover {
+    background: #115983;
+    color: #fff;
+}

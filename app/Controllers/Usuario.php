@@ -90,31 +90,27 @@ class Usuario extends BaseController
     {
         $this->consultaNivel();
 
-        echo 'Seja bem vindo: ' . session()->usuario;
+        
 
         //usuario = 1
-        if (session()->nivel == 1) 
-        {
-        } 
+        // if (session()->nivel == 1) 
+        // {
+        // } 
 
         //moderador = 2
-        if (session()->nivel == 2) 
-        {
-            echo "Publicações | Usuários";
-        }
+        // if (session()->nivel == 2) 
+        // {
+        //     echo "Publicações | Usuários";
+        // }
 
         //administrador = 3
         if (session()->nivel == 3) 
         {
-            echo '<br><br>';
-            echo '<a href="">Banner principal</a>'; 
-            echo '<br>';
-            echo '<a href="">Banner notícias</a>'; 
-            echo '<br>';
-            echo '<a href="administrador/categoria" class="btn btn-primary">Cria categoria</a>'; 
-            echo '<br>';
-            echo '<a href="administrador/index" class="btn btn-primary">Usuários registrados</a>'; 
-            echo '<br>';
+            //habilitar caso necessite criar um banner home (lembrando que deve ter apenas um banner)
+            // echo '<a href="administrador/banner_home" class="btn btn-primary my-3">Banner principal</a>'; 
+            echo '<a href="administrador/">Banner notícias</a>'; 
+            echo '<a href="administrador/categoria" class="btn btn-primary my-3 mx-3">Cria categoria</a>'; 
+            echo '<a href="administrador/index" class="btn btn-primary my-3">Usuários registrados</a>'; 
         }
     }
 

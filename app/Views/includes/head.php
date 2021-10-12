@@ -11,5 +11,11 @@
 
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/bootstrap/bootstrap.min.css">
 
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-navbar.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-banner.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-categorias.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-duvidas.css">
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style.css">
 
+    <!-- icones -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">

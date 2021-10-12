@@ -1,0 +1,55 @@
+.banner {
+    background: url('/FORUM_CODEIGNITER/assets/img/banner/banner.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: cover;
+    height: 404px;
+    width: 100%;
+    display: table;
+}
+
+.box-banner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.coluna-card {
+    /* margin-top: 100px; */
+    padding: 0px;
+}
+
+.coluna-card a {
+    text-decoration: none;
+}
+
+.cards {
+    background: #bb262d96;
+    margin: 5px 10px;
+    border: 1px dotted transparent;
+    transition: background-color 1.5s, border 1.5s;
+}
+
+.cards:hover {
+    background: #bb262d;
+    border: 1px dotted #fff;
+}
+
+.coluna-card .cards h2 {
+    color: #fff;
+    font-size: 16px;
+    padding: 20px 40px
+}
+
+.titulo-home {
+    color: #fff;
+}
+
+.titulo-home span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.titulo-home h1 {
+    font-size: 60px;
+    font-weight: bold;
+}

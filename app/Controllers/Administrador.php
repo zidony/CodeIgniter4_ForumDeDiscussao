@@ -4,11 +4,13 @@ namespace App\Controllers;
 
 class Administrador extends BaseController
 {
+    //a index é definida comoa a tabela de usuários
     public function index()
 	{
 		return view('includes/head') . view('administrador/usuarios');
 	}
 
+    //consulta sql para pegar a lista de usuários
     public function fetch_data($query)
 	{
         $db      = \Config\Database::connect();
@@ -26,6 +28,7 @@ class Administrador extends BaseController
         // var_dump($builder->get()->getResult());
 	}
 
+    // view da tabela e seus dados (usuário)
 	public function fetch()
 	{
 		$output = '';
@@ -55,7 +58,6 @@ class Administrador extends BaseController
 			foreach($data as $key => $row)
 			{
                 $row->GerarSenha = '<a href="senha/' . $row->ID . '">Gerar senha</a>';
-
                 //nivel de usuário (nome amigável)
                 if ($row->Nivel == 1) {
                     $row->Nivel = 'Usuário';
@@ -66,7 +68,6 @@ class Administrador extends BaseController
                 else if ($row->Nivel == 3) {
                     $row->Nivel = 'Administrador';
                 }
-
                 //altera para nome amigavel
                 if ($row->Ativo == 1) {
                     $row->Ativo = '<a href="ativaDesativaUsuario/' . $row->ID . '/ ' . $row->Ativo . '">Desativar usuário</a>';
@@ -74,7 +75,6 @@ class Administrador extends BaseController
                 else if ($row->Ativo == 0) {
                     $row->Ativo = '<a href="ativaDesativaUsuario/' . $row->ID . '/ ' . $row->Ativo . '">Ativar usuário</a>';
                 }
-
 
 				$output .= '
 						<tr>
@@ -99,6 +99,7 @@ class Administrador extends BaseController
 		echo $output;
 	}
 
+    //desativa e ativa o usuário
     public function ativaDesativaUsuario($id = null, $ativo = null)
     {
         $db = new \App\Models\UsuarioModel();
@@ -121,6 +122,7 @@ class Administrador extends BaseController
         return redirect()->to('Administrador/index'); 
     }
 
+    //leva para tela gerção de senha do usuário
     public function senha($id = null)
     {
         $db = new \App\Models\UsuarioModel();
@@ -135,6 +137,7 @@ class Administrador extends BaseController
         }
     }
 
+    //gera a senha para o usuário
     public function senhaGerada()
     {
         $db = new \App\Models\UsuarioModel();
@@ -161,11 +164,108 @@ class Administrador extends BaseController
         
     }
 
+    //================================================================================================
+    //========================================CATEGORIAS==============================================
+
+    //leva para a tela de categorias para cadastro
     public function categoria()
     {
-        return view('administrador/categoria');
+        return  view('includes/head') . view('administrador/categoria');
     }
 
+    //consulta sql para trazer a lista das categorias
+    public function fetch_data_categoria($query)
+	{
+        $db      = \Config\Database::connect();
+        $builder = $db->table('categoria');
+        $builder->select('*');
+        if($query != '')
+        {
+            $builder->Like('Titulo', $query);
+            $builder->orLike('LinkAmigavel', $query);
+        }
+        $builder->orderBy('ID', 'DESC');
+        return $builder->get()->getResult();
+	}
+
+    //view da tabela de categorias
+	public function fetch_categoria()
+	{
+		$output = '';
+		$query = '';
+		$this->fetch_data_categoria($query);
+        
+		if($this->request->getPost('query'))
+		{
+			$query = $this->request->getPost('query');
+		}
+		$data = $this->fetch_data_categoria($query);
+		$output .= '
+		<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<tr>
+							<th>Titulo</th>
+                            <th>Link Amigável</th>
+							<th>Ativo</th>
+						</tr>
+		';
+		if($data == true)
+		{
+			foreach($data as $key => $row)
+			{
+                //altera para nome amigavel
+                if ($row->Ativo == 1) {
+                    $row->Ativo = '<a href="ativaDesativaCategoria/' . $row->ID . '/ ' . $row->Ativo . '">Desativar categoria</a>';
+                } 
+                else if ($row->Ativo == 0) {
+                    $row->Ativo = '<a href="ativaDesativaCategoria/' . $row->ID . '/ ' . $row->Ativo . '">Ativar categoria</a>';
+                }
+
+
+				$output .= '
+						<tr>
+							<td>'.$row->Titulo.'</td>
+                            <td>'.$row->LinkAmigavel.'</td>
+							<td>'.$row->Ativo.'</td>
+						</tr>
+				';
+			}
+		}
+		else
+		{
+			$output .= '<tr>
+							<td colspan="5">Nenhum dado encontrado</td>
+						</tr>';
+		}
+		$output .= '</table>';
+		echo $output;
+	}
+
+
+    //ativa ou desativa uma categoria
+    public function ativaDesativaCategoria($id = null, $ativo = null)
+    {
+        $db = new \App\Models\CategoriaModel();
+
+        $this->primaryKey = 'id';
+
+        if ($ativo == 1) {
+            $data = [
+                'ID' => $id,
+                'Ativo' => 0
+            ];	
+        } else {
+            $data = [
+                'ID' => $id,
+                'Ativo' => 1
+            ];	
+        }
+
+        $db->save($data);
+        return redirect()->to('Administrador/categoria'); 
+    }
+
+    //cria uma categoria
     public function criar_categoria()
     {
         $db = new \App\Models\CategoriaModel(); 
@@ -185,6 +285,10 @@ class Administrador extends BaseController
 
         $query = $db->save($data);
 
-        return redirect()->to('Home/index'); 
+        return redirect()->to('../../'); 
     }
+
+    //================================================================================================
+    //======================================================================================
+
 }

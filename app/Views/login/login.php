@@ -9,7 +9,7 @@
         <div class="box-form">
             <div class="container content-form p-4">
                 <div class="text-center">
-                    <a href="../../assets/img/login/logo.png" target="_blank"><img src="../../assets/img/login/logo.png" alt="logo"></a>
+                    <a href="/FORUM_CODEIGNITER/assets/img/login/logo.png" target="_blank"><img src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt="logo"></a>
                 </div>
 
                 <!-- formulário de login -->
