@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="link-nav active" aria-current="page" href="http://localhost/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
+                        <a class="link-nav active" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="link-nav" aria-current="page" href="#">RECENTES</a>
@@ -30,18 +30,19 @@
                     </li>
                         <?php
                             use App\Controllers\Usuario;
-                            echo '<li class="nav-item">';
+
                             if (session()->has('id')){
-                                echo "<a href='usuario/logout' class='link-nav'>Logout</a>";
-                                echo 'Seja bem vindo: ' . session()->usuario;
+                                echo "<li class='nav-item'><a href='#' class='link-nav'>PERFIL</a></li>";
+
+                                echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/logout' class='link-nav logout'>LOGOUT</a></li>";
+                                
+                                // echo 'Seja bem vindo: ' . session()->usuario;
                                 //chama o método nivel que terá as permissões para cada tipo de usuário logado (usuario, mod e adm)
                                 // $obj = new Usuario();
                                 // $obj->nivel();
                             } else {
-                                echo "<a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
+                                echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a></li>";
                             }
-
-                            echo '</li>';
                         ?>
                 </ul>
             </div>

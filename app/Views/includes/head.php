@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/png" sizes="16x16"  href="../../public/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16"  href="/FORUM_CODEIGNITER/public/favicon.ico">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 

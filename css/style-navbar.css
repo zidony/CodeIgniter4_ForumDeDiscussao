@@ -55,6 +55,14 @@
     color: #323f46;
 }
 
+.logout {
+    color: #bb262e;
+}
+
+.logout:hover {
+    color: #a82027;
+}
+
 .start-session {
     background: #137eba;
     color: #fff;

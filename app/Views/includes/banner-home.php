@@ -33,6 +33,9 @@
                 <span>Fórum de discussão da ETEC de São Roque</span>
                 <h1>SEJA BEM VINDO!</h1>
             </div>
+            <div class="text-center mt-5 box-icon-down">
+                <a href="#pesquise"><i class="bi bi-arrow-down-circle-fill icon-down"></i></a>
+            </div>
         </div>
     </div>
     <!-- end container -->

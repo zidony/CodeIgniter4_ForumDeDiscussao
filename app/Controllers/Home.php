@@ -9,6 +9,7 @@ class Home extends BaseController
 	{
 		return 
 			view('includes/head') .
+			view('title') .
 			view('includes/nav') .
 			view('includes/banner-home') . 
 			view('home') . 
