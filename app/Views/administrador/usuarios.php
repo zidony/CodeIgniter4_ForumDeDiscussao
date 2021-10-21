@@ -1,24 +1,30 @@
-
-		<title>Usuários registrados</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<?php 
+	use App\Controllers\ValidaSessao;
+	$adm = new ValidaSessao();
+	$adm->validarPermissaoAdm();
+?>
+	<link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-tables.css">
+	<title>Usuários registrados</title>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
 	</head>
 	<body>
-		<?php 
-			use App\Controllers\ValidaSessao;
-			$adm = new ValidaSessao();
-			$adm->validarPermissaoAdm();
-		?>
+		
 		<div class="container">
 			<br />
 			<br />
+			<div class="d-flex flex-wrap">
+				<a href="index" class="button-back p-3 my-3">VOLTAR</a>
+				<a href="../usuario/registraUsuario" class="button-painel p-3 my-3">REGISTRAR UM USUÁRIO</a>
+			</div>
+			
+
 			<br />
-			<h2 align="center">Usuários registrados no sistema</h2><br />
+			<h1>USUARIOS REGISTRADOS NO SISTEMA</h1><br />
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon">Pesquisar</span>
-					<input type="text" name="search_text" id="search_text" placeholder="Pesquise..." class="form-control" />
+					<input type="text" name="search_text" id="search_text" placeholder="Pesquise por Nome, Sobrenome e RM" class="form-control" />
 				</div>
 			</div>
 			<br />
@@ -29,37 +35,37 @@
 		<br />
 		<br />
 		<br />
+		<script>
+			$(document).ready(function(){
+
+				load_data();
+
+				function load_data(query)
+				{
+					$.ajax({
+						url:"<?php echo base_url(); ?>/administrador/fetch",
+						method:"POST",
+						data:{query:query},
+						success:function(data){
+							$('#result').html(data);
+						}
+					})
+				}
+
+				$('#search_text').keyup(function(){
+					var search = $(this).val();
+					if(search != '')
+					{
+						load_data(search);
+					}
+					else
+					{
+						load_data();
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
 
 
-<script>
-$(document).ready(function(){
-
-	load_data();
-
-	function load_data(query)
-	{
-		$.ajax({
-			url:"<?php echo base_url(); ?>/administrador/fetch",
-			method:"POST",
-			data:{query:query},
-			success:function(data){
-				$('#result').html(data);
-			}
-		})
-	}
-
-	$('#search_text').keyup(function(){
-		var search = $(this).val();
-		if(search != '')
-		{
-			load_data(search);
-		}
-		else
-		{
-			load_data();
-		}
-	});
-});
-</script>

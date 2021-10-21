@@ -1,39 +1,63 @@
-<title>Usuários registrados</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+<?php
+    use App\Controllers\ValidaSessao;
+    $adm = new ValidaSessao();
+    $adm->validarPermissaoAdm();
+?>
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-tables.css">
+    <title>Categorias registradas</title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
 </head>
 <body>
     <div class="container">
+        <br />
+        <div class="d-flex flex-wrap">
+            <a href="index" class="button-back p-3 my-3">VOLTAR</a>
+            <a href="../usuario/registraUsuario" class="button-painel p-3 my-3">REGISTRAR UM USUÁRIO</a>
+            <a href="usuarios" class="button-painel p-3 my-3">VER USUÁRIOS REGISTRADOS</a>
+        </div>
+        <br />
+        <h1>CADASTRO DE CATEGORIAS</h1>
         <?php 
-            use App\Controllers\ValidaSessao;
-            $adm = new ValidaSessao();
-            $adm->validarPermissaoAdm();
+
+            $input = [
+                'class' => 'form-control',
+                'required' => 'required'
+            ];
+
+            $inputConteudo = [
+                'class' => 'form-control',
+                'required' => 'required',
+                'maxlength' => '65',
+                'rows' => '2'
+            ];
 
             helper('form');
             echo form_open('Administrador/criar_categoria');
                 echo form_label('Título');
                 echo '<br>';
-                echo form_input('titulo','', 'required');
+                echo form_input('titulo','', $input);
                 echo '<br><br>';
 
                 echo form_label('Imagem');
                 echo '<br>';
-                echo form_upload('img', '', 'required');
+                echo form_upload('img', '', $input);
                 echo '<br><br>';
 
                 echo form_label('Conteúdo');
                 echo '<br>';
-                echo form_input('conteudo', '', 'required');
+                echo form_textarea('conteudo', '', $inputConteudo);
                 echo '<br><br>';
 
                 echo form_label('Link amigável');
                 echo '<br>';
-                echo form_input('link', '', 'required');
+                echo form_input('link', '', $input);
                 echo '<br><br>';
 
-
-                echo form_submit('mysubmit', 'Criar categoria', 'class="btn btn-primary"');
+                echo '<div class="text-center">';
+                echo form_submit('mysubmit', 'Criar categoria', 'class="button-submit py-3 my-3"');
+                echo '</div>';
             echo form_close();
 
         ?>
@@ -43,10 +67,9 @@
         <br />
         <br />
         <br />
-        <h2 align="center">Categorias registrados no sistema</h2><br />
+        <h1>CATEGORIAS REGISTRADAS NO SISTEMA</h1><br />
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">Pesquisar</span>
                 <input type="text" name="search_text" id="search_text" placeholder="Pesquise..." class="form-control" />
             </div>
         </div>
@@ -58,37 +81,37 @@
     <br />
     <br />
     <br />
+    <script>
+        $(document).ready(function(){
+
+            load_data();
+
+            function load_data(query)
+            {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>/administrador/fetch_categoria",
+                    method:"POST",
+                    data:{query:query},
+                    success:function(data){
+                        $('#result').html(data);
+                    }
+                })
+            }
+
+            $('#search_text').keyup(function(){
+                var search = $(this).val();
+                if(search != '')
+                {
+                    load_data(search);
+                }
+                else
+                {
+                    load_data();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 
 
-<script>
-$(document).ready(function(){
-
-	load_data();
-
-	function load_data(query)
-	{
-		$.ajax({
-			url:"<?php echo base_url(); ?>/administrador/fetch_categoria",
-			method:"POST",
-			data:{query:query},
-			success:function(data){
-				$('#result').html(data);
-			}
-		})
-	}
-
-	$('#search_text').keyup(function(){
-		var search = $(this).val();
-		if(search != '')
-		{
-			load_data(search);
-		}
-		else
-		{
-			load_data();
-		}
-	});
-});
-</script>

@@ -7,7 +7,18 @@ class Administrador extends BaseController
     //a index é definida comoa a tabela de usuários
     public function index()
 	{
-		return view('includes/head') . view('administrador/usuarios');
+		return view('includes/head') . 
+                view('includes/nav') .
+                view('administrador/painel') . 
+                view('includes/footer');
+	}
+
+    public function usuarios()
+	{
+		return view('includes/head') . 
+                view('includes/nav') .
+                view('administrador/usuarios') . 
+                view('includes/footer');
 	}
 
     //consulta sql para pegar a lista de usuários
@@ -22,6 +33,7 @@ class Administrador extends BaseController
             $builder->orLike('Email', $query);
             $builder->orLike('RM', $query);
         }
+        $builder->limit(10);
         $builder->orderBy('ID', 'DESC');
         return $builder->get()->getResult();
         // echo '<pre>';
@@ -44,20 +56,20 @@ class Administrador extends BaseController
 		<div class="table-responsive">
 					<table class="table table-bordered table-striped">
 						<tr>
-							<th>Nome</th>
-                            <th>Sobrenome</th>
-							<th>Email</th>
+							<th>NOME</th>
+                            <th>SOBRENOME</th>
+							<th>E-MAIL</th>
 							<th>RM</th>
-                            <th>Nível</th>
-                            <th>Ativo</th>
-                            <th>Gerar senha</th>
+                            <th>NÍVEL</th>
+                            <th>STATUS</th>
+                            <th>GERAR SENHA</th>
 						</tr>
 		';
 		if($data == true)
 		{
 			foreach($data as $key => $row)
 			{
-                $row->GerarSenha = '<a href="senha/' . $row->ID . '">Gerar senha</a>';
+                $row->GerarSenha = '<a href="senha/' . $row->ID . '" class="nav-link">Gerar senha</a>';
                 //nivel de usuário (nome amigável)
                 if ($row->Nivel == 1) {
                     $row->Nivel = 'Usuário';
@@ -70,10 +82,10 @@ class Administrador extends BaseController
                 }
                 //altera para nome amigavel
                 if ($row->Ativo == 1) {
-                    $row->Ativo = '<a href="ativaDesativaUsuario/' . $row->ID . '/ ' . $row->Ativo . '">Desativar usuário</a>';
+                    $row->Ativo = '<a href="ativaDesativaUsuario/' . $row->ID . '/ ' . $row->Ativo . '" class="nav-link">Desativar usuário</a>';
                 } 
                 else if ($row->Ativo == 0) {
-                    $row->Ativo = '<a href="ativaDesativaUsuario/' . $row->ID . '/ ' . $row->Ativo . '">Ativar usuário</a>';
+                    $row->Ativo = '<a href="ativaDesativaUsuario/' . $row->ID . '/ ' . $row->Ativo . '" class="nav-link">Ativar usuário</a>';
                 }
 
 				$output .= '
@@ -119,7 +131,7 @@ class Administrador extends BaseController
         }
 
         $db->save($data);
-        return redirect()->to('Administrador/index'); 
+        return redirect()->to('Administrador/usuarios'); 
     }
 
     //leva para tela gerção de senha do usuário
@@ -133,7 +145,10 @@ class Administrador extends BaseController
 
             $data['usuario'] = $query;
 
-            return view('administrador/gerar-senha', $data);
+            return view('includes/head') .
+                    view('includes/nav') .
+                    view('administrador/gerar-senha', $data) . 
+                    view('includes/footer');
         }
     }
 
@@ -170,7 +185,10 @@ class Administrador extends BaseController
     //leva para a tela de categorias para cadastro
     public function categoria()
     {
-        return  view('includes/head') . view('administrador/categoria');
+        return  view('includes/head') .
+                view('includes/nav') .
+                view('administrador/categoria') .
+                view('includes/footer');
     }
 
     //consulta sql para trazer a lista das categorias
@@ -204,9 +222,9 @@ class Administrador extends BaseController
 		<div class="table-responsive">
 					<table class="table table-bordered table-striped">
 						<tr>
-							<th>Titulo</th>
-                            <th>Link Amigável</th>
-							<th>Ativo</th>
+							<th>TÍTULO</th>
+                            <th>LINK AMIGÁVEL</th>
+							<th>STATUS</th>
 						</tr>
 		';
 		if($data == true)
@@ -215,10 +233,10 @@ class Administrador extends BaseController
 			{
                 //altera para nome amigavel
                 if ($row->Ativo == 1) {
-                    $row->Ativo = '<a href="ativaDesativaCategoria/' . $row->ID . '/ ' . $row->Ativo . '">Desativar categoria</a>';
+                    $row->Ativo = '<a href="ativaDesativaCategoria/' . $row->ID . '/ ' . $row->Ativo . '" class="nav-link">Desativar categoria</a>';
                 } 
                 else if ($row->Ativo == 0) {
-                    $row->Ativo = '<a href="ativaDesativaCategoria/' . $row->ID . '/ ' . $row->Ativo . '">Ativar categoria</a>';
+                    $row->Ativo = '<a href="ativaDesativaCategoria/' . $row->ID . '/ ' . $row->Ativo . '" class="nav-link">Ativar categoria</a>';
                 }
 
 

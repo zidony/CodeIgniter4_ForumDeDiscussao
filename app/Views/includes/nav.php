@@ -19,12 +19,12 @@
                     <li class="nav-item">
                         <a class="link-nav active" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="link-nav" aria-current="page" href="#">RECENTES</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="link-nav" href="#">CATEGORIAS</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="link-nav" href="#">SOBRE O FÓRUM</a>
                     </li>
@@ -32,14 +32,15 @@
                             use App\Controllers\Usuario;
 
                             if (session()->has('id')){
-                                echo "<li class='nav-item'><a href='#' class='link-nav'>PERFIL</a></li>";
-
-                                echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/logout' class='link-nav logout'>LOGOUT</a></li>";
                                 
-                                // echo 'Seja bem vindo: ' . session()->usuario;
-                                //chama o método nivel que terá as permissões para cada tipo de usuário logado (usuario, mod e adm)
-                                // $obj = new Usuario();
-                                // $obj->nivel();
+                                $obj = new Usuario();
+                                $obj->consultaNivel();
+                                echo "<li class='nav-item'><a href='#' class='link-nav'>PERFIL</a></li>";
+                                if (session()->nivel == 3)
+                                {
+                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/administrador/index' class='link-nav'>PAINEL ADMINISTRATIVO</a></li>";
+                                }
+                                echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/logout' class='link-nav logout'>LOGOUT</a></li>";
                             } else {
                                 echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a></li>";
                             }
