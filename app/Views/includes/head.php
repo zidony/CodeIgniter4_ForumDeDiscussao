@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-navbar.css">
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-banner.css">
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-categorias.css">
-    
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-perfil.css">
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-duvidas.css">
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style.css">
 

@@ -1,0 +1,10 @@
+.card-perfil {
+    border: 1px solid red;
+    padding: 5px;
+    text-align: center;
+}
+
+.card-perfil img {
+    width: 100px;
+    border-radius: 100%;
+}

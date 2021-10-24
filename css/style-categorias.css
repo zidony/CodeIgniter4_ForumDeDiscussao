@@ -2,6 +2,7 @@
 .box-referencias {
     box-shadow: 1px 1px 5px 1px #4b5b6488;
     padding: 40px;
+    background: #fff;
 }
 
 .box-categorias h2 {

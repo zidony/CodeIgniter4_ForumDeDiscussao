@@ -18,6 +18,7 @@
                 <a href="usuarios" class="button-painel p-3 my-3">VER USUÁRIOS REGISTRADOS</a>
                 <a href="categoria" class="button-painel p-3 my-3">REGISTRAR UMA CATEGORIA</a>
                 <a href="categoria" class="button-painel p-3 my-3">VER CATEGORIAS REGISTRADAS</a>
+				<a href="rm" class="button-painel p-3 my-3">INSERIR RMs DE ALUNOS NOVOS</a>
             </div>
 		</div>
 	

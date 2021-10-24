@@ -36,7 +36,7 @@ class Usuario extends BaseController
         //consulta sql personalizada
         $db      = \Config\Database::connect();
         $builder = $db->table('usuario');
-        $builder->select('ID, Nome, Email, Senha, Nivel, Ativo');
+        $builder->select('ID, Nome, Email, Senha, Foto, Nivel, Ativo');
         $builder->where('Email', $this->usuario);
         $builder->where('Senha', md5($this->senha));
         $builder->where('RM', $this->rm);
@@ -49,12 +49,13 @@ class Usuario extends BaseController
         if ($query == false) {
             return redirect()->to('usuario/login?error'); 
         } else {
-            echo '<pre>';
+            // echo '<pre>';
 
             session()->set([
                 'id' => $query[0]['ID'],
                 'usuario' => $query[0]['Nome'],
                 'email' => $query[0]['Email'],
+                'foto' => $query[0]['Foto'],
                 'nivel' => $query[0]['Nivel'],
                 'ativo' => $query[0]['Ativo'],
             ]);
@@ -83,34 +84,6 @@ class Usuario extends BaseController
         if (session()->ativo != 1)
         {
             session()->destroy();
-        }
-    }
-
-    public function nivel()
-    {
-        $this->consultaNivel();
-
-        
-
-        //usuario = 1
-        // if (session()->nivel == 1) 
-        // {
-        // } 
-
-        //moderador = 2
-        // if (session()->nivel == 2) 
-        // {
-        //     echo "Publicações | Usuários";
-        // }
-
-        //administrador = 3
-        if (session()->nivel == 3) 
-        {
-            //habilitar caso necessite criar um banner home (lembrando que deve ter apenas um banner)
-            // echo '<a href="administrador/banner_home" class="btn btn-primary my-3">Banner principal</a>'; 
-            echo '<a href="administrador/">Banner notícias</a>'; 
-            echo '<a href="administrador/categoria" class="btn btn-primary my-3 mx-3">Cria categoria</a>'; 
-            echo '<a href="administrador/index" class="btn btn-primary my-3">Usuários registrados</a>'; 
         }
     }
 
@@ -192,14 +165,16 @@ class Usuario extends BaseController
                 'DataNascimento' => $this->dtnascimento,
                 'Email' => $this->email,
                 'Senha' => md5($this->senha),
-                'Foto' => '',
+                'Foto' => 'user.png',
                 'RM' => $this->rm,
                 'Nivel' => 1,
                 'Ativo' => 1,
             ];	
 
             $db->save($data);
-            return view('includes/head') . view('login/sucesso'); 
+            return view('includes/head') .
+                    view('login/sucesso') .
+                    view('includes/footer'); 
         }
     }
 
@@ -207,6 +182,26 @@ class Usuario extends BaseController
     
     public function esqueceuSenha()
     {
-        return view('login/esqueceu-senha');
+        return view('includes/head') .
+                view('login/title-senha') .
+                view('includes/nav') .
+                view('login/esqueceu-senha') .
+                view('includes/footer');
+    }
+
+    //============================================================================
+    //perfil de usuário
+
+    public function perfil($id = null)
+    {
+        if (session()->id == null) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        } else {
+            return  view('includes/head') .
+            view('includes/nav') .
+            view('usuario/perfil') .
+            view('includes/footer');
+        }
+        
     }
 }

@@ -25,14 +25,31 @@ class ValidaSessao extends BaseController
 
         if (!session()->has('id'))
         {
-            $dnone = '';
+            $resultado = "<a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
             
         } else {
-            $dnone = 'd-none';
+            $resultado = '<a href="usuario/perfil/' . session()->id . '">Acessar perfil de usuário</a>';
         }
 
-        $resultado = "<a href='usuario/login' class='$dnone link-nav start-session'>INICIAR SESSÃO</a>";
+        
 
         echo $resultado;
     }
+
+    // public function mostraBotaoLogar()
+    // {
+    //     $dnone = null;
+
+    //     if (!session()->has('id'))
+    //     {
+    //         $dnone = '';
+            
+    //     } else {
+    //         $dnone = 'd-none';
+    //     }
+
+    //     $resultado = "<a href='usuario/login' class='$dnone link-nav start-session'>INICIAR SESSÃO</a>";
+
+    //     echo $resultado;
+    // }
 }

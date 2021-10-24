@@ -49,13 +49,7 @@
             </div>
         </div>
     </nav>
-    <?php
-        //chama o método nivel que terá as permissões para cada tipo de usuário logado (usuario, mod e adm)
-        // if (session()->has('id')){
-        //     $obj = new Usuario();
-        //     $obj->nivel();
-        // }
-    ?>
+
 
 </header>
 
