@@ -410,10 +410,10 @@ class Administrador extends BaseController
              {
                 if ($row->Ativo == 1){
                     $row->Ativo = 'Ativo';
-                    $check = '<input type="radio" class="" name="check[]" value="'. $row->ID .'"> Desativar usuário';
+                    $check = '<input type="radio" class="" name="check[]" value="'. $row->RM .'"> Desativar usuário';
                 } else {
                     $row->Ativo = 'Inativo';
-                    $check = '<input type="radio" class="d-none" name="check[]" value="'. $row->ID .'"> Usuário desativado';
+                    $check = '<input type="radio" class="d-none" name="check[]" value="'. $row->RM .'"> Usuário desativado';
                 }
 
                  $output .= '
@@ -438,24 +438,54 @@ class Administrador extends BaseController
          echo "</form>";
      }
 
-     public function checar()
+     public function desativarRM()
      {
         $db      = \Config\Database::connect(); 
-
         if (!isset($this->request->getPost()['check'])) {
             return redirect()->to('administrador/rm'); 
         } else {
             $this->check = $this->request->getPost()['check'];
         }
 
-            $builder = $db->table('rm');
+        $builder = $db->table('rm');
+        $builder->set('Ativo', 0);
+        $builder->where('RM', $this->check);
+        $builder->update();
+        $query = $builder->get()->getResult();
+
+        if ($query == true) {
+            $builder = $db->table('usuario');
             $builder->set('Ativo', 0);
-            $builder->where('ID', $this->check);
+            $builder->where('RM', $this->check);
             $builder->update();
+            $query = $builder->get()->getResult();
+        }
 
-            $builder->get()->getResult();
+        return redirect()->to('administrador/rm');
+     }
 
-            return redirect()->to('administrador/rm');
+     public function checar()
+     {
+        $db      = \Config\Database::connect(); 
+        if (!isset($this->request->getPost()['check'])) {
+            return redirect()->to('administrador/rm'); 
+        } else {
+            $this->check = $this->request->getPost()['check'];
+        }
+
+        $builder = $db->table('rm');
+        $builder->select('RM, Ativo');
+        $builder->where('RM', $this->check);
+        // $builder->update();
+        $query = $builder->get()->getResult();
+
+        // var_dump();
+        
+     }
+
+     public function ativarRM()
+     {
+        
      }
 
     //================================================================================================
