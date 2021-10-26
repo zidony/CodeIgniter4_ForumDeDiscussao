@@ -1,6 +1,6 @@
 
-    <title>Sessão de login - Conta criada com sucesso</title>
-    <link rel="stylesheet" type="text/css" href="../../css/style-conta-criada.css">
+    <title>Conta Criada Com Sucesso</title>
+    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/css/style-conta-criada.css">
 </head>
 <body>
 
@@ -16,6 +16,3 @@
             </div>
         </div>
     </div>
-
-</body>
-</html>

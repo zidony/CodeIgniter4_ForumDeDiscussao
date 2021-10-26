@@ -8,7 +8,9 @@ class Usuario extends BaseController
     # INICIAR LOGIN
 	public function login()
 	{
-		return view('includes/head') . view('login/login');
+		return view('includes/head') .
+                view('login/login') .
+                view('includes/footer');
 	}
 
     //============================================================================
@@ -91,7 +93,9 @@ class Usuario extends BaseController
     #CADASTRO DE USUÁRIO
     public function registraUsuario()
     {
-        return view('includes/head') . view('login/registre-se');
+        return view('includes/head') .
+                view('login/registre-se') .
+                view('includes/footer');
     }
 
     public function recebeDadosCadastro()
@@ -183,7 +187,7 @@ class Usuario extends BaseController
     public function esqueceuSenha()
     {
         return view('includes/head') .
-                view('login/title-senha') .
+                view('titles/title-esqueceu-senha') .
                 view('includes/nav') .
                 view('login/esqueceu-senha') .
                 view('includes/footer');
@@ -198,6 +202,7 @@ class Usuario extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         } else {
             return  view('includes/head') .
+            view('titles/title-perfil') .
             view('includes/nav') .
             view('usuario/perfil') .
             view('includes/footer');

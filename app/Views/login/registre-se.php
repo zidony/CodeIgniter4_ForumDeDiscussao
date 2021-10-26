@@ -1,6 +1,6 @@
 
-    <link rel="stylesheet" type="text/css" href="../../css/style-criar-conta.css">
-    <title>Sessão de login - Criar Conta</title>
+    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/css/style-criar-conta.css">
+    <title>Criar Conta de Usuário</title>
 </head>
 <body>
 
@@ -55,6 +55,3 @@
             </div>
         </div>
     </div>
-    
-</body>
-</html>

@@ -3,13 +3,6 @@
 	$adm = new ValidaSessao();
 	$adm->validarPermissaoAdm();
 ?>
-	<link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-tables.css">
-	<title>Usuários registrados</title>
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
-	</head>
-	<body>
 		
 		<div class="container">
 			<br />
@@ -65,7 +58,6 @@
 				});
 			});
 		</script>
-	</body>
-</html>
+
 
 

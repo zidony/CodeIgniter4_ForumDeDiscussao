@@ -3,10 +3,6 @@
     $adm = new ValidaSessao();
     $adm->validarPermissaoAdm();
 ?>
-<link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-tables.css">
-<title>Gerar senha usuário</title>
-</head>
-<body>
 
 <br>
 <div class="container">

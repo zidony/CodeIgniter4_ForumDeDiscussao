@@ -7,7 +7,8 @@ class Administrador extends BaseController
     //a index é definida comoa a tabela de usuários
     public function index()
 	{
-		return view('includes/head') . 
+		return view('includes/head') .
+                view('titles/title-painel') .
                 view('includes/nav') .
                 view('administrador/painel') . 
                 view('includes/footer');
@@ -15,7 +16,8 @@ class Administrador extends BaseController
 
     public function usuarios()
 	{
-		return view('includes/head') . 
+		return view('includes/head') .
+                view('titles/title-usuarios') . 
                 view('includes/nav') .
                 view('administrador/usuarios') . 
                 view('includes/footer');
@@ -36,8 +38,6 @@ class Administrador extends BaseController
         $builder->limit(10);
         $builder->orderBy('ID', 'DESC');
         return $builder->get()->getResult();
-        // echo '<pre>';
-        // var_dump($builder->get()->getResult());
 	}
 
     // view da tabela e seus dados (usuário)
@@ -124,6 +124,7 @@ class Administrador extends BaseController
         $data = $db->find($id);
         $usuario['usuario'] = $data;
         return view('includes/head') . 
+                view('titles/title-eleger-usuario') .
                 view('includes/nav') .
                 view('administrador/eleger-usuario', $usuario) . 
                 view('includes/footer');
@@ -192,6 +193,7 @@ class Administrador extends BaseController
             $data['usuario'] = $query;
 
             return view('includes/head') .
+                    view('titles/title-senha-usuario') .
                     view('includes/nav') .
                     view('administrador/gerar-senha', $data) . 
                     view('includes/footer');
@@ -232,6 +234,7 @@ class Administrador extends BaseController
     public function categoria()
     {
         return  view('includes/head') .
+                view('titles/title-categorias') . 
                 view('includes/nav') .
                 view('administrador/categoria') .
                 view('includes/footer');
@@ -357,6 +360,7 @@ class Administrador extends BaseController
     public function rm()
     {
         return  view('includes/head') .
+                view('titles/title-rm') .
                 view('includes/nav') .
                 view('administrador/rm') .
                 view('includes/footer');
@@ -390,10 +394,6 @@ class Administrador extends BaseController
              $query = $this->request->getPost('query');
          }
          $data = $this->fetch_data_rm($query);
-         echo '<form action="checar" method="post">';
-         echo '<div class="text-end">';
-         echo '<input type="submit" value="Desativar usuário selecionado" class="button-painel p-3 my-3">';
-         echo '</div>';
          $output .= '
          <div class="table-responsive">
                      <table class="table table-bordered table-striped">
@@ -409,11 +409,13 @@ class Administrador extends BaseController
              foreach($data as $key => $row)
              {
                 if ($row->Ativo == 1){
+                    
+                    $status = '<a href="ativaDesativaRM/' . $row->ID . '/' . $row->RM . '/' . $row->Ativo . '">Desativar usuário</a>';
                     $row->Ativo = 'Ativo';
-                    $check = '<input type="radio" class="" name="check[]" value="'. $row->RM .'"> Desativar usuário';
                 } else {
+                    
+                    $status = '<a href="ativaDesativaRM/' . $row->ID . '/' . $row->RM .'/' . $row->Ativo . '">Ativar usuário</a>';
                     $row->Ativo = 'Inativo';
-                    $check = '<input type="radio" class="d-none" name="check[]" value="'. $row->RM .'"> Usuário desativado';
                 }
 
                  $output .= '
@@ -421,7 +423,7 @@ class Administrador extends BaseController
                             <td>'.$row->Nome.'</td>
                             <td>'.$row->RM.'</td>
                             <td>'.$row->Ativo.'</td>
-                            <td>'. $check .'</td>
+                            <td>'. $status .'</td>
                         </tr>
                  ';
              }
@@ -438,56 +440,72 @@ class Administrador extends BaseController
          echo "</form>";
      }
 
-     public function desativarRM()
+     public function ativaDesativaRM($id, $rm, $ativo)
      {
-        $db      = \Config\Database::connect(); 
-        if (!isset($this->request->getPost()['check'])) {
-            return redirect()->to('administrador/rm'); 
-        } else {
-            $this->check = $this->request->getPost()['check'];
-        }
+        $dbRM = new \App\Models\RMModel();
+        $dbUser     = \Config\Database::connect();
 
-        $builder = $db->table('rm');
+        $this->primaryKey = 'rm';
+
+        if ($ativo == 1) {
+            $dataRM = [
+                'ID' => $id,
+                'Ativo' => 0
+            ];	
+
+        $builder = $dbUser->table('usuario');
         $builder->set('Ativo', 0);
-        $builder->where('RM', $this->check);
-        $builder->update();
-        $query = $builder->get()->getResult();
-
-        if ($query == true) {
-            $builder = $db->table('usuario');
-            $builder->set('Ativo', 0);
-            $builder->where('RM', $this->check);
-            $builder->update();
-            $query = $builder->get()->getResult();
+        $builder->where('RM', $rm);
+   
+        } else {
+            $dataRM = [
+                'ID' => $id,
+                'Ativo' => 1
+            ];
+            
+            $builder = $dbUser->table('usuario');
+            $builder->set('Ativo', 1);
+            $builder->where('RM', $rm); 
         }
 
-        return redirect()->to('administrador/rm');
+        $dbRM->save($dataRM);
+
+        $builder->update();
+        $builder->get()->getResultArray();
+
+        return redirect()->to('Administrador/rm'); 
      }
 
-     public function checar()
+     public function registraRM()
      {
-        $db      = \Config\Database::connect(); 
-        if (!isset($this->request->getPost()['check'])) {
-            return redirect()->to('administrador/rm'); 
-        } else {
-            $this->check = $this->request->getPost()['check'];
-        }
+        $dbM = new \App\Models\RMModel();
+        $db     = \Config\Database::connect();
+
+        $this->rm = $this->request->getPost()['rm'];
+        $this->nome = $this->request->getPost()['nome'];
+        $this->email = $this->request->getPost()['email']; 
+
+        $data = [
+            'RM' => $this->rm,
+            'Nome' => $this->nome,
+            'Email' => $this->email,
+            'Ativo' => 1
+        ];
 
         $builder = $db->table('rm');
-        $builder->select('RM, Ativo');
-        $builder->where('RM', $this->check);
-        // $builder->update();
-        $query = $builder->get()->getResult();
+        $builder->where('RM', $this->rm);
+        $query = $builder->get()->getResultArray();
 
-        // var_dump();
-        
+        if ($query == false)
+        {
+            $dbM->save($data);
+            $result = redirect()->to('Administrador/rm'); 
+        } else {
+            $result = redirect()->to('Administrador/rm?error'); 
+        }
+
+        return $result;
      }
-
-     public function ativarRM()
-     {
-        
-     }
-
     //================================================================================================
 
 }

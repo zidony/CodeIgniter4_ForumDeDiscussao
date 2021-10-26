@@ -1,6 +1,6 @@
 
-    <link rel="stylesheet" type="text/css" href="../../css/style-login.css">
-    <title>Sessão de login</title>
+    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/css/style-login.css">
+    <title>Iniciar Sessão</title>
 </head>
 <body>
 

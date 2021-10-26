@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class RMModel extends Model
 {
     protected $table      = 'rm';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'ID';
 
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['ID', 'RM', 'Nome', 'Ativo'];
+    protected $allowedFields = ['ID', 'RM', 'Nome', 'Email', 'Ativo'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';

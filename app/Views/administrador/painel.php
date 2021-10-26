@@ -3,11 +3,7 @@
 	$adm = new ValidaSessao();
 	$adm->validarPermissaoAdm();
 ?>
-	<link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-tables.css">
-	<title>Painel administrativo</title>
 
-	</head>
-	<body>
 		<br>
 		<div class="container">
             <h1>PAINEL ADMINSITRATIVO</h1>
