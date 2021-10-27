@@ -1,8 +1,11 @@
-.box-categorias,
-.box-referencias {
+.box-categorias {
     box-shadow: 1px 1px 5px 1px #4b5b6488;
     padding: 40px;
     background: #fff;
+}
+
+.box-referencias {
+    padding: 0 40px;
 }
 
 .box-categorias h2 {
@@ -14,7 +17,7 @@
 }
 
 .box-img-categoria img {
-    width: 175px;
+    width: 175px !important;
     height: 165px;
 }
 
@@ -66,6 +69,7 @@
     /* background: #115983; */
     background: #3b474e;
     color: #fff;
+    transition: background-color 1.5s;
 }
 
 
