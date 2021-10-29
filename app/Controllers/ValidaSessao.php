@@ -42,7 +42,7 @@ class ValidaSessao extends BaseController
         }
         if (!session()->has('id'))
         {
-            $resultado = "<a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
+            $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
             
         } else {
             $foto = session()->foto;

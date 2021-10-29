@@ -33,7 +33,10 @@
                                             <h3 title="<?php echo $data[$key]['Titulo']; ?>" class="pt-3"><?php echo $data[$key]['Titulo']; ?></h3>
                                             <hr class="linha-categorias">
                                             <p><?php echo $data[$key]['Conteudo']; ?></p>
-                                            <a href="feed/curso/<?php echo $data[$key]['LinkAmigavel'] ?>/<?php echo $data[$key]['ID'] ?>" class="btn-categoria">Acessar</a>
+                                            <!-- <form action="">
+
+                                            </form> -->
+                                            <a href="feed/publicacoes/<?php echo $data[$key]['LinkAmigavel'] ?>/<?php echo $data[$key]['ID'] ?>" class="btn-categoria">Acessar</a>
                                         </div>
                                     </div>
                                     <!-- fim row -->

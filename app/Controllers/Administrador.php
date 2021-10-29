@@ -437,7 +437,6 @@ class Administrador extends BaseController
          $output .= '</table>';
          
          echo $output;
-         echo "</form>";
      }
 
      public function ativaDesativaRM($id, $rm, $ativo)
