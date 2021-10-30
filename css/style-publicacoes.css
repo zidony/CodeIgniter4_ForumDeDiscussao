@@ -1,0 +1,27 @@
+.box-publicacao {
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
+}
+
+.box-img-post {
+    text-align: center;
+}
+
+.box-img-post img {
+    border-radius: 100%;
+    width: 100px;
+}
+
+.box-content-post img {
+    max-width: 300px;
+    width: 100%;
+}
+
+.box-footer-post .link-like {
+    text-decoration: none;
+    color: #137eba;
+}
+
+.box-footer-post .link-deslike {
+    text-decoration: none;
+    color: #bb262e;
+}

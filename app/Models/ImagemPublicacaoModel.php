@@ -14,7 +14,7 @@ class ImagemPublicacaoModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['IDPublicacao', 'Imagem'];
+    protected $allowedFields = ['Imagem', 'IDPublicacao'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';

@@ -14,7 +14,7 @@ class ConteudoPublicacaoModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['Titulo', 'IDPublicacao', 'Conteudo'];
+    protected $allowedFields = ['Titulo', 'Conteudo', 'IDPublicacao'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
