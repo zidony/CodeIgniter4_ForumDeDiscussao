@@ -54,68 +54,61 @@ class Feed extends BaseController
         $query = $dbConteudoPublicacao->insert($data);
         $ultimoIDConteudo = $dbConteudoPublicacao->insertID();
 
-        if (!isset($this->img))
-            {
-                $this->img = false;
-                exit;
-            } else {
-                //instancia usada para mover imagem
-                $file = new \CodeIgniter\Files\File($this->img);
+        //instancia usada para mover imagem
+        $file = new \CodeIgniter\Files\File($this->img);
 
-                $imagemPublicacao = $file->getRandomName($file->getBasename($this->img));
-                // $file= $file->move(WRITEPATH.'../assets/img/', $imagemPublicacao);
+        $imagemPublicacao = $file->getBasename($this->img);
+        // $file= $file->move(WRITEPATH.'../assets/img/', $imagemPublicacao);
 
-                //recebe dados para inserção na tabela imagem da publicacao
-                $data = [
-                    'IDPublicacao' => '',
-                    'Imagem' => $imagemPublicacao,
-                ];
-    
-                $query = $dbImagemPublicacao->insert($data);
+        //recebe dados para inserção na tabela imagem da publicacao
+        $data = [
+            'IDPublicacao' => '',
+            'Imagem' => $imagemPublicacao,
+        ];
 
-                $ultimoIDImagem = $dbImagemPublicacao->insertID();
-            }
+        $query = $dbImagemPublicacao->insert($data);
+        $ultimoIDImagem = $dbImagemPublicacao->insertID();
 
-            //dados para inserção na tabela publicação
+        //dados para inserção na tabela publicação
+        $data = [
+            'IDConteudo' => $ultimoIDConteudo,
+            'IDCategoria' => $this->categoria,
+            'DataHora' => $myTime->toDateTimeString(),
+            'IDImagem' => $ultimoIDImagem,
+            'IDUsuario' => session()->id,
+            'Reacao' => '',
+            'Ativo' => 1
+        ];
+
+        //insert
+        $query = $dbPublicacao->insert($data);
+        $ultimoIDPublicacao = $dbPublicacao->insertID();
+
+        if ($query == true)
+        {
+            //recebe dados para inserção na tabela conteudo da publicacao
             $data = [
-                'IDConteudo' => $ultimoIDConteudo,
-                'IDCategoria' => $this->categoria,
-                'DataHora' => $myTime->toDateTimeString(),
-                'IDImagem' => $ultimoIDImagem,
-                'IDUsuario' => session()->id,
-                'Reacao' => '',
-                'Ativo' => 1
+                'ID' => $ultimoIDConteudo,
+                'IDPublicacao' => $ultimoIDPublicacao,
             ];
 
-            //insert
-            $query = $dbPublicacao->insert($data);
-            $ultimoIDPublicacao = $dbPublicacao->insertID();
+            $query = $dbConteudoPublicacao->save($data);
 
-            if ($query == true)
-            {
-                //recebe dados para inserção na tabela conteudo da publicacao
-                $data = [
-                    'ID' => $ultimoIDConteudo,
-                    'IDPublicacao' => $ultimoIDPublicacao,
-                ];
+            //recebe dados para inserção na tabela conteudo da publicacao
+            $data = [
+                'ID' => $ultimoIDImagem,
+                'IDPublicacao' => $ultimoIDPublicacao,
+            ];
 
-                $query = $dbConteudoPublicacao->save($data);
+            $query = $dbImagemPublicacao->save($data);
+        }
 
-                //recebe dados para inserção na tabela conteudo da publicacao
-                $data = [
-                    'ID' => $ultimoIDImagem,
-                    'IDPublicacao' => $ultimoIDPublicacao,
-                ];
-
-                $query = $dbImagemPublicacao->save($data);
-            }
-
-            // para alertar se a publi foi ou n salvo
-            if ($query == true) {
-                echo json_encode('Comentário Salvo com Sucesso');
-            } else {
-                echo json_encode('Falha ao salvar comentário');
-            }
+        // para alertar se a publi foi ou n salvo
+        if ($query == true) {
+            echo json_encode('Comentário Salvo com Sucesso');
+        } else {
+            echo json_encode('Falha ao salvar comentário');
+        }
     }
 
     public function selecionar()

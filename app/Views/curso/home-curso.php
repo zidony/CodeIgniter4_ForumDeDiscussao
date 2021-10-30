@@ -13,7 +13,7 @@
 				<label for="comment">Conteúdo</label><br>
 				<textarea name="comment" rows="5" id="comment" class="form-control" required></textarea><br><br>
 
-                <input type="file" class="form-control" name="img" id="img"/><br><br>
+                <input type="file" class="form-control" name="img" id="img" required/><br><br>
 
 				<input type="submit" form="form1" class="btn btn-primary" value="Enviar Comentário"/><br><br>
                 <!-- esse cara serve pra receber uma váriavel criada lá no Fedd/publicacoes, chamada categoria -->
