@@ -35,7 +35,7 @@
 
                 echo form_label('Imagem');
                 echo '<br>';
-                echo form_upload('img', '', $input);
+                echo form_upload('img[]', '', $input);
                 echo '<br><br>';
 
                 echo form_label('Conteúdo');

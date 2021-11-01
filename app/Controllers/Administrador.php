@@ -336,16 +336,29 @@ class Administrador extends BaseController
     //cria uma categoria
     public function criar_categoria()
     {
-        $db = new \App\Models\CategoriaModel(); 
+        $db = new \App\Models\CategoriaModel();
 
         $this->titulo = $this->request->getPost()['titulo'];
-        $this->img = $this->request->getPost()['img'];
+        $this->imagecategoria = $this->request->getFiles()['img'];
         $this->conteudo = $this->request->getPost()['conteudo'];
         $this->link = $this->request->getPost()['link'];
 
+        if($imagefile = $this->imagecategoria)
+          {
+             foreach($imagefile as $img)
+             {
+                if ($img->isValid() && ! $img->hasMoved()) {
+                    $Name = $img->getClientName();
+                    $img->move(WRITEPATH.'http://localhost/FORUM_CODEIGNITER/assets/img/categorias/', $Name);   
+                    
+                   
+                }  
+             }
+          }
+          
         $data = [
             'Titulo' => $this->titulo,
-            'Imagem' => $this->img,
+            'Imagem' => $this->imagecategoria,
             'Conteudo' => $this->conteudo,
             'LinkAmigavel' => $this->link,
             'Ativo' => 1,
@@ -353,7 +366,8 @@ class Administrador extends BaseController
 
         $query = $db->save($data);
 
-        return redirect()->to('../../'); 
+        return redirect()->to('../../');
+         
     }
 
     //================================================================================================

@@ -209,4 +209,39 @@ class Usuario extends BaseController
         }
         
     }
+
+
+    public function viewuserimage()
+    {
+        return view('testefotouser');
+    }
+
+    public function GetImageUser()
+    {
+        $this->userimage = $this->request->getFiles()['userimage'];
+    }
+
+    public function UserImage()
+    {
+        $this->GetImageUser();
+        $this->idusuario = session()->id;
+       
+        if ($imageuser = $this->userimage) {
+            foreach ($imageuser as $img) {
+                if ($img->isValid() && !$img->hasMoved()) {
+                    $Name = $img->getClientName();
+                    $img->move(WRITEPATH . '../assets/img/usuarios/', $Name);
+
+                    $data = [
+                        'Foto' => $Name,
+                    ];
+
+                    $db  = \Config\Database::connect();
+                    $builder = $db->table('usuario');
+                    $builder->where('id', $this->idusuario);
+                    $builder->update($data);
+                }
+            }
+        }  
+    }
 }

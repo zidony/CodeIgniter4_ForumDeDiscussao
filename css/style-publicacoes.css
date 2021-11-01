@@ -1,5 +1,6 @@
 .box-publicacao {
     box-shadow: 1px 1px 5px 1px #4b5b6488;
+    background: #fff;
 }
 
 .box-img-post {
@@ -8,6 +9,7 @@
 
 .box-img-post img {
     border-radius: 100%;
+    box-shadow: 1px 1px 5px 1px #4b5b641f;
     width: 100px;
 }
 
@@ -24,4 +26,11 @@
 .box-footer-post .link-deslike {
     text-decoration: none;
     color: #bb262e;
+}
+
+
+/* comentario */
+
+.box-comentario {
+    background: #4b5b6488;
 }

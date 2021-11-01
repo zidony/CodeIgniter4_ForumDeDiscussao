@@ -32,3 +32,27 @@
         <!-- fim row -->
     </div>
 </div>
+
+
+
+
+<div class="box-comentario"><p><a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample[]" role="button" aria-expanded="false" aria-controls="collapseExample[]">Comentar</a></p><div class="collapse" id="collapseExample[]"><div class="card card-body box-comentario">
+    <div class="box_form">
+        <h1>Deixe seu Comentário:</h1>
+<form id="form2">
+    <label for="comentario">Conteúdo</label><br>
+    <textarea name="comentario" rows="5" id="comentario" class="form-control" required></textarea><br><br>
+    
+    <input type="file" class="form-control" name="img" id="img" required/><br><br>
+    
+    <input type="text" name="idpublicacao" id="idpublicacao" class="d-none" value="'+ result[i].ID +'"/>
+    
+    <input type="submit" form="form2" class="btn btn-primary" value="Publicar"/><br><br>
+</form></div></div></div></div>
+
+<div class="box_comentarios"></div>
+
+
+<!-- comentarios -->
+<p><a class="btn btn-primary" data-bs-toggle="collapse" href="#comentarios" role="button" aria-expanded="false" aria-controls="comentarios">Ver comentários</a></p><div class="collapse" id="comentarios"><div class="card card-body"><div class="box_comentarios"></div></div></div>
+
