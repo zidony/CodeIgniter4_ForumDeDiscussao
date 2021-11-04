@@ -35,9 +35,9 @@ class Feed extends BaseController
         $myTime = Time::now('America/Sao_Paulo');
         // $myTime->toDateTimeString();
 
-        $this->titulo = $this->request->getPost()['name'];
-        $this->conteudo = $this->request->getPost()['comment'];
-        $this->img = $this->request->getPost('img');
+        $this->titulo = $this->request->getPost()['titulo'];
+        $this->conteudo = $this->request->getPost()['conteudo'];
+        $this->img = $this->request->getFiles('img');
         $this->categoria = $this->request->getPost()['categoria'];
 
         $dbConteudoPublicacao = new \App\Models\ConteudoPublicacaoModel();
@@ -54,14 +54,21 @@ class Feed extends BaseController
         $query = $dbConteudoPublicacao->insert($data);
         $ultimoIDConteudo = $dbConteudoPublicacao->insertID();
 
-
-        $file = new \CodeIgniter\Files\File($this->img);
-        $name = $file->getBasename();
+        if($imagefile = $this->img)
+        {
+           foreach($imagefile as $img)
+           {
+              if ($img->isValid() && ! $img->hasMoved()) {
+                  $Name = $img->getRandomName();
+                  $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+              }  
+           }
+        }
         
         //recebe dados para inserção na tabela imagem da publicacao
         $data = [
             'IDPublicacao' => '',
-            'Imagem' => $name,
+            'Imagem' => $Name,
         ];
 
         $query = $dbImagemPublicacao->insert($data);
@@ -103,7 +110,7 @@ class Feed extends BaseController
 
         // para alertar se a publi foi ou n salvo
         if ($query == true) {
-            echo json_encode('Publicação Salvo com Sucesso');
+            echo json_encode(true);
         } else {
             echo json_encode('Falha ao salvar Publicação');
         }
@@ -158,7 +165,7 @@ class Feed extends BaseController
         // $myTime->toDateTimeString();
 
         $this->comentario = $this->request->getPost()['comentario'];
-        $this->img = $this->request->getPost('img');
+        $this->img = $this->request->getFiles()['img'];
         $this->idpublicacao = $this->request->getPost()['idpublicacao'];
 
         $dbConteudoComentario = new \App\Models\ConteudoComentarioModel();
@@ -174,14 +181,21 @@ class Feed extends BaseController
         $query = $dbConteudoComentario->insert($data);
         $ultimoIDConteudo = $dbConteudoComentario->insertID();
 
-
-        $file = new \CodeIgniter\Files\File($this->img);
-        $name = $file->getBasename();
+        if($imagefile = $this->img)
+        {
+           foreach($imagefile as $img)
+           {
+              if ($img->isValid() && ! $img->hasMoved()) {
+                  $Name = $img->getClientName();
+                  $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+              }  
+           }
+        }
         
         //recebe dados para inserção na tabela imagem da Comentario
         $data = [
             'IDComentario' => '',
-            'Imagem' => $name,
+            'Imagem' => $Name,
         ];
 
         $query = $dbImagemComentario->insert($data);

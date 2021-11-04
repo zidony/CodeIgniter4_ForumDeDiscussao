@@ -27,7 +27,7 @@
             ];
 
             helper('form');
-            echo form_open('Administrador/criar_categoria');
+            echo form_open_multipart('Administrador/criar_categoria');
                 echo form_label('Título');
                 echo '<br>';
                 echo form_input('titulo','', $input);

@@ -348,17 +348,16 @@ class Administrador extends BaseController
              foreach($imagefile as $img)
              {
                 if ($img->isValid() && ! $img->hasMoved()) {
-                    $Name = $img->getClientName();
-                    $img->move(WRITEPATH.'http://localhost/FORUM_CODEIGNITER/assets/img/categorias/', $Name);   
+                    $Name = $img->getRandomName();
+                    $img->move(WRITEPATH.'../assets/img/categorias/', $Name);   
                     
-                   
                 }  
              }
           }
           
         $data = [
             'Titulo' => $this->titulo,
-            'Imagem' => $this->imagecategoria,
+            'Imagem' => $Name,
             'Conteudo' => $this->conteudo,
             'LinkAmigavel' => $this->link,
             'Ativo' => 1,

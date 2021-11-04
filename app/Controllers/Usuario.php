@@ -229,7 +229,7 @@ class Usuario extends BaseController
         if ($imageuser = $this->userimage) {
             foreach ($imageuser as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
-                    $Name = $img->getClientName();
+                    $Name = $img->getRandomName();
                     $img->move(WRITEPATH . '../assets/img/usuarios/', $Name);
 
                     $data = [

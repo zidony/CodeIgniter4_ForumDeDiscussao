@@ -3,7 +3,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-12 col-lg-4 coluna-card">
-                    <a href="">
+                    <a href="Sobre/regras">
                         <div class="cards">
                             <h2>REGRAS<br>
                             / RESPEITE, POR FAVOR!</h2>
@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <div class="col-md-12 col-lg-4 coluna-card">
-                    <a href="">
+                    <a href="Sobre/guias">
                         <div class="cards">
                             <h2>GUIAS<br>
                             / PRIMEIRA VEZ NOS FÓRUM?</h2>
@@ -19,7 +19,7 @@
                     </a>
                 </div> 
                 <div class="col-md-12 col-lg-4 coluna-card">
-                    <a href="">
+                    <a href="Sobre/ajuda">
                         <div class="cards">
                         <h2>AJUDA<br>
                             / PERGUNTE AQUI.</h2>
