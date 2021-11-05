@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Controllers;
 use CodeIgniter\I18n\Time;
+use LengthException;
 
 class Feed extends BaseController
 {
@@ -56,13 +57,15 @@ class Feed extends BaseController
 
         if($imagefile = $this->img)
         {
-           foreach($imagefile as $img)
-           {
-              if ($img->isValid() && ! $img->hasMoved()) {
-                  $Name = $img->getRandomName();
-                  $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
-              }  
-           }
+            foreach($imagefile as $img)
+            {
+                if ($img->isValid() && ! $img->hasMoved()) {
+                    $Name = $img->getRandomName();
+                    $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+                }  else {
+                    $Name = false;
+                } 
+            }
         }
         
         //recebe dados para inserção na tabela imagem da publicacao
@@ -74,46 +77,53 @@ class Feed extends BaseController
         $query = $dbImagemPublicacao->insert($data);
         $ultimoIDImagem = $dbImagemPublicacao->insertID();
 
-        //dados para inserção na tabela publicação
-        $data = [
-            'IDConteudo' => $ultimoIDConteudo,
-            'IDCategoria' => $this->categoria,
-            'DataHora' => $myTime->toDateTimeString(),
-            'IDImagem' => $ultimoIDImagem,
-            'IDUsuario' => session()->id,
-            'Reacao' => '',
-            'Ativo' => 1
-        ];
-
-        //insert
-        $query = $dbPublicacao->insert($data);
-        $ultimoIDPublicacao = $dbPublicacao->insertID();
-
         if ($query == true)
         {
-            //recebe dados para inserção na tabela conteudo da publicacao
+            //dados para inserção na tabela publicação
             $data = [
-                'ID' => $ultimoIDConteudo,
-                'IDPublicacao' => $ultimoIDPublicacao,
+                'IDConteudo' => $ultimoIDConteudo,
+                'IDCategoria' => $this->categoria,
+                'DataHora' => $myTime->toDateTimeString(),
+                'IDImagem' => $ultimoIDImagem,
+                'IDUsuario' => session()->id,
+                'Reacao' => '',
+                'Ativo' => 1
             ];
 
-            $query = $dbConteudoPublicacao->save($data);
+            //insert
+            $query = $dbPublicacao->insert($data);
+            $ultimoIDPublicacao = $dbPublicacao->insertID();
 
-            //recebe dados para inserção na tabela conteudo da publicacao
-            $data = [
-                'ID' => $ultimoIDImagem,
-                'IDPublicacao' => $ultimoIDPublicacao,
-            ];
-
-            $query = $dbImagemPublicacao->save($data);
+            if ($query == true)
+            {
+                //recebe dados para inserção na tabela conteudo da publicacao
+                $data = [
+                    'ID' => $ultimoIDConteudo,
+                    'IDPublicacao' => $ultimoIDPublicacao,
+                ];
+    
+                $query = $dbConteudoPublicacao->save($data);
+    
+                //recebe dados para inserção na tabela conteudo da publicacao
+                $data = [
+                    'ID' => $ultimoIDImagem,
+                    'IDPublicacao' => $ultimoIDPublicacao,
+                ];
+    
+                $query = $dbImagemPublicacao->save($data);
+            }
+    
+            // para alertar se a publi foi ou n salvo
+            if ($query == true) {
+                echo json_encode(true);
+            } else {
+                echo json_encode('Falha ao salvar Publicação');
+            }
         }
 
-        // para alertar se a publi foi ou n salvo
-        if ($query == true) {
-            echo json_encode(true);
-        } else {
-            echo json_encode('Falha ao salvar Publicação');
-        }
+        
+
+       
     }
 
     public function selecionar($idCategoria)
@@ -121,7 +131,7 @@ class Feed extends BaseController
         // header('Content-Type: application/json');
         $db      = \Config\Database::connect();
         $builder = $db->table('publicacao');
-        $builder->select('publicacao.ID,
+        $builder->select('publicacao.ID as IDPublicacao,
                             usuario.Nome,
                             usuario.Foto,
                             conteudopublicacao.Titulo,
@@ -159,13 +169,13 @@ class Feed extends BaseController
     }
 
     //=============================================================================
-    public function comentario()
+    public function inserirComentario()
     {
         $myTime = Time::now('America/Sao_Paulo');
         // $myTime->toDateTimeString();
 
-        $this->comentario = $this->request->getPost()['comentario'];
-        $this->img = $this->request->getFiles()['img'];
+        $this->comentario = $this->request->getPost()['comentar'];
+        // $this->img = $this->request->getFiles()['img'];
         $this->idpublicacao = $this->request->getPost()['idpublicacao'];
 
         $dbConteudoComentario = new \App\Models\ConteudoComentarioModel();
@@ -181,21 +191,23 @@ class Feed extends BaseController
         $query = $dbConteudoComentario->insert($data);
         $ultimoIDConteudo = $dbConteudoComentario->insertID();
 
-        if($imagefile = $this->img)
-        {
-           foreach($imagefile as $img)
-           {
-              if ($img->isValid() && ! $img->hasMoved()) {
-                  $Name = $img->getClientName();
-                  $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
-              }  
-           }
-        }
+        // if($imagefile = $this->img)
+        // {
+        //     foreach($imagefile as $img)
+        //     {
+        //       if ($img->isValid() && ! $img->hasMoved()) {
+        //         $Name = $img->getClientName();
+        //         $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+        //         }   else {
+        //         $Name = false;
+        //         } 
+        //     }
+        // }
         
         //recebe dados para inserção na tabela imagem da Comentario
         $data = [
             'IDComentario' => '',
-            'Imagem' => $Name,
+            'Imagem' => ''
         ];
 
         $query = $dbImagemComentario->insert($data);
@@ -241,14 +253,15 @@ class Feed extends BaseController
         } else {
             echo json_encode('Falha ao salvar comentário');
         }
+
     }
 
-    public function selecionarComentario()
+    public function selecionarComentarios()
     {
         // header('Content-Type: application/json');
         $db      = \Config\Database::connect();
         $builder = $db->table('comentario');
-        $builder->select('Comentario.ID,
+        $builder->select('Comentario.ID IDCOMENTARIO,
                             Publicacao.ID as IDPubli,
                             usuario.Nome,
                             usuario.Foto,
