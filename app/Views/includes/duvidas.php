@@ -11,7 +11,7 @@
                 </h3>
                 <br>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, aperiam. Molestiae nostrum ratione ipsam neque deserunt, earum incidunt sequi ipsum voluptatum perferendis voluptatem id quidem nulla aut autem harum dicta?</p>
-                <a href="" class="button-duvidas">Acesse</a>
+                <a href="Sobre/regras" class="button-duvidas">Acesse</a>
             </div>
         </div>
         <div class="col-md-12 col-lg-4">
@@ -21,7 +21,7 @@
                 </h3>
                 <br>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, aperiam. Molestiae nostrum ratione ipsam neque deserunt, earum incidunt sequi ipsum voluptatum perferendis voluptatem id quidem nulla aut autem harum dicta?</p>
-                <a href="" class="button-duvidas">Acesse</a>
+                <a href="Sobre/guias" class="button-duvidas">Acesse</a>
             </div>
         </div>
         <div class="col-md-12 col-lg-4">
@@ -31,7 +31,7 @@
                 </h3>
                 <br>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, aperiam. Molestiae nostrum ratione ipsam neque deserunt, earum incidunt sequi ipsum voluptatum perferendis voluptatem id quidem nulla aut autem harum dicta?</p>
-                <a href="" class="button-duvidas">Acesse</a>
+                <a href="Sobre/ajuda" class="button-duvidas">Acesse</a>
             </div>
         </div>
     </div>

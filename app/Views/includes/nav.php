@@ -10,7 +10,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-light navegacao">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="navbar-brand logo" src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt=""></a>
+            <a class="navbar-brand" href="/FORUM_CODEIGNITER/public/"><img class="navbar-brand logo" src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt=""></a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="bi bi-three-dots-vertical icone-menu"></i>
             </button>
@@ -19,12 +19,6 @@
                     <li class="nav-item">
                         <a class="link-nav active" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="link-nav" aria-current="page" href="#">RECENTES</a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="link-nav" href="#">CATEGORIAS</a>
-                    </li> -->
                     <li class="nav-item">
                         <a class="link-nav" href="#">SOBRE O FÓRUM</a>
                     </li>

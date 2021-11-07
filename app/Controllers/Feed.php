@@ -9,27 +9,31 @@ class Feed extends BaseController
 {
     public function publicacoes($curso, $categoria)
     {
-        // $this->curso = $this->request->getGet('curso');
-        // $this->categoria = $this->request->getGet('codigo');
-
-        if (!session()->has('id'))
-        {
-            echo 'faça login para acessar o feed ilimitado';
-        }
-        else {
-            var_dump('id usuário logado = ' . session()->id);
-        }
-
         //envia para o home-curso o id da categoria
         $idCategoria['idCategoria'] = $categoria;
 
         return view('includes/head') .
             view('titles/title-home-curso') .
             view('includes/nav') .
-            // view('includes/banner-home') .
-            view('curso/home-curso' , $idCategoria) .
+            view('includes/banner-home') .
+            view('curso/perguntas', $idCategoria) .
             view('includes/footer');
     }
+
+
+    public function topico($titulo, $idPublicacao)
+    {
+        //envia para o home-curso o id da categoria
+        $id['idPublicacao'] = $idPublicacao;
+
+        return view('includes/head') .
+                view('titles/title-home-curso') .
+                view('includes/nav') .
+                view('includes/banner-home') .
+                view('curso/topico' , $id) .
+                view('includes/footer');
+    }
+
 
     public function inserir()
     {
@@ -115,15 +119,9 @@ class Feed extends BaseController
     
             // para alertar se a publi foi ou n salvo
             if ($query == true) {
-                echo json_encode(true);
-            } else {
-                echo json_encode('Falha ao salvar Publicação');
+                echo json_encode($query);
             }
-        }
-
-        
-
-       
+        }  
     }
 
     public function selecionar($idCategoria)
@@ -141,7 +139,7 @@ class Feed extends BaseController
                             publicacao.Ativo,
                             publicacao.IDUsuario,
                             DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
-                            TIME_FORMAT(publicacao.DataHora, "%H:%i:%s") as Hora'
+                            TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
                             );
         $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
         $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
@@ -157,18 +155,42 @@ class Feed extends BaseController
         if ($query == true) {
             echo json_encode($query);
         } 
-        // else {
-        //     echo json_encode('Nenhum comentário encontrado');
-        // }
-    }
-
-    //teste front publi
-    public function x()
-    {
-        return view('includes/head'). view('card') . view('includes/footer');
     }
 
     //=============================================================================
+    public function selecionarPublicacao($idPublicacao)
+    {
+        // header('Content-Type: application/json');
+        $db      = \Config\Database::connect();
+        $builder = $db->table('publicacao');
+        $builder->select('publicacao.ID as IDPublicacao,
+                            usuario.Nome,
+                            usuario.Foto,
+                            conteudopublicacao.Titulo,
+                            conteudopublicacao.Conteudo,
+                            imagemPublicacao.Imagem,
+                            publicacao.Reacao,
+                            publicacao.Ativo,
+                            publicacao.IDUsuario,
+                            DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
+                            TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
+                            );
+        $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
+        $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
+        and conteudopublicacao.IDPublicacao = publicacao.ID');
+        $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
+        and imagempublicacao.IDPublicacao = publicacao.ID');
+        $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
+        $builder->where('publicacao.ID', $idPublicacao);
+        $builder->where('publicacao.Ativo', 1);
+        $builder->orderBy('publicacao.ID');
+        $query = $builder->get()->getResult();
+        
+        if ($query == true) {
+            echo json_encode($query);
+        } 
+    }
+
     public function inserirComentario()
     {
         $myTime = Time::now('America/Sao_Paulo');
@@ -256,7 +278,7 @@ class Feed extends BaseController
 
     }
 
-    public function selecionarComentarios()
+    public function selecionarComentarios($idPublicacao)
     {
         // header('Content-Type: application/json');
         $db      = \Config\Database::connect();
@@ -266,17 +288,16 @@ class Feed extends BaseController
                             usuario.Nome,
                             usuario.Foto,
                             conteudoComentario.Conteudo,
-                            imagemComentario.Imagem,
                             Comentario.Reacao,
                             DATE_FORMAT(Comentario.DataHora,"%d/%m/%Y") as Data,
-                            TIME_FORMAT(Comentario.DataHora, "%H:%i:%s") as Hora'
+                            TIME_FORMAT(Comentario.DataHora, "%H:%i") as Hora'
                             );
         $builder->join('Publicacao', 'Publicacao.ID = Comentario.IDPublicacao');
         $builder->join('conteudoComentario', 'conteudoComentario.ID = Comentario.IDConteudo');
-        $builder->join('imagemComentario', 'imagemComentario.ID = Comentario.IDImagem');
+        // $builder->join('imagemComentario', 'imagemComentario.ID = Comentario.IDImagem');
         $builder->join('usuario', 'usuario.ID = Comentario.IDUsuario');
         $builder->where('Comentario.Ativo', 1);
-        // $builder->where('Comentario.IDPublicacao', $idpublicacao);
+        $builder->where('Comentario.IDPublicacao', $idPublicacao);
         $builder->orderBy('Comentario.ID');
         $query = $builder->get()->getResult();
         

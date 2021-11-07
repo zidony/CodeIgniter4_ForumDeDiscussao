@@ -1,18 +1,18 @@
 .titulo-duvidas h2,
 .titulo-duvidas h4 {
-    color: #137eba;
+    color: #bb262e;
     font-weight: bold;
 }
 
 .cards-forum {
-    background: #137dba18;
+    background: unset;
     padding: 10px 40px;
     margin: 20px 40px;
-    transition: box-shadow 2s, background-color 2s;
+    transition: box-shadow 1.5s, background-color 1.5s;
 }
 
 .cards-forum:hover {
-    box-shadow: 1px 1px 15px 1px #137eba;
+    box-shadow: 1px 1px 20px 1px #137dba7c;
     background: #fff;
     border-radius: 5px;
 }

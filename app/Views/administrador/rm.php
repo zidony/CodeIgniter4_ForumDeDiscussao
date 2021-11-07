@@ -10,7 +10,7 @@
         <a href="index" class="button-back p-3 my-3">VOLTAR</a>
     </div>
     <br />
-    <h1>CADASTRO DE CATEGORIAS</h1>
+    <h1>CADASTRO DE RMs</h1>
     <?php
 
     $input = [

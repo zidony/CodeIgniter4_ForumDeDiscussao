@@ -7,8 +7,6 @@
         <br />
         <div class="d-flex flex-wrap">
             <a href="index" class="button-back p-3 my-3">VOLTAR</a>
-            <a href="../usuario/registraUsuario" class="button-painel p-3 my-3">REGISTRAR UM USUÁRIO</a>
-            <a href="usuarios" class="button-painel p-3 my-3">VER USUÁRIOS REGISTRADOS</a>
         </div>
         <br />
         <h1>CADASTRO DE CATEGORIAS</h1>

@@ -1,92 +1,34 @@
-<div class="container box-container">
-<br><br>
-    <h1>Sou a página do curso</h1>
+<div class="container">
     <br><br>
-
-    <?php 
-
-        $input = [
-            'class' => 'form-control',
-            'required' => 'required'
-        ];
-
-        $inputConteudo = [
-            'class' => 'form-control',
-            'required' => 'required',
-            'maxlength' => '65',
-            'rows' => '2'
-        ];
-
-        helper('form');
-        echo form_open_multipart('', 'id="publicacao"');
-            echo form_label('Título');
-            echo '<br>';
-            echo form_input('titulo','', 'id="titulo" required class="form-control"');
-            echo '<br><br>';
-            
-            echo form_label('Conteúdo');
-            echo '<br>';
-            echo form_textarea('conteudo','',  'id="conteudo" required class="form-control"');
-            echo '<br><br>';
-
-            echo form_label('Imagem');
-            echo '<br>';
-            echo form_upload('img', '', 'id="img" class="form-control"');
-            echo '<br><br>';
-
-            echo form_input('categoria', ''. $idCategoria .'', 'class="d-none" id="categoria" class="form-control"');
-            echo '<br><br>';
-
-            echo '<div class="text-center">';
-            echo form_submit('submit', 'Publicar', 'class="btn btn-primary"');
-            echo '</div>';
-        echo form_close();
-
-        
-
-    ?>
-
-		<div class="box_publicacao"></div>
-        <br><br><br>
+    <h2>Tópico selecionado</h2>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="">
+                <div class="box_publicacao"></div>
+            </div>
+        </div>
+        <!-- fim col -->
+        <div class="col-md-5">
+            <div>
+                <h2>Em breve...</h2>
+            </div>   
+        </div>
+        <!-- fim col -->
     </div>
-    <!-- fim container -->
+    <!-- fim row -->
+</div>
+<!-- fim container -->
+<br><br><br><br><br><br>
 
 
 
 
 	<script>
-    
-    //recebe dados do formulário da publicação
-    $("#publicacao").submit(function(e) {
-        e.preventDefault();    
-        var formData = new FormData(this);
 
-        $.ajax({
-            url: '/FORUM_CODEIGNITER/public/Feed/inserir',
-            type: 'POST',
-            data: formData,
-            // success: function (data) {
-            //     alert('Publicação postada com sucesso')
-            // },
-            cache: false,
-            contentType: false,
-            processData: false
-            
-        }).done(function(result){
-                alert('Publicação postada com sucesso')
-                $('#titulo').val('');
-                $('#conteudo').val('');
-                $('#img').val('');
-                $('#categoria');
-                console.log(result);
-                getPublicacao(); 
-            });
-    });
-
-    //exibe o conteúdo das publicações ativas
+    //exibe o conteúdo da publicação selecionada
     function getPublicacao() {
         $.ajax({
-            url: '/FORUM_CODEIGNITER/public/Feed/selecionar/<?php echo $idCategoria ?>',
+            url: '/FORUM_CODEIGNITER/public/Feed/selecionarPublicacao/<?php echo $idPublicacao ?>',
             method: 'POST',
             dataType: 'json'
         }).done(function(result){
@@ -109,7 +51,7 @@
 
                 //botão de comentar
                 fazer_comentario = 
-                    '<a class="btn-footer-publicacao" data-bs-toggle="collapse" href="#collapseExample'+ i +'" role="button" aria-expanded="false" aria-controls="collapseExample'+ i +'">' +
+                    '<a class="btn-footer-topico" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">' +
                         '<i class="bi bi-chat-right mx-2 icon-comment"></i>' +
                         'Comentar' +
                     '</a>' +
@@ -117,29 +59,21 @@
                     '<br>';
 
                 //collapse (conteúdo) do botão comentar
-                acao_comentario = '<div class="collapse" id="collapseExample'+ i +'">' +
+                acao_comentario = 
+                '<div class="collapse" id="collapseExample">' +
                     '<div class="box-comentario p-3">' +
                         '<div class="box_form">' +
-                            '<form id="comentario'+i+'" class="d-flex align-items-center">' +
-                                '<input type="text" name="comentar" id="comentar" class="form-control">' +
+                            '<form id="comentario">' +
+                                '<textarea rows="3" name="comentar" id="comentar" class="form-control" required></textarea>' +
+                                
                                 '<input type="text" name="idpublicacao" id="idpublicacao" class="d-none" value="'+ result[i].IDPublicacao +'"/>' +
-                                '<input type="submit" form="comentario'+i+'" class="btn-comentar value="Comentar"/>' +
-                                '<br><br>' +
+                                '<div class="text-center my-2">' +
+                                    '<input type="submit" form="comentario" class="btn-comentar" value="Comentar"/>' +
+                                '</div>' +
+                                '' +
                             '</form>' +
                         '</div>' +
                     '</div>' +
-                '</div>';
-
-                //botão de ver comentários
-                ver_comentarios = 
-                '<a class="btn-footer-publicacao" data-bs-toggle="collapse" href="#comentarios'+ i +'" role="button" aria-expanded="false" aria-controls="comentarios'+ i +'">' +
-                    '<i class="bi bi-chat-right-text mx-2 icon-comment"></i>' +
-                    'Ver comentários' +
-                '</a>';
-
-                acao_ver_comentarios =  
-                '<div class="collapse" id="comentarios'+ i +'">' +
-                    '<div class="box_comentarios"></div>' +
                 '</div>';
 
                 //conteúdo das publicações
@@ -171,19 +105,22 @@
                                             imagem +
                                         '</div>' +
                                     '</div>' +
-                                    '<hr>' +
                                     '<div class="box-footer-publicacao">' +
-                                    fazer_comentario +
-                                        ver_comentarios +
+                                        '<a class="btn-footer-topico">' +
+                                            '<i class="bi bi-chat-right-text mx-2 icon-comment"></i>' +
+                                            'Comentários' +
+                                        '</a>' +
+                                        '<span class="barra-lateral"></span>' +
+                                        fazer_comentario +
                                     '</div>' +
-                                    acao_comentario +  acao_ver_comentarios +
+                                    acao_comentario +  '<div class="box_comentarios"></div>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>');
 
                     //recebe dados do formulário de comentário
-                    $("#comentario"+i).submit(function(e) {
+                    $("#comentario").submit(function(e) {
                         e.preventDefault();    
                         var formData = new FormData(this);
 
@@ -210,7 +147,7 @@
                 //faz consulta e trás os comentários
                 function getComentarios() {
                     $.ajax({
-                        url: '/FORUM_CODEIGNITER/public/Feed/selecionarComentarios/',
+                        url: '/FORUM_CODEIGNITER/public/Feed/selecionarComentarios/<?php echo $idPublicacao; ?>',
                         method: 'POST',
                         dataType: 'json'
                     }).done(function(resultComentarios){
@@ -236,10 +173,10 @@
                                                 '<p class="p-4">'+ resultComentarios[i].Conteudo +'</p>' +
                                             '</div>' +  
                                             '<div class="text-end">' +
-                                                '<p class="px-3">Data e hora comentado: '+ resultComentarios[i].Data + ' às ' + resultComentarios[i].Hora +'</p>' +
+                                                '<p class="px-3 datetime">Data e hora comentado: '+ resultComentarios[i].Data + ' às ' + resultComentarios[i].Hora +'</p>' +
                                             '</div>' +
                                         '</div>' +
-                                    '</div>' +
+                                    '</div><hr>' +
                                 '</div>');
                                 
                         }

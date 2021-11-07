@@ -8,22 +8,19 @@ class ValidaSessao extends BaseController
     public function validarPermissaoAdm()
     {
         //caso a sessão não seja do nivel 3 'ADM', proíbe o acesso
-        if (!session()->has('id')) 
-        {
+        if (!session()->has('id')) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        if (session()->nivel != 3) 
-        {
+        if (session()->nivel != 3) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         } 
     }
 
     public function validaSessao()
     {
-        //caso a sessão não seja do nivel 3 'ADM', proíbe o acesso
-        if (!session()->has('id')) 
-        {
+        //caso não haja uma sessão, proíbe o acesso
+        if (!session()->has('id')) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
@@ -37,11 +34,10 @@ class ValidaSessao extends BaseController
         else if($nivel == 2) {
             $recebN = 'Moderador';
         } 
-        else if($nivel == 3){
+        else if($nivel == 3) {
             $recebN = 'Administrador';
         }
-        if (!session()->has('id'))
-        {
+        if (!session()->has('id')) {
             $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
             
         } else {
@@ -54,5 +50,13 @@ class ValidaSessao extends BaseController
         }
         
         echo $resultado;
+    }
+
+    //para publicações
+    public function publicar()
+    {
+        if (!session()->had('id')) {
+            $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
+        }
     }
 }
