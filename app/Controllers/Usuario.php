@@ -6,19 +6,19 @@ class Usuario extends BaseController
 {
     //============================================================================
     # INICIAR LOGIN
-	public function login()
-	{
-		return view('includes/head') .
-                view('login/login') .
-                view('includes/footer');
-	}
+    public function login()
+    {
+        return view('includes/head') .
+            view('login/login') .
+            view('includes/footer');
+    }
 
     //============================================================================
     # LOGOUT
     public function logout()
     {
-		session()->destroy();
-		return redirect()->to('usuario/login');
+        session()->destroy();
+        return redirect()->to('usuario/login');
     }
 
     //============================================================================
@@ -49,7 +49,7 @@ class Usuario extends BaseController
         // var_dump($builder->getCompiledSelect());
 
         if ($query == false) {
-            return redirect()->to('usuario/login?error'); 
+            return redirect()->to('usuario/login?error');
         } else {
             // echo '<pre>';
 
@@ -61,7 +61,7 @@ class Usuario extends BaseController
                 'nivel' => $query[0]['Nivel'],
                 'ativo' => $query[0]['Ativo'],
             ]);
-            return redirect()->to('../'); 
+            return redirect()->to('../');
         }
         // print_r(session()->get());
     }
@@ -83,8 +83,7 @@ class Usuario extends BaseController
             'ativo' => $query[0]['Ativo'],
         ]);
 
-        if (session()->ativo != 1)
-        {
+        if (session()->ativo != 1) {
             session()->destroy();
         }
     }
@@ -94,19 +93,19 @@ class Usuario extends BaseController
     public function registraUsuario()
     {
         return view('includes/head') .
-                view('login/registre-se') .
-                view('includes/footer');
+            view('login/registre-se') .
+            view('includes/footer');
     }
 
     public function recebeDadosCadastro()
     {
-         //recebe dados do formulário
-         $this->usuario = $this->request->getPost()['usuario'];
-         $this->sobrenome = $this->request->getPost()['sobrenome'];
-         $this->email = $this->request->getPost()['email'];
-         $this->rm = $this->request->getPost()['rm'];
-         $this->dtnascimento = $this->request->getPost()['dtnascimento'];
-         $this->senha = $this->request->getPost()['senha'];
+        //recebe dados do formulário
+        $this->usuario = $this->request->getPost()['usuario'];
+        $this->sobrenome = $this->request->getPost()['sobrenome'];
+        $this->email = $this->request->getPost()['email'];
+        $this->rm = $this->request->getPost()['rm'];
+        $this->dtnascimento = $this->request->getPost()['dtnascimento'];
+        $this->senha = $this->request->getPost()['senha'];
     }
 
     public function cadastroUsuario()
@@ -119,8 +118,7 @@ class Usuario extends BaseController
         $builder->where('Ativo', 0);
         $query = $builder->get()->getResultArray();
 
-        if ($query == true) 
-        {
+        if ($query == true) {
             return redirect()->to('usuario/registraUsuario?UsuarioInativo=s');
             exit;
         }
@@ -131,11 +129,10 @@ class Usuario extends BaseController
         $builder->where('Ativo', 1);
         $query = $builder->get()->getResultArray();
 
-        if ($query == false)
-        {
+        if ($query == false) {
             return redirect()->to('usuario/registraUsuario?Email-Invalido=s');
-            exit; 
-        } 
+            exit;
+        }
 
         $builder = $db->table('rm');
         $builder->select('Email');
@@ -143,8 +140,7 @@ class Usuario extends BaseController
         $builder->where('Ativo', 1);
         $query = $builder->get()->getResultArray();
 
-        if ($query == false)
-        {
+        if ($query == false) {
             return redirect()->to('usuario/registraUsuario?RM-Invalido=s');
             exit;
         }
@@ -154,9 +150,8 @@ class Usuario extends BaseController
         $builder->where('RM', $this->rm);
         $query = $builder->get()->getResultArray();
 
-        if ($query == true)
-        {
-            return redirect()->to('usuario/registraUsuario?RM-JaRegistrado=s'); 
+        if ($query == true) {
+            return redirect()->to('usuario/registraUsuario?RM-JaRegistrado=s');
             exit;
         } else {
             $db = new \App\Models\UsuarioModel();
@@ -173,24 +168,24 @@ class Usuario extends BaseController
                 'RM' => $this->rm,
                 'Nivel' => 1,
                 'Ativo' => 1,
-            ];	
+            ];
 
             $db->save($data);
             return view('includes/head') .
-                    view('login/sucesso') .
-                    view('includes/footer'); 
+                view('login/sucesso') .
+                view('includes/footer');
         }
     }
 
     //============================================================================
-    
+
     public function esqueceuSenha()
     {
         return view('includes/head') .
-                view('titles/title-esqueceu-senha') .
-                view('includes/nav') .
-                view('login/esqueceu-senha') .
-                view('includes/footer');
+            view('titles/title-esqueceu-senha') .
+            view('includes/nav') .
+            view('login/esqueceu-senha') .
+            view('includes/footer');
     }
 
     //============================================================================
@@ -202,19 +197,14 @@ class Usuario extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         } else {
             return  view('includes/head') .
-            view('titles/title-perfil') .
-            view('includes/nav') .
-            view('usuario/perfil') .
-            view('includes/footer');
+                view('titles/title-perfil') .
+                view('includes/nav') .
+                view('usuario/perfil') .
+                view('includes/footer');
         }
-        
     }
 
 
-    public function viewuserimage()
-    {
-        return view('testefotouser');
-    }
 
     public function GetImageUser()
     {
@@ -225,23 +215,92 @@ class Usuario extends BaseController
     {
         $this->GetImageUser();
         $this->idusuario = session()->id;
-       
+
         if ($imageuser = $this->userimage) {
             foreach ($imageuser as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $Name = $img->getRandomName();
                     $img->move(WRITEPATH . '../assets/img/usuarios/', $Name);
-
-                    $data = [
-                        'Foto' => $Name,
-                    ];
-
-                    $db  = \Config\Database::connect();
-                    $builder = $db->table('usuario');
-                    $builder->where('id', $this->idusuario);
-                    $builder->update($data);
                 }
             }
-        }  
+
+            $data = [
+                'Foto' => $Name,
+            ];
+
+            $db  = \Config\Database::connect();
+            $builder = $db->table('usuario');
+            $builder->where('id', $this->idusuario);
+            $builder->update($data);
+        }
+        return redirect()->to('Usuario/perfil');
+    }
+
+    public function SelectImageUser()
+    {
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('usuario');
+        $builder->select('*');
+        $builder->where('id', session()->id);
+        $query = $builder->get();
+
+        foreach ($query->getResult() as $row) {
+            $foto = $row->Foto;
+        }
+
+        return $foto;
+    }
+
+    public function GetNewCode()
+    {
+        $this->senha = $this->request->getPost()['senha'];
+        $this->senha2 = $this->request->getPost()['senha2'];
+    }
+
+    public function AlterCode()
+    {
+        $this->GetNewCode();
+        $db = \Config\Database::connect();
+      
+        if ($this->senha2 == $this->senha) {
+            $data = [
+                'Senha' => md5($this->senha2),
+            ];
+            $builder = $db->table('usuario');
+            $builder->where('id', session()->id);
+            $builder->update($data);
+
+            echo "<script>alert('Senha alterada com sucesso'); </script>";     
+        } else {
+            echo "<script>alert('Não foi possivel alterar a senha, certique-se de que colocou-as corretamente nos campos do formulário.'); </script>"; 
+        }
+
+        return redirect()->to('Usuario/perfil');
+    }
+
+    public function GetNewUserData()
+    {
+        $this->newname = $this->request->getPost()['alternome']; 
+        $this->newsobrenome = $this->request->getPost()['altersobrenome']; 
+        $this->newdate = $this->request->getPost()['alterdate']; 
+    }
+
+    public function AlterUserData()
+    {
+        $this->GetNewUserData();
+        $db = \Config\Database::connect();
+
+        $data = [
+            'Nome' => $this->newname,
+            'Sobrenome' => $this->newsobrenome,
+            'DataNascimento' => $this->newdate
+        ];
+
+        $builder = $db->table('usuario');
+        $builder->where('id', session()->id);
+        $builder->update($data);
+        
+        return redirect()->to('Usuario/perfil');
     }
 }
