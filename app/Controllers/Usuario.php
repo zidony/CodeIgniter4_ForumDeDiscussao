@@ -191,116 +191,93 @@ class Usuario extends BaseController
     //============================================================================
     //perfil de usuário
 
-    public function perfil($id = null)
+    public function perfil($id)
     {
         if (session()->id == null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         } else {
-            return  view('includes/head') .
+
+            $dbUsuario = new \App\Models\UsuarioModel();
+
+            $query = $dbUsuario->find($id);
+
+            $data['usuario'] = $query;
+
+            $result =  view('includes/head') .
                 view('titles/title-perfil') .
                 view('includes/nav') .
-                view('usuario/perfil') .
+                view('usuario/perfil', $data) .
                 view('includes/footer');
         }
+
+        return $result;
     }
 
-
-
-    public function GetImageUser()
+    public function alterarImagemUsuario()
     {
-        $this->userimage = $this->request->getFiles()['userimage'];
-    }
+        $this->id = $this->request->getPost()['id'];
+        $this->image = $this->request->getFiles()['image'];
 
-    public function UserImage()
-    {
-        $this->GetImageUser();
-        $this->idusuario = session()->id;
+        $db = new \App\Models\UsuarioModel();
 
-        if ($imageuser = $this->userimage) {
+        if ($imageuser = $this->image) {
             foreach ($imageuser as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $Name = $img->getRandomName();
-                    $img->move(WRITEPATH . '../assets/img/usuarios/', $Name);
+                    $img->move(WRITEPATH . 'FORUM_CODEIGNITER/assets/img/usuarios/', $Name);
                 }
             }
 
             $data = [
+                'ID' =>  $this->id,
                 'Foto' => $Name,
             ];
 
-            $db  = \Config\Database::connect();
-            $builder = $db->table('usuario');
-            $builder->where('id', $this->idusuario);
-            $builder->update($data);
+            $query = $db->save($data);
         }
-        return redirect()->to('Usuario/perfil');
+        return redirect()->to('Usuario/perfil/'.$this->id);
     }
 
-    public function SelectImageUser()
+    public function alterarSenhaUsuario()
     {
-
-        $db = \Config\Database::connect();
-        $builder = $db->table('usuario');
-        $builder->select('*');
-        $builder->where('id', session()->id);
-        $query = $builder->get();
-
-        foreach ($query->getResult() as $row) {
-            $foto = $row->Foto;
-        }
-
-        return $foto;
-    }
-
-    public function GetNewCode()
-    {
+        $this->id = $this->request->getPost()['id'];
         $this->senha = $this->request->getPost()['senha'];
         $this->senha2 = $this->request->getPost()['senha2'];
-    }
-
-    public function AlterCode()
-    {
-        $this->GetNewCode();
-        $db = \Config\Database::connect();
+        
+        $db = new \App\Models\UsuarioModel();
       
-        if ($this->senha2 == $this->senha) {
+        if ($this->senha2 === $this->senha) {
+
             $data = [
+                'ID' =>  $this->id,
                 'Senha' => md5($this->senha2),
             ];
-            $builder = $db->table('usuario');
-            $builder->where('id', session()->id);
-            $builder->update($data);
-
-            echo "<script>alert('Senha alterada com sucesso'); </script>";     
-        } else {
-            echo "<script>alert('Não foi possivel alterar a senha, certique-se de que colocou-as corretamente nos campos do formulário.'); </script>"; 
+    
+            $query = $db->save($data);
         }
-
-        return redirect()->to('Usuario/perfil');
+            
+        return redirect()->to('Usuario/perfil/'.$this->id);
     }
 
-    public function GetNewUserData()
-    {
-        $this->newname = $this->request->getPost()['alternome']; 
-        $this->newsobrenome = $this->request->getPost()['altersobrenome']; 
-        $this->newdate = $this->request->getPost()['alterdate']; 
-    }
 
-    public function AlterUserData()
+    public function alterarDadosUsuario()
     {
-        $this->GetNewUserData();
-        $db = \Config\Database::connect();
+        $this->id = $this->request->getPost()['id']; 
+        $this->nome = $this->request->getPost()['nome']; 
+        $this->sobrenome = $this->request->getPost()['sobrenome']; 
+        $this->data = $this->request->getPost()['data']; 
+
+        $db = new \App\Models\UsuarioModel();
 
         $data = [
-            'Nome' => $this->newname,
-            'Sobrenome' => $this->newsobrenome,
-            'DataNascimento' => $this->newdate
+            'ID' =>  $this->id,
+            'Nome' => $this->nome,
+            'Sobrenome' => $this->sobrenome,
+            'DataNascimento' => $this->data
         ];
 
-        $builder = $db->table('usuario');
-        $builder->where('id', session()->id);
-        $builder->update($data);
+        $query = $db->save($data);
         
-        return redirect()->to('Usuario/perfil');
+        return redirect()->to('Usuario/perfil/'.$this->id);
     }
 }

@@ -43,9 +43,9 @@ class ValidaSessao extends BaseController
         } else {
             $foto = session()->foto;
             $resultado = '<div class="card-perfil">
-            <img src="/FORUM_CODEIGNITER/assets/img/usuarios/'.  $foto .'" alt="imagem de perfil">
+            <img src="/FORUM_CODEIGNITER/assets/img/usuarios/'.  $foto .'" alt="'. $foto .'">
             <p class="p-3">'. session()->usuario .' | '. $recebN .'</p>
-            <a href="usuario/perfil/' . session()->usuario .'/'. session()->id .'" class="button">Acessar perfil de usuário</a>
+            <a href="usuario/perfil/' . session()->id .'" class="button">Acessar perfil de usuário</a>
         </div>';
         }
         
@@ -57,6 +57,17 @@ class ValidaSessao extends BaseController
     {
         if (!session()->had('id')) {
             $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
+        }
+    }
+
+    public function validaSessaoPerfil($id)
+    {
+        //caso não haja uma sessão, proíbe o acesso
+        if (!session()->has('id')) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        else if (session()->id != $id) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 }
