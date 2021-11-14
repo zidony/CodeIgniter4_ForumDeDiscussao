@@ -1,0 +1,29 @@
+/* FONTE GERAL */
+
+@font-face {
+    font-family: NotoSansJP-Regular;
+    src: url('/FORUM_CODEIGNITER/assets/font/NotoSansJP-Regular.otf');
+}
+
+@font-face {
+    font-family: NotoSansJP-Medium;
+    src: url('/FORUM_CODEIGNITER/assets/font/NotoSansJP-Medium.otf');
+}
+
+@font-face {
+    font-family: NotoSansJP-Bold;
+    src: url('/FORUM_CODEIGNITER/assets/font/NotoSansJP-Bold.otf');
+}
+
+body {
+    font-family: NotoSansJP-Regular;
+    background: #fff;
+}
+
+
+/* inputs login */
+
+.input {
+    border-color: #137eba;
+    border-radius: 0px
+}

@@ -76,7 +76,7 @@
             function load_data(query)
             {
                 $.ajax({
-                    url:"<?php echo base_url(); ?>/administrador/fetch_rm",
+                    url:"/FORUM_CODEIGNITER/public/administrador/fetch_rm",
                     method:"POST",
                     data:{query:query},
                     success:function(data){

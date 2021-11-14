@@ -1,6 +1,6 @@
 
     <title>Conta Criada Com Sucesso</title>
-    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/css/style-conta-criada.css">
+    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/public/css/style-conta-criada.css">
 </head>
 <body>
 

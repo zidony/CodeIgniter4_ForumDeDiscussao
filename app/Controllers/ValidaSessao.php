@@ -38,7 +38,7 @@ class ValidaSessao extends BaseController
             $recebN = 'Administrador';
         }
         if (!session()->has('id')) {
-            $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
+            $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a><br><br><br>";
             
         } else {
             $foto = session()->foto;
@@ -46,7 +46,7 @@ class ValidaSessao extends BaseController
             <img src="/FORUM_CODEIGNITER/assets/img/usuarios/'.  $foto .'" alt="'. $foto .'">
             <p class="p-3">'. session()->usuario .' | '. $recebN .'</p>
             <a href="usuario/perfil/' . session()->id .'" class="button">Acessar perfil de usuário</a>
-        </div>';
+        </div><br><hr>';
         }
         
         echo $resultado;

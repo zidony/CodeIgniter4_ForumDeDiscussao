@@ -1,0 +1,77 @@
+/* LAYOUT */
+
+body {
+    background: linear-gradient(#bb262d36, #137dba3d);
+}
+
+html,
+body,
+.box {
+    height: 100%;
+    /* definimos o overflow auto para ele ir de acordo com o height, mude a % do height e ver o que ele ocupa na tela. */
+}
+
+.box {
+    display: table;
+    width: 100%;
+}
+
+.box-form {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.content-form {
+    background: #fff;
+    margin: auto;
+    width: 350px;
+    box-shadow: 1px 1px 5px 1px #4b5b64;
+    border-radius: 5px;
+}
+
+
+/* botão login */
+
+.button {
+    width: 100%;
+    background: #137eba;
+    color: #fff;
+    border: none;
+}
+
+.button:hover {
+    color: #fff;
+    background: #1276af;
+}
+
+
+/* link login */
+
+.link-login {
+    color: #1276af;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.link-login:hover {
+    color: #1276af;
+}
+
+
+/* tipografia */
+
+h1 {
+    font-family: NotoSansJP-Bold;
+    font-size: 25px;
+    color: #1276af;
+}
+
+.button {
+    font-family: NotoSansJP-Medium;
+    font-size: 16px;
+}
+
+.copy {
+    font-size: 10px;
+    color: #4b5b64;
+}

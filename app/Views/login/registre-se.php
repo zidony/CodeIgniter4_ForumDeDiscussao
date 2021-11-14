@@ -1,5 +1,5 @@
 
-    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/css/style-criar-conta.css">
+    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/public/css/style-criar-conta.css">
     <title>Criar Conta de Usuário</title>
 </head>
 <body>
@@ -8,7 +8,7 @@
         <div class="box-form">
             <div class="content-form container py-5 px-4">
                 <h1>RESGISTRE-SE</h1>
-                <form action="cadastrarUsuario" method="post">
+                <form action="/FORUM_CODEIGNITER/public/Usuario/cadastroUsuario" method="post">
                     <div class="row">
                         <div class="form-group col-md-6 my-2">
                             <label for="nome">Nome</label>

@@ -80,7 +80,7 @@
             function load_data(query)
             {
                 $.ajax({
-                    url:"<?php echo base_url(); ?>/administrador/fetch_categoria",
+                    url:"/FORUM_CODEIGNITER/public/administrador/fetch_categoria",
                     method:"POST",
                     data:{query:query},
                     success:function(data){

@@ -36,7 +36,7 @@
 				function load_data(query)
 				{
 					$.ajax({
-						url:"<?php echo base_url(); ?>/administrador/fetch",
+						url:"/FORUM_CODEIGNITER/public/administrador/fetch",
 						method:"POST",
 						data:{query:query},
 						success:function(data){

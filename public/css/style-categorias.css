@@ -1,0 +1,127 @@
+.box-categorias {
+    /* box-shadow: 1px 1px 5px 1px #4b5b6488; */
+    /* border-right: 1px solid #4b5b6488; */
+    padding: 40px;
+    background: #fff;
+}
+
+.box-categorias h2 {
+    font-weight: bold;
+}
+
+.cards-categoria {
+    /* box-shadow: 1px 1px 5px 1px #4b5b6488; */
+    border: 1px dotted #4b5b6488;
+    background: #fff;
+}
+
+.box-img-categoria img {
+    width: 175px !important;
+    height: 175px;
+}
+
+.cards-categoria h3 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #4b5b64;
+}
+
+.box-content-categoria p {
+    color: #4b5b64;
+    margin-bottom: 10px;
+}
+
+.btn-categoria {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    /* background: #137eba; */
+    background: #4b5b64;
+    padding: 10px 50px;
+    border-radius: 5px;
+    transition: background-color 1.5s;
+}
+
+.btn-categoria:hover {
+    /* background: #115983; */
+    background: #3b474e;
+    color: #fff;
+    transition: background-color 1.5s;
+}
+
+
+/* referências */
+
+.box-referencias {
+    padding: 0 40px;
+    border-left: 1px solid #4b5b6488;
+}
+
+
+/* responsividade */
+
+@media screen and (max-width:767px) {
+    .box-categorias {
+        border-right: unset;
+        padding: 10px;
+    }
+    .box-referencias {
+        box-shadow: none;
+        padding: 10px;
+        border-left: none;
+    }
+    .cards-categoria h3 {
+        white-space: unset;
+        text-overflow: unset;
+        overflow: unset;
+        color: #4b5b64;
+    }
+    .box-img-categoria {
+        text-align: center;
+        padding-top: 10px;
+    }
+    .box-img-categoria img {
+        box-shadow: 1px 1px 5px 1px #4b5b6488;
+        width: 175px !important;
+        height: 175px;
+        border-radius: 100%;
+    }
+    .linha-categorias {
+        display: none;
+    }
+    .box-content-categoria {
+        text-align: center;
+        padding: 15px 20px;
+    }
+    .box-content-categoria h3 {
+        font-size: 16px;
+    }
+    .box-content-categoria .btn-categoria {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .box-content-categoria p {
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .box-content-categoria {
+        padding-left: 30px;
+    }
+    .box-content-categoria p {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .box-content-categoria {
+        padding-left: 10px;
+    }
+    .box-content-categoria p {
+        margin-bottom: 20px;
+    }
+}

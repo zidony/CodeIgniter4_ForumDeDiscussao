@@ -1,6 +1,6 @@
 
 <main>
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <!-- instancias -->
         <?php
             use App\Controllers\Home;
@@ -10,7 +10,7 @@
         ?>
             
         <div class="row">
-            <div class="col-md-12 col-lg-8">
+            <div class="col-md-12 col-lg-12 col-xl-8">
                 <div class="box-categorias">
                     <h2 id="pesquise">Pesquiser ou filtre pelo nome do curso</h2>
                     <input type="text" class="form-control">
@@ -48,12 +48,24 @@
                 </div>
             </div>
             <!-- fim col -->
-            <div class="col-md-12 col-lg-4">
+            <div class="col-md-12 col-lg-12 col-xl-4">
                 <div class="box-referencias">
                     <?php 
                         $objValida->mostraBotaoLogar();
                         
                     ?>
+                    <div class="form-group">
+                        <h2 class="text-center">Publicações recentes</h2>
+                        <div class="input-group">
+                            <input type="text" name="search_text" id="search_text" placeholder="Pesquise..." class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <div id="result">
+
+                    </div>
+                </div>
+                <div style="clear:both"></div>
                 </div>
             </div>
             <!-- fim col -->
@@ -65,4 +77,37 @@
     </div>
     <!-- fim container -->
 </main>
+
+<script>
+    $(document).ready(function(){
+
+        load_data();
+
+        function load_data(query)
+        {
+            $.ajax({
+                url:"/FORUM_CODEIGNITER/public/Home/fetch_publicacoes",
+                method:"POST",
+                data:{query:query},
+                success:function(data){
+                    $('#result').html(data);
+                }
+            })
+        }
+
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+                load_data(search);
+            }
+            else
+            {
+                load_data();
+            }
+        });
+    });
+
+    
+</script>
     

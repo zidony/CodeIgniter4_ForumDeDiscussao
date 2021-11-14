@@ -224,7 +224,7 @@ class Usuario extends BaseController
             foreach ($imageuser as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $Name = $img->getRandomName();
-                    $img->move(WRITEPATH . 'FORUM_CODEIGNITER/assets/img/usuarios/', $Name);
+                    $img->move(WRITEPATH . '/FORUM_CODEIGNITER/assets/img/usuarios/', $Name);
                 }
             }
 
@@ -279,5 +279,19 @@ class Usuario extends BaseController
         $query = $db->save($data);
         
         return redirect()->to('Usuario/perfil/'.$this->id);
+    }
+
+    //==========================================================
+    //PERFIL PÚBLICO
+
+    public function perfilPublico($id)
+    {
+        $dbUsuario = new \App\Models\UsuarioModel();
+
+        $query = $dbUsuario->find($id);
+
+        $data['usuario'] = $query;
+
+        return view('usuario/perfil-publico', $data);
     }
 }

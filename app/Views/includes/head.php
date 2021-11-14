@@ -10,18 +10,19 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- JQUERY -->
-    <script src="/FORUM_CODEIGNITER/js/jquery/jquery.js"></script>
+    <script src="/FORUM_CODEIGNITER/public/js/jquery/jquery.js"></script>
 
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/bootstrap/bootstrap.min.css">
 
     <!-- CSS GERAL -->
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-navbar.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-banner.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-categorias.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-perfil.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style-duvidas.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/css/style.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-navbar.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-banner.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-categorias.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-perfil.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-duvidas.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-publicacao-telas.css">
+    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style.css">
 
     <!-- ÍCONES -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">

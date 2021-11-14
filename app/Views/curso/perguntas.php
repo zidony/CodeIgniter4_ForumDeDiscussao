@@ -36,7 +36,7 @@
                         echo '<br><br>';
                     echo form_close();  
 
-        } //fechamento else
+                } //fechamento else
                 ?>
 
                 <div class="box_publicacao"></div>
@@ -101,29 +101,60 @@
             }
 
             for (var i = 0; i < result.length; i++) {
-
                 //verificar se o post tem ou não imagem
                 verificarImagem= result[i].Imagem;
                 if (verificarImagem == ''){
-                    imagem = '<span class=""></span>';
+                    imagem = '';
                 } else {
                     imagem = '<a href="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'" target="_blank"><img src="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'"></a>';
                 }
 
                 //botão de ver comentários
-                ver_comentarios = 
-                <?php 
-                    if (!session()->has('id')) { ?>
-                        '<a class="btn-footer-publicacao" href="/FORUM_CODEIGNITER/public/usuario/login" role="button">' +
-                            '<i class="bi bi-chat-right-text mx-2 icon-comment"></i>' +
-                            'Faça login para ter acesso a esse tópico' +
-                        '</a>';
-                    <?php } else { ?>
-                        '<a class="btn-footer-publicacao" href="../../topico/'+ result[i].Titulo +'/'+ result[i].IDPublicacao +'" role="button">' +
-                            '<i class="bi bi-chat-right-text mx-2 icon-comment"></i>' +
-                            'Entrar nesse tópico' +
-                        '</a>';
-                    <?php } ?>
+                ver_comentarios = '<a class="btn-footer-publicacao" href="../../topico/'+ result[i].Titulo +'/'+ result[i].IDPublicacao + '/'+ result[i].IDCategoria +'" role="button">' +
+                    '<i class="bi bi-chat-right-text mx-2 icon-comment"></i>' +
+                    'Entrar nesse tópico' +
+                '</a>';
+
+
+                //menu excluir
+                if (<?php echo json_encode(session()->has('id')) ?> == false) {
+                    editar_publicacao = '';
+                } else {
+                    if (<?php echo json_encode(session()->nivel) ?> == 3 || <?php echo json_encode(session()->nivel) ?> == 2) {
+                        if (result[i].IDUsuario != <?php echo json_encode(session()->id) ?>) {
+                            editar_publicacao = '<li class="remove-marker">' +
+                                    '<a class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">' +
+                                        '<i class="bi bi-three-dots-vertical"></i>' +
+                                    '</a>' +
+                                    '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
+                                        '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                                    '</ul>' +
+                                '</li>';
+                        } else {
+                            editar_publicacao = '';
+                        }
+                    } else {
+                        editar_publicacao = '';
+                    }
+                }
+                    
+                //menu excluir e editar
+                if (result[i].IDUsuario == <?php echo json_encode(session()->id) ?>) {
+                    editar_publicacao_usuario = 
+                    '<li class="remove-marker">' +
+                        '<a class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">' +
+                            '<i class="bi bi-three-dots-vertical"></i>' +
+                        '</a>' +
+                        '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
+                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Editar Publicação</a></li>' +
+                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                        '</ul>' +
+                    '</li>';
+                    
+                } else {
+                    editar_publicacao_usuario = '';
+                }
+                           
 
                 //conteúdo das publicações
                 $('.box_publicacao').prepend(
@@ -133,23 +164,21 @@
                                 '<div class="col-md-12">' +
                                     '<div class="header-publicacao p-3">' +
                                         '<div class="d-flex">' +
-                                            '<img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ result[i].Foto +'" alt="" class="img-perfil">' +
+                                            '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ result[i].IDUsuario +'" target="_blank" title="Acessar o perfil do usuário"><img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ result[i].Foto +'" alt="" class="img-perfil"></a>' +
                                             '<div class="text-left mx-2">' +
-                                                '<b>'+ result[i].Nome +'</b>' +
+                                                '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ result[i].IDUsuario +'" class="link-usuario " target="_blank" title="Acessar o perfil do usuário"><b class="break-content">'+ result[i].Nome +'</b></a>' +
                                                 '<br>' +
                                                 '<p>'+ result[i].Data + ' às ' + result[i].Hora +'</p>' +
                                             '</div>' +
                                         '</div>' +
-                                        '<div class="">' +
-                                            '<p>Ação para adm<br>Desativar post</p>' +
-                                        '</div>' +
+                                        editar_publicacao + editar_publicacao_usuario +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="col-md-12">' +
                                     '<div class="box-content-post">' +
                                         '<hr>' +
-                                        '<h3 class="px-3">'+ result[i].Titulo +'</h3>' +
-                                        '<p class="px-3">'+ result[i].Conteudo +'</p>' +
+                                        '<h3 class="px-3 break-content">'+ result[i].Titulo +'</h3>' +
+                                        '<p class="px-3 break-content">'+ result[i].Conteudo +'</p>' +
                                         '<div class="text-center box-img-publicacao">' +
                                             imagem +
                                         '</div>' +

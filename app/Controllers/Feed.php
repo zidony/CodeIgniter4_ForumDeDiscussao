@@ -13,7 +13,7 @@ class Feed extends BaseController
         $idCategoria['idCategoria'] = $categoria;
 
         return view('includes/head') .
-            view('titles/title-home-curso') .
+            view('titles/title-publicacoes') .
             view('includes/nav') .
             view('includes/banner-home') .
             view('curso/perguntas', $idCategoria) .
@@ -21,13 +21,13 @@ class Feed extends BaseController
     }
 
 
-    public function topico($titulo, $idPublicacao)
+    public function topico($titulo, $idPublicacao, $idCategoria)
     {
         //envia para o home-curso o id da categoria
-        $id['idPublicacao'] = $idPublicacao;
+        $id['ids'] = [$idPublicacao, $idCategoria];
 
         return view('includes/head') .
-                view('titles/title-home-curso') .
+                view('titles/title-publicacoes') .
                 view('includes/nav') .
                 view('includes/banner-home') .
                 view('curso/topico' , $id) .
@@ -128,67 +128,92 @@ class Feed extends BaseController
     {
         // header('Content-Type: application/json');
         $db      = \Config\Database::connect();
-        $builder = $db->table('publicacao');
-        $builder->select('publicacao.ID as IDPublicacao,
-                            usuario.Nome,
-                            usuario.Foto,
-                            conteudopublicacao.Titulo,
-                            conteudopublicacao.Conteudo,
-                            imagemPublicacao.Imagem,
-                            publicacao.Reacao,
-                            publicacao.Ativo,
-                            publicacao.IDUsuario,
-                            DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
-                            TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
-                            );
-        $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
-        $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
-        and conteudopublicacao.IDPublicacao = publicacao.ID');
-        $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
-        and imagempublicacao.IDPublicacao = publicacao.ID');
-        $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
-        $builder->where('categoria.ID', $idCategoria);
-        $builder->where('publicacao.Ativo', 1);
-        $builder->orderBy('publicacao.ID');
+
+        $builder = $db->table('categoria');
+        $builder->select('*');
+        $builder->where('ID', $idCategoria);
+        $builder->where('Ativo', 1);
         $query = $builder->get()->getResult();
+
+        if ($query == false) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); 
+        } else {
+            $builder = $db->table('publicacao');
+            $builder->select('publicacao.ID as IDPublicacao,
+                                usuario.Nome,
+                                usuario.Foto,
+                                conteudopublicacao.Titulo,
+                                conteudopublicacao.Conteudo,
+                                imagemPublicacao.Imagem,
+                                publicacao.Reacao,
+                                publicacao.Ativo,
+                                publicacao.IDUsuario,
+                                categoria.ID as IDCategoria,
+                                DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
+                                TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
+                                );
+            $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
+            $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
+            and conteudopublicacao.IDPublicacao = publicacao.ID');
+            $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
+            and imagempublicacao.IDPublicacao = publicacao.ID');
+            $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
+            $builder->where('categoria.ID', $idCategoria);
+            $builder->where('publicacao.Ativo', 1);
+            $builder->orderBy('publicacao.ID');
+            $query = $builder->get()->getResult();
+            
+            if ($query == true) {
+                echo json_encode($query);
+            } 
+        }
+
         
-        if ($query == true) {
-            echo json_encode($query);
-        } 
     }
 
     //=============================================================================
-    public function selecionarPublicacao($idPublicacao)
+    public function selecionarPublicacao($idPublicacao, $idCategoria)
     {
         // header('Content-Type: application/json');
         $db      = \Config\Database::connect();
-        $builder = $db->table('publicacao');
-        $builder->select('publicacao.ID as IDPublicacao,
-                            usuario.Nome,
-                            usuario.Foto,
-                            conteudopublicacao.Titulo,
-                            conteudopublicacao.Conteudo,
-                            imagemPublicacao.Imagem,
-                            publicacao.Reacao,
-                            publicacao.Ativo,
-                            publicacao.IDUsuario,
-                            DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
-                            TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
-                            );
-        $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
-        $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
-        and conteudopublicacao.IDPublicacao = publicacao.ID');
-        $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
-        and imagempublicacao.IDPublicacao = publicacao.ID');
-        $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
-        $builder->where('publicacao.ID', $idPublicacao);
-        $builder->where('publicacao.Ativo', 1);
-        $builder->orderBy('publicacao.ID');
+
+        $builder = $db->table('categoria');
+        $builder->select('*');
+        $builder->where('ID', $idCategoria);
+        $builder->where('Ativo', 1);
         $query = $builder->get()->getResult();
-        
-        if ($query == true) {
-            echo json_encode($query);
-        } 
+
+        if ($query == false) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); 
+        } else {
+            $builder = $db->table('publicacao');
+            $builder->select('publicacao.ID as IDPublicacao,
+                                usuario.Nome,
+                                usuario.Foto,
+                                conteudopublicacao.Titulo,
+                                conteudopublicacao.Conteudo,
+                                imagemPublicacao.Imagem,
+                                publicacao.Reacao,
+                                publicacao.Ativo,
+                                publicacao.IDUsuario,
+                                DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
+                                TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
+                                );
+            $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
+            $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
+            and conteudopublicacao.IDPublicacao = publicacao.ID');
+            $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
+            and imagempublicacao.IDPublicacao = publicacao.ID');
+            $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
+            $builder->where('publicacao.ID', $idPublicacao);
+            $builder->where('publicacao.Ativo', 1);
+            $builder->orderBy('publicacao.ID');
+            $query = $builder->get()->getResult();
+            
+            if ($query == true) {
+                echo json_encode($query);
+            }
+        }
     }
 
     public function inserirComentario()
@@ -197,7 +222,7 @@ class Feed extends BaseController
         // $myTime->toDateTimeString();
 
         $this->comentario = $this->request->getPost()['comentar'];
-        // $this->img = $this->request->getFiles()['img'];
+        $this->img = $this->request->getFiles()['img'];
         $this->idpublicacao = $this->request->getPost()['idpublicacao'];
 
         $dbConteudoComentario = new \App\Models\ConteudoComentarioModel();
@@ -213,23 +238,23 @@ class Feed extends BaseController
         $query = $dbConteudoComentario->insert($data);
         $ultimoIDConteudo = $dbConteudoComentario->insertID();
 
-        // if($imagefile = $this->img)
-        // {
-        //     foreach($imagefile as $img)
-        //     {
-        //       if ($img->isValid() && ! $img->hasMoved()) {
-        //         $Name = $img->getClientName();
-        //         $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
-        //         }   else {
-        //         $Name = false;
-        //         } 
-        //     }
-        // }
+        if($imagefile = $this->img)
+        {
+            foreach($imagefile as $img)
+            {
+                if ($img->isValid() && ! $img->hasMoved()) {
+                        $Name = $img->getRandomName();
+                        $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+                }  else {
+                    $Name = false;
+                } 
+            }
+        }
         
         //recebe dados para inserção na tabela imagem da Comentario
         $data = [
             'IDComentario' => '',
-            'Imagem' => ''
+            'Imagem' => $Name
         ];
 
         $query = $dbImagemComentario->insert($data);
@@ -284,17 +309,19 @@ class Feed extends BaseController
         $db      = \Config\Database::connect();
         $builder = $db->table('comentario');
         $builder->select('Comentario.ID IDCOMENTARIO,
-                            Publicacao.ID as IDPubli,
+                            Publicacao.ID as IDPublicacao,
+                            usuario.ID as IDUsuario,
                             usuario.Nome,
                             usuario.Foto,
                             conteudoComentario.Conteudo,
                             Comentario.Reacao,
+                            imagemComentario.Imagem,
                             DATE_FORMAT(Comentario.DataHora,"%d/%m/%Y") as Data,
                             TIME_FORMAT(Comentario.DataHora, "%H:%i") as Hora'
                             );
         $builder->join('Publicacao', 'Publicacao.ID = Comentario.IDPublicacao');
         $builder->join('conteudoComentario', 'conteudoComentario.ID = Comentario.IDConteudo');
-        // $builder->join('imagemComentario', 'imagemComentario.ID = Comentario.IDImagem');
+        $builder->join('imagemComentario', 'imagemComentario.ID = Comentario.IDImagem');
         $builder->join('usuario', 'usuario.ID = Comentario.IDUsuario');
         $builder->where('Comentario.Ativo', 1);
         $builder->where('Comentario.IDPublicacao', $idPublicacao);
@@ -308,5 +335,217 @@ class Feed extends BaseController
         //     echo json_encode('Nenhum comentário encontrado');
         // }
     }
+
+    //=============================================================================
+    // ações na publicação
+
+    public function editarPublicacaoSelecionada($idPublicacao)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('publicacao');
+        $builder->select('publicacao.ID,
+                            conteudopublicacao.ID as IDConteudo,
+                            imagemPublicacao.ID as IDImagem,
+                            usuario.Nome,
+                            usuario.Foto,
+                            conteudopublicacao.Titulo,
+                            conteudopublicacao.Conteudo,
+                            imagemPublicacao.Imagem,
+                            publicacao.Reacao,
+                            publicacao.Ativo,
+                            publicacao.IDUsuario,
+                            DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
+                            TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
+                            );
+        $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
+        $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
+        and conteudopublicacao.IDPublicacao = publicacao.ID');
+        $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
+        and imagempublicacao.IDPublicacao = publicacao.ID');
+        $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
+        $builder->where('publicacao.ID', $idPublicacao);
+        $builder->where('publicacao.Ativo', 1);
+        $query = $builder->get()->getResult();
+
+        $data['publicacao'] = $query;
+
+        // echo '<pre>';
+        // var_dump($builder->getCompiledSelect());
+        // var_dump($builder->get()->getResult());
+
+        return view('includes/head') .
+                view('curso/editar-publicacao', $data);
+    }
+
+    
+
+    public function editarPublicacao()
+    {
+        $this->idpublicacao = $this->request->getPost()['idpublicacao'];
+        $this->idconteudo = $this->request->getPost()['idconteudo'];
+        $this->titulo = $this->request->getPost()['titulo'];
+        $this->conteudo = $this->request->getPost()['conteudo'];
+
+        $dbConteudoPublicacao = new \App\Models\ConteudoPublicacaoModel();
+
+        //recebe dados para inserção na tabela conteudo da publicacao
+        $data = [
+            'ID' => $this->idconteudo,
+            'Titulo' => $this->titulo,
+            'IDPublicacao' => $this->idpublicacao,
+            'Conteudo' => $this->conteudo
+        ];
+
+        $query = $dbConteudoPublicacao->save($data);       
+
+        return redirect()->back();
+        
+    }
+
+    public function editarImagemPublicacao()
+    {
+        $this->idpublicacao = $this->request->getPost()['idpublicacao'];
+        $this->idimagem = $this->request->getPost()['idimagem'];
+        $this->img = $this->request->getFiles()['img'];
+
+        $dbImagemPublicacao = new \App\Models\ImagemPublicacaoModel();
+
+        if($imagefile = $this->img)
+        {
+            foreach($imagefile as $img)
+            {
+                if ($img->isValid() && ! $img->hasMoved()) {
+                    $Name = $img->getRandomName();
+                    $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+                }  else {
+                    $Name = false;
+                } 
+            }
+        }
+        
+        //recebe dados para inserção na tabela imagem da publicacao
+        $data = [
+            'ID' => $this->idimagem,
+            'IDPublicacao' => $this->idpublicacao,
+            'Imagem' => $Name,
+        ];
+
+        $query = $dbImagemPublicacao->save($data);
+        
+
+        return redirect()->back(); 
+    }
+
+    public function excluirPublicacaoSelecionada($idpublicacao)
+    {
+        $dbPublicacao = new \App\Models\PublicacaoModel();
+
+        $data = [
+            'ID' => $idpublicacao,
+            'Ativo' => 0
+        ];
+
+        $query = $dbPublicacao->save($data);
+
+        return redirect()->back();
+    }
+
+    //para comentarios
+    public function editarComentarioSelecionado($idComentario)
+    {
+        // header('Content-Type: application/json');
+        $db      = \Config\Database::connect();
+        $builder = $db->table('comentario');
+        $builder->select('Comentario.ID,
+                            conteudocomentario.ID as IDComentario,
+                            conteudoComentario.Conteudo'
+                            );
+        $builder->join('conteudoComentario', 'conteudoComentario.ID = Comentario.IDConteudo');
+        $builder->where('Comentario.Ativo', 1);
+        $builder->where('Comentario.ID', $idComentario);
+        $builder->orderBy('Comentario.ID');
+        $query = $builder->get()->getResult();
+
+        $data['comentario'] = $query;
+
+        // echo '<pre>';
+        // var_dump($builder->getCompiledSelect());
+        // var_dump($builder->get()->getResult());
+
+        return view('includes/head') .
+                view('curso/editar-comentario', $data);
+    }
+
+
+    public function editarComentario()
+    {
+        $this->idcomentario = $this->request->getPost()['idcomentario'];
+        $this->conteudo = $this->request->getPost()['conteudo'];
+
+        $dbComentario = new \App\Models\ConteudoComentarioModel();
+
+        //recebe dados para inserção na tabela conteudo da publicacao
+        $data = [
+            'ID' => $this->idcomentario,
+            'Conteudo' => $this->conteudo
+        ];
+
+        $query = $dbComentario->save($data);       
+
+        return redirect()->back();
+        
+    }
+
+    // public function editarImagemComentario()
+    // {
+    //     $this->idpublicacao = $this->request->getPost()['idpublicacao'];
+    //     $this->idimagem = $this->request->getPost()['idimagem'];
+    //     $this->img = $this->request->getFiles()['img'];
+
+    //     $dbImagemPublicacao = new \App\Models\ImagemPublicacaoModel();
+
+    //     if($imagefile = $this->img)
+    //     {
+    //         foreach($imagefile as $img)
+    //         {
+    //             if ($img->isValid() && ! $img->hasMoved()) {
+    //                 $Name = $img->getRandomName();
+    //                 $img->move(WRITEPATH.'../assets/img/publicacoes/', $Name);   
+    //             }  else {
+    //                 $Name = false;
+    //             } 
+    //         }
+    //     }
+        
+    //     //recebe dados para inserção na tabela imagem da publicacao
+    //     $data = [
+    //         'ID' => $this->idimagem,
+    //         'IDPublicacao' => $this->idpublicacao,
+    //         'Imagem' => $Name,
+    //     ];
+
+    //     $query = $dbImagemPublicacao->save($data);
+        
+
+    //     return redirect()->back();
+        
+    // }
+
+    public function excluirComentarioSelecionado($idcomentario)
+    {
+        $dbPublicacao = new \App\Models\ComentarioModel();
+
+        $data = [
+            'ID' => $idcomentario,
+            'Ativo' => 0
+        ];
+
+        $query = $dbPublicacao->save($data);
+
+        return redirect()->back();
+    }
+
+    //=====================================================================
+    
 
 }

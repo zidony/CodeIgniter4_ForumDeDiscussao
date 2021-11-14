@@ -1,5 +1,5 @@
 
-    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/css/style-login.css">
+    <link rel="stylesheet" type="text/css" href="/FORUM_CODEIGNITER/public/css/style-login.css">
     <title>Iniciar Sessão</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
                 </div>
 
                 <!-- formulário de login -->
-                <form class="form-group" action="verificarLogin" method="post">
+                <form class="form-group" action="/FORUM_CODEIGNITER/public/Usuario/verificarLogin" method="post">
                     <h1 class="text-center my-4">INICIAR SESSÃO</h1>
 
                     <!-- user -->
