@@ -29,7 +29,7 @@
     padding: 5px;
 }
 
-.box-content-publicacao-home h2,
+.box-content-publicacao-home h5,
 .box-content-publicacao-home p {
     width: 100%;
     overflow: hidden;
@@ -55,12 +55,12 @@
 }
 
 .icone-ir-publicacao {
-    margin-left: 5px;
+    margin-left: 0px;
     transition: margin 1.5s;
 }
 
 .acessar-publicacao:hover .icone-ir-publicacao {
-    margin-left: 15px;
+    margin-left: 80%;
 }
 
 .data-publicacao {

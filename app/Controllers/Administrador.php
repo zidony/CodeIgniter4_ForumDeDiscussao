@@ -349,7 +349,7 @@ class Administrador extends BaseController
              {
                 if ($img->isValid() && ! $img->hasMoved()) {
                     $Name = $img->getRandomName();
-                    $img->move(WRITEPATH.'/FORUM_CODEIGNITER/assets/img/categorias/', $Name);   
+                    $img->move(WRITEPATH.'../assets/img/categorias/', $Name);   
                     
                 }  
              }

@@ -98,9 +98,9 @@ class Home extends BaseController
 									<p class="data-publicacao">Publicado as: '. $row->Hora .'<br>dia '. $row->Data .'</p>
 								</div> 
 								<div class="box-content-publicacao-home">
-									<h2 title="'. $row->Titulo .'">'. $row->Titulo .'</h2>
+									<h5 title="'. $row->Titulo .'">'. $row->Titulo .'</h5>
 									<p title="'. $row->Conteudo .'">'. $row->Conteudo .'</p>
-									<a href="Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar publicação<i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
+									<a href="Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar publicação<br><i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
 									<p class="data-publicacao">Categoria: '. $row->linkAmigavel .'</p>
 								</div>
 							</div>

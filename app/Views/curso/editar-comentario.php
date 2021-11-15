@@ -27,7 +27,7 @@
     helper('form');
     echo form_open_multipart('Feed/editarComentario');
 
-        echo form_input('idcomentario', $comentarioSelecionado[0]['IDComentario'], 'class="d-none"');
+        echo form_input('idcomentario', $comentarioSelecionado[0]['IDConteudoComentario'], 'class="d-none"');
 
         echo form_label('Conteúdo');
         echo '<br>';
@@ -39,22 +39,22 @@
         echo '</div>';
     echo form_close();
 
-    // echo '<h2>Alterar imagem da publicação</h2>';
-    // helper('form');
-    // echo form_open_multipart('Feed/editarImagemComentario');
+    echo '<h2>Alterar imagem da publicação</h2>';
+    helper('form');
+    echo form_open_multipart('Feed/editarImagemComentario');
 
-    //     echo form_input('idpublicacao', $publicacaoSelecionada[0]['ID'], 'class="d-none"');
-    //     echo form_input('idimagem', $publicacaoSelecionada[0]['IDImagem'], 'class="d-none"');
+        echo form_input('idcomentario', $comentarioSelecionado[0]['ID'], 'class="d-none"');
+        echo form_input('idimagem', $comentarioSelecionado[0]['IDImagem'], 'class="d-none"');
         
-    //     echo form_label('Imagem');
-    //     echo '<br>';
-    //     echo form_upload('img[]', $publicacaoSelecionada[0]['Imagem'], $inputImg);
-    //     echo '<br><br>';
+        echo form_label('Imagem');
+        echo '<br>';
+        echo form_upload('img[]', $comentarioSelecionado[0]['Imagem'], $inputImg);
+        echo '<br><br>';
 
-    //     echo '<div class="text-center">';
-    //     echo form_submit('mysubmit', 'Alterar imagem', 'class="button-submit py-3 my-3"');
-    //     echo '</div>';
-    // echo form_close();
+        echo '<div class="text-center">';
+        echo form_submit('mysubmit', 'Alterar imagem', 'class="button-submit py-3 my-3"');
+        echo '</div>';
+    echo form_close();
 
     
 

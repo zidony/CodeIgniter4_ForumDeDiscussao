@@ -8,13 +8,15 @@
     background: unset;
     padding: 10px 40px;
     margin: 20px 40px;
-    transition: box-shadow 1.5s, background-color 1.5s;
+    border: 1px dotted #137dba7c;
+    border-radius: 5px;
+    transition: box-shadow 1.5s, background-color 1.5s, border 1s;
 }
 
 .cards-forum:hover {
     box-shadow: 1px 1px 20px 1px #137dba7c;
     background: #fff;
-    border-radius: 5px;
+    border: 1px dotted transparent;
 }
 
 .cards-forum h3 {
@@ -34,7 +36,7 @@
     background: #137eba;
     display: block;
     margin: 5px 10px;
-    padding: 10px 0;
+    padding: 8px 0;
     border-radius: 5px;
     transition: background-color 1.5s;
 }
@@ -42,4 +44,27 @@
 .button-duvidas:hover {
     background: #115983;
     color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+    .cards-forum {
+        padding: 10px 10px;
+        margin: 10px 20px;
+    }
+    .button-duvidas {
+        padding: 5px 0;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .button-duvidas {
+        padding: 5px 0;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .cards-forum {
+        padding: 10px 10px;
+        margin: 10px 20px;
+    }
 }

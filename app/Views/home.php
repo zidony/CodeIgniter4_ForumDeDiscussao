@@ -25,11 +25,11 @@
                             { ?>
                                 <div class="my-3 cards-categoria">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-4 col-xl-3 box-img-categoria">
+                                        <div class="col-sm-12 col-md-3 col-xl-3 box-img-categoria">
                                             <img src="/FORUM_CODEIGNITER/assets/img/categorias/<?php echo $data[$key]['Imagem']; ?>">
                                         </div>
 
-                                        <div class="col-sm-12 col-md-8 col-xl-9 box-content-categoria">
+                                        <div class="col-sm-12 col-md-9 col-xl-9 box-content-categoria">
                                             <h3 title="<?php echo $data[$key]['Titulo']; ?>" class="pt-3"><?php echo $data[$key]['Titulo']; ?></h3>
                                             <hr class="linha-categorias">
                                             <p><?php echo $data[$key]['Conteudo']; ?></p>
@@ -79,10 +79,11 @@
 </main>
 
 <script>
+   
+    
     $(document).ready(function(){
-
         load_data();
-
+            
         function load_data(query)
         {
             $.ajax({
@@ -104,10 +105,41 @@
             else
             {
                 load_data();
+                
             }
         });
+
+        setInterval(function load_data() {
+        
+            load_data();
+            
+            function load_data(query)
+            {
+                $.ajax({
+                    url:"/FORUM_CODEIGNITER/public/Home/fetch_publicacoes",
+                    method:"POST",
+                    data:{query:query},
+                    success:function(data){
+                        $('#result').html(data);
+                    }
+                })
+            }
+
+            $('#search_text').keyup(function(){
+                var search = $(this).val();
+                if(search != '')
+                {
+                    load_data(search);
+                }
+                else
+                {
+                    load_data();
+                    
+                }
+            });
+        }, 60000)
     });
 
-    
+
 </script>
     

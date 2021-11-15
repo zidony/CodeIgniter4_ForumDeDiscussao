@@ -9,9 +9,18 @@
         </div>
         <!-- fim col -->
         <div class="col-md-5">
-            <div>
-                <h2>Em breve...</h2>
-            </div>   
+            <div class="form-group">
+                <h2 class="text-center">Publicações recentes</h2>
+                <div class="input-group">
+                    <input type="text" name="search_text" id="search_text" placeholder="Pesquise..." class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div id="result">
+
+            </div>
+        
+            <div style="clear:both"></div>
         </div>
         <!-- fim col -->
     </div>
@@ -287,8 +296,96 @@
                 //fim consulta comentarios
 
                 getComentarios();
-                
-            
+
+                //REALIZA O LOAD PARA ATUALIZAR OS DADOS
+                setInterval(function load_data() {
+                    //faz consulta e trás os comentários
+                    function getComentarios() {
+                        $.ajax({
+                            url: '/FORUM_CODEIGNITER/public/Feed/selecionarComentarios/<?php echo $ids[0]; ?>',
+                            method: 'POST',
+                            dataType: 'json'
+                        }).done(function(resultComentarios){
+                            console.log(resultComentarios);
+                            var box_comment = document.querySelector('.box_comentarios');
+                            while(box_comment.firstChild){
+                                box_comment.firstChild.remove();
+                            }
+                            for (var i = 0; i < resultComentarios.length; i++) {
+                                //verificar se o comentario tem ou não imagem
+                                verificarImagem= resultComentarios[i].Imagem;
+                                if (verificarImagem == ''){
+                                    imagem = '';
+                                } else {
+                                    imagem = '<a href="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ resultComentarios[i].Imagem +'" target="_blank"><img src="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ resultComentarios[i].Imagem +'"></a>';
+                                }
+                                if (<?php echo json_encode(session()->has('id')) ?> == false) {
+                                    editar_publicacao = '';
+                                } else {
+                                    if (<?php echo json_encode(session()->nivel) ?> == 3 || <?php echo json_encode(session()->nivel) ?> == 2) {
+                                        if (resultComentarios[i].IDUsuario != <?php echo json_encode(session()->id) ?>) {
+                                            editar_publicacao = '<li class="remove-marker">' +
+                                                    '<a class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">' +
+                                                        '<i class="bi bi-three-dots-vertical"></i>' +
+                                                    '</a>' +
+                                                    '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
+                                                        '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Comentário</a></li>' +
+                                                    '</ul>' +
+                                                '</li>';
+                                        } else {
+                                            editar_publicacao = '';
+                                        }
+                                    } else {
+                                            editar_publicacao = '';
+                                        }
+                                }
+                                if (resultComentarios[i].IDUsuario == <?php echo json_encode(session()->id) ?>) {
+                                    editar_publicacao_usuario = 
+                                    '<li class="remove-marker">' +
+                                        '<a class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">' +
+                                            '<i class="bi bi-three-dots-vertical"></i>' +
+                                        '</a>' +
+                                        '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
+                                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Editar Comentário</a></li>' +
+                                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Comentário</a></li>' +
+                                        '</ul>' +
+                                    '</li>'; 
+                                } else {
+                                    editar_publicacao_usuario = '';
+                                }
+                                $('.box_comentarios').prepend(
+                                    '<div class="box-comentario mt-3">' +
+                                        '<div class="row">' +
+                                            '<div class="col-md-12">' +
+                                                '<div class="header-comentario p-3 comentarios">' +
+                                                    '<div class="d-flex">' +
+                                                        '<div class="text-center" style="width: 100px; margin-left: 10px">' +
+                                                            '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ resultComentarios[i].IDUsuario +'" target="_blank" title="Acessar o perfil do usuário"><img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ resultComentarios[i].Foto +'" alt="" class="img-perfil"></a>' +
+                                                            '<br>' +
+                                                            '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ resultComentarios[i].IDUsuario +'" class="link-usuario " target="_blank" title="Acessar o perfil do usuário"><b class="p-2 break-content">'+ resultComentarios[i].Nome +'</b></a>' +
+                                                        '</div>' +
+                                                        '<p class="p-4 break-content">'+ resultComentarios[i].Conteudo +'</p>' +
+                                                        
+                                                    '</div>' +
+                                                    editar_publicacao + editar_publicacao_usuario +
+                                                '</div>' +  
+                                                '<div class="text-center box-img-comentario">' +
+                                                    imagem +
+                                                '</div><br>' +
+                                                '<div class="text-end">' +
+                                                    '<p class="px-3 datetime">Data e hora comentado: '+ resultComentarios[i].Data + ' às ' + resultComentarios[i].Hora +'</p>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div><hr>' +
+                                    '</div>');   
+                            }        
+                        });   
+                    }
+                    //fim consulta comentarios
+                    getComentarios();
+                }, 60000)
+                // FIM LOAD COMENTARIOS
+                 
         }); // fim .done
                   
     }
@@ -296,19 +393,67 @@
 
     getPublicacao();
 
-
-
-
-
-    //recarrega a função pra exibir dados atualizados 
-    //setInterval("getPublicacao()", 60000);
-    //Quando carregar a página
-    //$(function() {
-        //Faz a primeira atualização
-       // getPublicacao();
-    //});
-
     
+
+    //PARA EXIBIR OS COMENTÁRIOS NA LATERAL
+    $(document).ready(function(){
+        load_data();
+            
+        function load_data(query)
+        {
+            $.ajax({
+                url:"/FORUM_CODEIGNITER/public/Feed/fetch_comentarios",
+                method:"POST",
+                data:{query:query},
+                success:function(data){
+                    $('#result').html(data);
+                }
+            })
+        }
+
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+                load_data(search);
+            }
+            else
+            {
+                load_data();
+                
+            }
+        });
+
+        setInterval(function load_data() {
+        
+            load_data();
+            
+            function load_data(query)
+            {
+                $.ajax({
+                    url:"/FORUM_CODEIGNITER/public/Feed/fetch_comentarios",
+                    method:"POST",
+                    data:{query:query},
+                    success:function(data){
+                        $('#result').html(data);
+                    }
+                })
+            }
+
+            $('#search_text').keyup(function(){
+                var search = $(this).val();
+                if(search != '')
+                {
+                    load_data(search);
+                }
+                else
+                {
+                    load_data();
+                    
+                }
+            });
+        }, 60000)
+    });
     
 
     </script>

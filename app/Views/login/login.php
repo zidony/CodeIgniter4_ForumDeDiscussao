@@ -50,7 +50,7 @@
                 </form>
             </div>
 
-            <p class="text-center relative-bottom py-4 copy">@2021 ETEC SÃO ROQUE - TODOS OS DIRETOS RESERVADOS</p>
+            
         </div>
     </div>
 <!-- </div> -->
