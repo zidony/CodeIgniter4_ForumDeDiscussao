@@ -29,7 +29,7 @@ class Home extends BaseController
 
 	//=====================================================================
 
-    //consulta sql para trazer a lista das categorias
+    //consulta sql para trazer a lista das publicações recentes
     public function fetch_data_publicacoes($query)
 	{
         $db      = \Config\Database::connect();

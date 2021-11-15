@@ -192,3 +192,37 @@
 .break-content {
     word-break: break-all;
 }
+
+
+/* edições */
+
+.button-editar-publi {
+    width: 100%;
+    background: #3d4a52;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 5px 0 10px 0;
+    padding: 8px;
+    transition: background-color 1.5s;
+}
+
+.button-editar-publi:hover {
+    color: #fff;
+    background: #2c3338;
+}
+
+.button-close-modal {
+    background: #3d4a52;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 5px 0 10px 0;
+    padding: 8px;
+    transition: background-color 1.5s;
+}
+
+.button-close-modal:hover {
+    color: #fff;
+    background: #2c3338;
+}

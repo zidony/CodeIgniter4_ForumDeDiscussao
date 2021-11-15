@@ -343,7 +343,7 @@ class Feed extends BaseController
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('publicacao');
-        $builder->select('publicacao.ID,
+        $builder->select('publicacao.ID as IDPublicacao,
                             conteudopublicacao.ID as IDConteudo,
                             imagemPublicacao.ID as IDImagem,
                             usuario.Nome,
@@ -367,14 +367,9 @@ class Feed extends BaseController
         $builder->where('publicacao.Ativo', 1);
         $query = $builder->get()->getResult();
 
-        $data['publicacao'] = $query;
-
-        // echo '<pre>';
-        // var_dump($builder->getCompiledSelect());
-        // var_dump($builder->get()->getResult());
-
-        return view('includes/head') .
-                view('curso/editar-publicacao', $data);
+        if ($query == true) {
+            echo json_encode($query);
+        }
     }
 
     
@@ -396,7 +391,7 @@ class Feed extends BaseController
             'Conteudo' => $this->conteudo
         ];
 
-        $query = $dbConteudoPublicacao->save($data);       
+        $query = $dbConteudoPublicacao->save($data);  
 
         return redirect()->back();
         
@@ -431,9 +426,12 @@ class Feed extends BaseController
         ];
 
         $query = $dbImagemPublicacao->save($data);
-        
 
         return redirect()->back(); 
+
+        // if ($query == true) {
+        //     echo json_encode($query);
+        // }
     }
 
     public function excluirPublicacaoSelecionada($idpublicacao)
@@ -476,7 +474,10 @@ class Feed extends BaseController
         // var_dump($builder->get()->getResult());
 
         return view('includes/head') .
-                view('curso/editar-comentario', $data);
+                view('titles/title-editar-comentario') .
+                view('includes/nav') .
+                view('curso/editar-comentario', $data) .
+                view('includes/footer');
     }
 
 

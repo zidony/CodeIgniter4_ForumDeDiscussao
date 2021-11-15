@@ -29,11 +29,54 @@
 <!-- fim container -->
 <br><br><br><br><br><br>
 
+<!-- Button trigger modal -->
+
+<!-- ==================================================================================================== -->
+<!-- MODAL EDITAR PUBLICAÇÃO -->
+<div class="modal fade" id="ModalEditarPublicacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar publicação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="formPublicacaoEditar">
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-close-modal" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================================================== -->
+<!-- MODAL EDITAR IMAGEM PUBLICAÇÃO -->
+<div class="modal fade" id="ModalEditarImagemPublicacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar imagem publicação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="formPublicacaoEditarImagem">
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-close-modal" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================================================== -->
 
 
 
-	<script>
-
+<script>
+    //====================================================================================================
     //exibe o conteúdo da publicação selecionada
     function getPublicacao() {
         $.ajax({
@@ -41,6 +84,7 @@
             method: 'POST',
             dataType: 'json'
         }).done(function(result){
+            console.log('Publicação selecionada:');
             console.log(result);
 
             var box_comm = document.querySelector('.box_publicacao');
@@ -122,8 +166,10 @@
                             '<i class="bi bi-three-dots-vertical"></i>' +
                         '</a>' +
                         '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Editar Publicação</a></li>' +
-                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                            //'<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Editar Publicação</a></li>' +
+                            '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarPublicacao" href="">Editar Publicação</a></li>' +
+                            '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarImagemPublicacao" href="">Editar Imagem Publicação</a></li>' +
+                            '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
                         '</ul>' +
                     '</li>';
                     
@@ -286,18 +332,14 @@
                                             '</div>' +
                                         '</div>' +
                                     '</div><hr>' +
-                                '</div>');
-                                
-                        }
-                                
-                    });
-                    
+                                '</div>');   
+                        }          
+                    }); 
                 }
                 //fim consulta comentarios
-
                 getComentarios();
-
                 //REALIZA O LOAD PARA ATUALIZAR OS DADOS
+                //====================================================================================================
                 setInterval(function load_data() {
                     //faz consulta e trás os comentários
                     function getComentarios() {
@@ -384,21 +426,15 @@
                     //fim consulta comentarios
                     getComentarios();
                 }, 60000)
-                // FIM LOAD COMENTARIOS
-                 
-        }); // fim .done
-                  
+                // FIM LOAD COMENTARIOS   
+        }); // fim .done       
     }
     //fim função getPublicacao
-
     getPublicacao();
-
-    
-
+    //====================================================================================================
     //PARA EXIBIR OS COMENTÁRIOS NA LATERAL
     $(document).ready(function(){
-        load_data();
-            
+        load_data();  
         function load_data(query)
         {
             $.ajax({
@@ -414,20 +450,12 @@
         $('#search_text').keyup(function(){
             var search = $(this).val();
             if(search != '')
-            {
-                load_data(search);
-            }
-            else
-            {
-                load_data();
-                
-            }
+            {load_data(search);}
+            else{ load_data();}
         });
 
         setInterval(function load_data() {
-        
             load_data();
-            
             function load_data(query)
             {
                 $.ajax({
@@ -439,22 +467,83 @@
                     }
                 })
             }
-
             $('#search_text').keyup(function(){
                 var search = $(this).val();
                 if(search != '')
-                {
-                    load_data(search);
-                }
-                else
-                {
-                    load_data();
-                    
-                }
+                {load_data(search);}
+                else{load_data();}
             });
         }, 60000)
     });
-    
 
-    </script>
+
+    //====================================================================================================
+    //ALTERAR PUBLICAÇÃO
+    function EditarPublicacao() {
+        $.ajax({
+            url: '/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/<?php echo $ids[0]; ?>',
+            method: 'POST',
+            dataType: 'json'
+        }).done(function(teste){
+            console.log(teste)
+            var box_comm = document.querySelector('.formPublicacaoEditar');
+                while(box_comm.firstChild){
+                    box_comm.firstChild.remove();
+                }
+            for (var i = 0; i < teste.length; i++) {      
+                $('.formPublicacaoEditar').prepend(
+                    '<form id="EditandoPublicacao" method="post">' +
+                        '<input type="hidden" name="idpublicacao" value="'+ teste[i].IDPublicacao +'" class="form-control"><br>' +
+                        '<input type="hidden" name="idconteudo" value="'+ teste[i].IDConteudo +'" class="form-control"><br>' +
+                        '<label>Título da publicação</label>' +
+                        '<input type="text" name="titulo" value="'+ teste[i].Titulo +'" class="form-control" required><br>' +
+                        '<label>Conteúdo da publicação</label>' +
+                        '<textarea name="conteudo" rows="3" class="form-control" required>'+ teste[i].Conteudo +'</textarea>' +
+                        '<div class="text-center">' +
+                            '<input type="submit" form="EditandoPublicacao" value="Alterar dados" class="button-editar-publi">' +
+                        '</div>' +
+                    '</form>'
+                ); 
+            } 
+            //recebe dados do formulário da publicação
+            $("#EditandoPublicacao").submit(function(e) {
+                e.preventDefault();    
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/FORUM_CODEIGNITER/public/Feed/editarPublicacao',
+                    type: 'POST',
+                    data: formData,
+                    // success: function (data) {
+                    //     alert('Publicação postada com sucesso')
+                    // },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                    
+                }).done(function(){
+                        alert('Publicação alterada com sucesso!')
+                        $('#titulo').val('');
+                        $('#conteudo').val('');
+                        $('#idpublicacao');
+                        $('#idconteudo');
+                        $('.modal').modal('hide');
+                        getPublicacao();
+                    }).fail(function(){
+                        alert('Falha ao alterar dados!')
+                        $('.modal').modal('hide');
+                    });
+            });
+        }); // fim .done
+                
+    }
+
+    //teste modal
+    $('#ModalEditarPublicacao').on('show.bs.modal', function (e) {
+        EditarPublicacao();
+        console.log('Modal Editar Publicacao:');
+    });
+    //====================================================================================================
+    
+</script>
     

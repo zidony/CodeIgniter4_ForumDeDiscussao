@@ -19,6 +19,7 @@
 .navegacao {
     padding: 5px 25px;
     background: #fff;
+    border-bottom: 1px dotted #4b5b64;
 }
 
 .logo {

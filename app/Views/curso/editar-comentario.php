@@ -23,37 +23,35 @@
     ];
 
    
-    echo '<h2>Alterar conteúdo da publicação</h2>';
+    echo '<br><br><h2>Alterar conteúdo do comentário selecionado</h2>';
     helper('form');
     echo form_open_multipart('Feed/editarComentario');
 
         echo form_input('idcomentario', $comentarioSelecionado[0]['IDConteudoComentario'], 'class="d-none"');
 
-        echo form_label('Conteúdo');
+        echo form_label('Conteúdo do comentário');
         echo '<br>';
         echo form_textarea('conteudo', $comentarioSelecionado[0]['Conteudo'], $inputConteudo,);
         echo '<br><br>';
 
         echo '<div class="text-center">';
-        echo form_submit('mysubmit', 'Editar comentário', 'class="button-submit py-3 my-3"');
-        echo '</div>';
+        echo form_submit('mysubmit', 'Editar comentário', 'class="button-submit"');
+        echo '</div><br>';
     echo form_close();
 
-    echo '<h2>Alterar imagem da publicação</h2>';
+    echo '<hr><h2>Alterar imagem do comentário</h2>';
     helper('form');
     echo form_open_multipart('Feed/editarImagemComentario');
 
         echo form_input('idcomentario', $comentarioSelecionado[0]['ID'], 'class="d-none"');
         echo form_input('idimagem', $comentarioSelecionado[0]['IDImagem'], 'class="d-none"');
         
-        echo form_label('Imagem');
-        echo '<br>';
         echo form_upload('img[]', $comentarioSelecionado[0]['Imagem'], $inputImg);
         echo '<br><br>';
 
         echo '<div class="text-center">';
-        echo form_submit('mysubmit', 'Alterar imagem', 'class="button-submit py-3 my-3"');
-        echo '</div>';
+        echo form_submit('mysubmit', 'Alterar imagem do comentário', 'class="button-submit"');
+        echo '</div><br><br><br><br><br><br><br><br>';
     echo form_close();
 
     
