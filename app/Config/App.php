@@ -24,6 +24,7 @@ class App extends BaseConfig
 	 * @var string
 	 */
 	public $baseURL = 'http://localhost/FORUM_CODEIGNITER/public/';
+	// public $baseURL = 'http://192.168.1.30/FORUM_CODEIGNITER/public/';
 
 	/**
 	 * --------------------------------------------------------------------------

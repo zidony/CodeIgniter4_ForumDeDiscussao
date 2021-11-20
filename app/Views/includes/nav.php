@@ -1,12 +1,9 @@
 <header>
     <div class="topo-contato">
-        <div class="">
             <a href="" title="twitter"><i class="bi bi-twitter icones-topo"></i></a>
             <a href="" title="instagram"><i class="bi bi-instagram icones-topo"></i></a>
             <a href="" title="facebook"><i class="bi bi-facebook icones-topo"></i></a>
             <a href="" title="whatsapp"><i class="bi bi-whatsapp icones-topo"></i></a>
-        </div>
-
     </div>
     <nav class="navbar navbar-expand-lg navbar-light navegacao">
         <div class="container-fluid">

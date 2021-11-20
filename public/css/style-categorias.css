@@ -2,7 +2,9 @@
     /* box-shadow: 1px 1px 5px 1px #4b5b6488; */
     /* border-right: 1px solid #4b5b6488; */
     padding: 40px;
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
     background: #fff;
+    border-radius: 5px;
 }
 
 .box-categorias h2 {
@@ -15,17 +17,25 @@
     background: #fff;
 }
 
+.cards-categoria-publi {
+    /* box-shadow: 1px 1px 5px 1px #4b5b6488; */
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
+    background: #fff;
+    border-radius: 5px;
+}
+
 .box-img-categoria img {
     width: 175px !important;
     height: 175px;
 }
 
-.cards-categoria h3 {
+
+/* .cards-categoria h3 {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     color: #4b5b64;
-}
+} */
 
 .box-content-categoria p {
     color: #4b5b64;
@@ -54,8 +64,7 @@
 /* referências */
 
 .box-referencias {
-    padding: 0 40px;
-    border-left: 1px solid #4b5b6488;
+    padding: 0 10px;
 }
 
 
@@ -102,6 +111,28 @@
     .box-content-categoria .btn-categoria {
         display: block;
     }
+    /* para a tela de publicações */
+    .box-content-categoria-publi {
+        padding: 0 30px 10px 30px;
+        text-align: center;
+    }
+    .box-content-categoria-publi p {
+        margin-bottom: 20px;
+    }
+    .box-img-categoria-publi {
+        text-align: center;
+    }
+    .box-img-categoria-publi img {
+        width: 200px !important;
+        height: 200px;
+        border-radius: 100%;
+        padding: 5px;
+    }
+    .cards-categoria h3 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #4b5b64;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -111,6 +142,28 @@
     .box-img-categoria img {
         width: 100% !important;
         height: 100%;
+    }
+    /* para a tela de publicações */
+    .box-content-categoria-publi {
+        padding: 0 30px 10px 30px;
+        text-align: center;
+    }
+    .box-content-categoria-publi p {
+        margin-bottom: 20px;
+    }
+    .box-img-categoria-publi {
+        text-align: center;
+    }
+    .box-img-categoria-publi img {
+        width: 200px !important;
+        height: 200px;
+        border-radius: 100%;
+        padding: 5px;
+    }
+    .cards-categoria h3 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #4b5b64;
     }
 }
 
@@ -124,6 +177,28 @@
     .box-img-categoria img {
         width: 100% !important;
         height: 100%;
+    }
+    /* para a tela de publicações */
+    .box-content-categoria-publi {
+        padding: 0 30px 10px 30px;
+        text-align: center;
+    }
+    .box-content-categoria-publi p {
+        margin-bottom: 20px;
+    }
+    .box-img-categoria-publi {
+        text-align: center;
+    }
+    .box-img-categoria-publi img {
+        width: 200px !important;
+        height: 200px;
+        border-radius: 100%;
+        padding: 5px;
+    }
+    .cards-categoria h3 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #4b5b64;
     }
 }
 

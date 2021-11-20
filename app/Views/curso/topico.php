@@ -1,22 +1,20 @@
 <div class="container">
     <br><br>
-    <h2>Tópico selecionado</h2>
     <div class="row">
         <div class="col-md-7">
-            <div class="">
+            <div class="mt-3">
                 <div class="box_publicacao"></div>
             </div>
         </div>
         <!-- fim col -->
         <div class="col-md-5">
-            <div class="form-group">
+            <div class="form-group box-shadow mt-3">
                 <h2 class="text-center">Publicações recentes</h2>
                 <div class="input-group">
-                    <input type="text" name="search_text" id="search_text" placeholder="Pesquise..." class="form-control" />
+                    <input type="text" name="search_text" id="search_text" placeholder="Pesquise por Título, Conteúdo... " class="form-control" />
                 </div>
             </div>
-            <br />
-            <div id="result">
+            <div id="result" class="mt-2">
 
             </div>
         
@@ -62,6 +60,47 @@
       </div>
       <div class="modal-body">
           <div class="formPublicacaoEditarImagem">
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-close-modal" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================================================== -->
+<!-- ==================================================================================================== -->
+<!-- MODAL EDITAR COMENTARIO -->
+<div class="modal fade" id="ModalEditarComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar comentário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="formComentarioEditar">
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-close-modal" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================================================== -->
+<!-- MODAL EDITAR IMAGEM COMENTARIO -->
+<div class="modal fade" id="ModalEditarImagemComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar imagem comentário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="formComentarioEditarImagem">
               
           </div>
       </div>
@@ -147,7 +186,7 @@
                                         '<i class="bi bi-three-dots-vertical"></i>' +
                                     '</a>' +
                                     '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                        '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                                        '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
                                     '</ul>' +
                                 '</li>';
                         } else {
@@ -180,6 +219,7 @@
                 //conteúdo das publicações
                 $('.box_publicacao').prepend(
                     '<div class="">' +
+                        '<h2 class="box-shadow">Tópico selecionado <i class="bi bi-card-text" style="font-size: 20px"></i></h2>' +
                         '<div class="box-publicacao mt-3">' +
                             '<div class="row">' +
                                 '<div class="col-md-12">' +
@@ -280,7 +320,7 @@
                                                     '<i class="bi bi-three-dots-vertical"></i>' +
                                                 '</a>' +
                                                 '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                                    '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Comentário</a></li>' +
+                                                    '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Comentário</a></li>' +
                                                 '</ul>' +
                                             '</li>';
                                     } else {
@@ -299,8 +339,10 @@
                                         '<i class="bi bi-three-dots-vertical"></i>' +
                                     '</a>' +
                                     '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                        '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Editar Comentário</a></li>' +
-                                        '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Comentário</a></li>' +
+                                    '<input type="hidden" name="idcomentario" id="idcomentario" value="'+ resultComentarios[i].IDCOMENTARIO +'">' +
+                                    '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarComentario" href="">Editar Comentário</a></li>' +
+                                    '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarImagemComentario" href="">Editar Imagem Comentário</a></li>' +
+                                    '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Publicação</a></li>' +
                                     '</ul>' +
                                 '</li>';
                                 
@@ -388,8 +430,10 @@
                                             '<i class="bi bi-three-dots-vertical"></i>' +
                                         '</a>' +
                                         '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Editar Comentário</a></li>' +
-                                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Comentário</a></li>' +
+                                        '<input type="hidden" name="idcomentario" id="idcomentario" value="'+ resultComentarios[i].IDCOMENTARIO +'">' +
+                                        '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarComentario" href="">Editar Comentário</a></li>' +
+                                        '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarImagemComentario" href="">Editar Imagem Comentário</a></li>' +
+                                        '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirComentarioSelecionado/'+ resultComentarios[i].IDCOMENTARIO +'">Excluir Publicação</a></li>' +
                                         '</ul>' +
                                     '</li>'; 
                                 } else {
@@ -484,21 +528,21 @@
             url: '/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/<?php echo $ids[0]; ?>',
             method: 'POST',
             dataType: 'json'
-        }).done(function(teste){
-            console.log(teste)
+        }).done(function(edicaoPublicacao){
+            console.log(edicaoPublicacao)
             var box_comm = document.querySelector('.formPublicacaoEditar');
                 while(box_comm.firstChild){
                     box_comm.firstChild.remove();
                 }
-            for (var i = 0; i < teste.length; i++) {      
+            for (var i = 0; i < edicaoPublicacao.length; i++) {      
                 $('.formPublicacaoEditar').prepend(
                     '<form id="EditandoPublicacao" method="post">' +
-                        '<input type="hidden" name="idpublicacao" value="'+ teste[i].IDPublicacao +'" class="form-control"><br>' +
-                        '<input type="hidden" name="idconteudo" value="'+ teste[i].IDConteudo +'" class="form-control"><br>' +
+                        '<input type="hidden" name="idpublicacao" value="'+ edicaoPublicacao[i].IDPublicacao +'" class="form-control"><br>' +
+                        '<input type="hidden" name="idconteudo" value="'+ edicaoPublicacao[i].IDConteudo +'" class="form-control"><br>' +
                         '<label>Título da publicação</label>' +
-                        '<input type="text" name="titulo" value="'+ teste[i].Titulo +'" class="form-control" required><br>' +
+                        '<input type="text" name="titulo" value="'+ edicaoPublicacao[i].Titulo +'" class="form-control" required><br>' +
                         '<label>Conteúdo da publicação</label>' +
-                        '<textarea name="conteudo" rows="3" class="form-control" required>'+ teste[i].Conteudo +'</textarea>' +
+                        '<textarea name="conteudo" rows="3" class="form-control" required>'+ edicaoPublicacao[i].Conteudo +'</textarea>' +
                         '<div class="text-center">' +
                             '<input type="submit" form="EditandoPublicacao" value="Alterar dados" class="button-editar-publi">' +
                         '</div>' +
@@ -542,6 +586,193 @@
     $('#ModalEditarPublicacao').on('show.bs.modal', function (e) {
         EditarPublicacao();
         console.log('Modal Editar Publicacao:');
+    });
+
+     //====================================================================================================
+    //ALTERAR IMAGEM PUBLICAÇÃO
+    function EditarImagemPublicacao() {
+        $.ajax({
+            url: '/FORUM_CODEIGNITER/public/Feed/editarImagemPublicacaoSelecionada/<?php echo $ids[0]; ?>',
+            method: 'POST',
+            dataType: 'json'
+        }).done(function(teste){
+            console.log(teste)
+            var box_comm = document.querySelector('.formPublicacaoEditarImagem');
+                while(box_comm.firstChild){
+                    box_comm.firstChild.remove();
+                }
+            for (var i = 0; i < teste.length; i++) {      
+                $('.formPublicacaoEditarImagem').prepend(
+                    '<form id="EditandoImagemPublicacao" method="post" enctype="multipart/form-data">' +
+                        '<input type="hidden" name="idpublicacao" id="idpublicacao" value="'+ teste[i].IDPublicacao +'" class="form-control"><br>' +
+                        '<input type="hidden" name="idimagem" id="idimagem" value="'+ teste[i].IDImagem +'" class="form-control"><br>' +
+                        '<label>Alterar imagem</label>' +
+                        '<input type="file" name="img[]" id="img" value="'+ teste[i].Imagem +'" class="form-control"><br>' +
+                        '<div class="text-center">' +
+                            '<input type="submit" form="EditandoImagemPublicacao" value="Alterar dados" class="button-editar-publi">' +
+                        '</div>' +
+                    '</form>'
+                ); 
+            } 
+            //recebe dados do formulário da publicação
+            $("#EditandoImagemPublicacao").submit(function(e) {
+                e.preventDefault();    
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/FORUM_CODEIGNITER/public/Feed/editarImagemPublicacao',
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                    
+                }).done(function(){
+                        alert('Imagem da publicação alterada com sucesso!')
+                        $('#img').val('');
+                        $('#idpublicacao');
+                        $('#idimagem');
+                        $('.modal').modal('hide');
+                        getPublicacao();
+                    }).fail(function(){
+                        alert('Falha ao alterar imagem!')
+                        $('.modal').modal('hide');
+                    });
+            });
+        }); // fim .done
+                
+    }
+
+    //teste modal
+    $('#ModalEditarImagemPublicacao').on('show.bs.modal', function (e) {
+        EditarImagemPublicacao();
+        console.log('Modal Editar Imagem Publicacao:');
+    });
+    //====================================================================================================
+
+    //====================================================================================================
+    //ALTERAR COMENTARIO
+    
+    function EditarComentario(idcomentario) {
+        $.ajax({
+            url: '/FORUM_CODEIGNITER/public/Feed/editarComentarioSelecionada/'+ idcomentario,
+            method: 'POST',
+            dataType: 'json'
+        }).done(function(edicaoComentario){
+            console.log(edicaoComentario)
+            var box_comm = document.querySelector('.formComentarioEditar');
+                while(box_comm.firstChild){
+                    box_comm.firstChild.remove();
+                }
+            for (var i = 0; i < edicaoComentario.length; i++) {      
+                $('.formComentarioEditar').prepend(
+                    '<form id="EditandoComentario" method="post">' +
+                        '<input type="hidden" name="idconteudo" id="idconteudo" value="'+ edicaoComentario[i].IDConteudoComentario +'" class="form-control"><br>' +
+                        '<label>Título do comentário</label>' +
+                        '<label>Conteúdo do comentário</label>' +
+                        '<textarea name="conteudo" id="conteudo" rows="3" class="form-control" required>'+ edicaoComentario[i].Conteudo +'</textarea>' +
+                        '<div class="text-center">' +
+                            '<input type="submit" form="EditandoComentario" value="Alterar dados" class="button-editar-publi">' +
+                        '</div>' +
+                    '</form>'
+                ); 
+            } 
+            //recebe dados do formulário da publicação
+            $("#EditandoComentario").submit(function(e) {
+                e.preventDefault();    
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/FORUM_CODEIGNITER/public/Feed/editarComentario',
+                    type: 'POST',
+                    data: formData,
+                    // success: function (data) {
+                    //     alert('Publicação postada com sucesso')
+                    // },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                    
+                }).done(function(){
+                        alert('Comentário alterado com sucesso!')
+                        $('#conteudo').val('');
+                        $('#idconteudo');
+                        $('.modal').modal('hide');
+                        getPublicacao();
+                    }).fail(function(){
+                        alert('Falha ao alterar dados!')
+                        $('.modal').modal('hide');
+                    });
+            });
+        }); // fim .done
+                
+    }
+
+    //teste modal
+    $('#ModalEditarComentario').on('show.bs.modal', function (e) {
+        idcomentario = $('#idcomentario').val();
+        EditarComentario(idcomentario);
+        console.log('Modal Editar Comentário:');
+    });
+
+     //====================================================================================================
+    //ALTERAR IMAGEM PUBLICAÇÃO
+    function EditarImagemComentario(idcomentario) {
+        $.ajax({
+            url: '/FORUM_CODEIGNITER/public/Feed/editarComentarioSelecionada/'+ idcomentario,
+            method: 'POST',
+            dataType: 'json'
+        }).done(function(editandoImagem){
+            console.log(editandoImagem)
+            var box_comm = document.querySelector('.formComentarioEditarImagem');
+                while(box_comm.firstChild){
+                    box_comm.firstChild.remove();
+                }
+            for (var i = 0; i < editandoImagem.length; i++) {      
+                $('.formComentarioEditarImagem').prepend(
+                    '<form id="EditandoImagemComentario" method="post" enctype="multipart/form-data">' +
+                        '<input type="hidden" name="idimagem" id="idimagem" value="'+ editandoImagem[i].IDImagem +'" class="form-control"><br>' +
+                        '<label>Alterar imagem</label>' +
+                        '<input type="file" name="img[]" id="img" value="'+ editandoImagem[i].Imagem +'" class="form-control"><br>' +
+                        '<div class="text-center">' +
+                            '<input type="submit" form="EditandoImagemComentario" value="Alterar dados" class="button-editar-publi">' +
+                        '</div>' +
+                    '</form>'
+                ); 
+            } 
+            //recebe dados do formulário da publicação
+            $("#EditandoImagemComentario").submit(function(e) {
+                e.preventDefault();    
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/FORUM_CODEIGNITER/public/Feed/editarImagemComentario',
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                    
+                }).done(function(){
+                        alert('Imagem do comentário alterada com sucesso!')
+                        $('#img').val('');
+                        $('#idimagem');
+                        $('.modal').modal('hide');
+                        getPublicacao();
+                    }).fail(function(){
+                        alert('Falha ao alterar imagem!')
+                        $('.modal').modal('hide');
+                    });
+            });
+        }); // fim .done
+                
+    }
+
+    //teste modal
+    $('#ModalEditarImagemComentario').on('show.bs.modal', function (e) {
+        idcomentario = $('#idcomentario').val();
+        EditarImagemComentario(idcomentario);
+        console.log('Modal Editar Imagem Comentario:');
     });
     //====================================================================================================
     

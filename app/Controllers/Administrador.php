@@ -54,7 +54,7 @@ class Administrador extends BaseController
 		$data = $this->fetch_data($query);
 		$output .= '
 		<div class="table-responsive">
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped table-light">
 						<tr>
 							<th>NOME</th>
                             <th>SOBRENOME</th>
@@ -270,7 +270,7 @@ class Administrador extends BaseController
 		$data = $this->fetch_data_categoria($query);
 		$output .= '
 		<div class="table-responsive">
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped table-light">
 						<tr>
 							<th>TÍTULO</th>
                             <th>LINK AMIGÁVEL</th>
@@ -409,7 +409,7 @@ class Administrador extends BaseController
          $data = $this->fetch_data_rm($query);
          $output .= '
          <div class="table-responsive">
-                     <table class="table table-bordered table-striped">
+                     <table class="table table-bordered table-striped table-light">
                          <tr>
                             <th>NOME</th>
                             <th>RM</th>

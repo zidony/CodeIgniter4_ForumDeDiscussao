@@ -4,13 +4,13 @@
     height: 35px;
     display: flex;
     justify-content: right;
-    padding: 5px 10px
+    padding: 5px 10px;
 }
 
 .icones-topo {
     font-size: 18px;
     margin: 0 5px;
-    padding: 0 5px;
+    padding: 20px;
     background: #fff;
     border-radius: 5px;
     color: #137eba
@@ -19,7 +19,6 @@
 .navegacao {
     padding: 5px 25px;
     background: #fff;
-    border-bottom: 1px dotted #4b5b64;
 }
 
 .logo {
@@ -34,6 +33,7 @@
 .icon-home {
     font-size: 25px;
     color: #137eba;
+    transition: font-size 1s;
 }
 
 .icon-home:hover {

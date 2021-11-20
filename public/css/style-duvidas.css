@@ -5,18 +5,17 @@
 }
 
 .cards-forum {
-    background: unset;
+    background: #fff;
     padding: 10px 40px;
     margin: 20px 40px;
-    border: 1px dotted #137dba7c;
     border-radius: 5px;
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
     transition: box-shadow 1.5s, background-color 1.5s, border 1s;
 }
 
 .cards-forum:hover {
     box-shadow: 1px 1px 20px 1px #137dba7c;
     background: #fff;
-    border: 1px dotted transparent;
 }
 
 .cards-forum h3 {

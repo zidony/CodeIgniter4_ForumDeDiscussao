@@ -12,9 +12,6 @@
         <div class="row">
             <div class="col-md-12 col-lg-12 col-xl-8">
                 <div class="box-categorias">
-                    <h2 id="pesquise">Pesquiser ou filtre pelo nome do curso</h2>
-                    <input type="text" class="form-control">
-                    <br><br>
                     <h2>Acesse agora as discussões de um ou mais cursos.</h2>
                     <!-- instancia as categorias -->
                     <?php

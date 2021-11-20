@@ -224,7 +224,7 @@ class Usuario extends BaseController
             foreach ($imageuser as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $Name = $img->getRandomName();
-                    $img->move(WRITEPATH . '/FORUM_CODEIGNITER/assets/img/usuarios/', $Name);
+                    $img->move(WRITEPATH . '../assets/img/usuarios/', $Name);
                 }
             }
 
@@ -234,6 +234,8 @@ class Usuario extends BaseController
             ];
 
             $query = $db->save($data);
+
+            // session()->set()->img = $Name;
         }
         return redirect()->to('Usuario/perfil/'.$this->id);
     }

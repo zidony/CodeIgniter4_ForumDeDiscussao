@@ -100,7 +100,7 @@ class Home extends BaseController
 								<div class="box-content-publicacao-home">
 									<h5 title="'. $row->Titulo .'">'. $row->Titulo .'</h5>
 									<p title="'. $row->Conteudo .'">'. $row->Conteudo .'</p>
-									<a href="Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar publicação<br><i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
+									<a href="Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar <i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
 									<p class="data-publicacao">Categoria: '. $row->linkAmigavel .'</p>
 								</div>
 							</div>

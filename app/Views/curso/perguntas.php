@@ -1,9 +1,7 @@
 <div class="container">
     <br><br>
-    <h2>Faça uma pergunta</h2>
-
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-12 col-lg-12 col-xl-7">
             <div class="">
                 <?php 
                 if (!session()->has('id')) { 
@@ -11,30 +9,33 @@
                             Faça login para fazer uma publicação
                         </a>';
                 } else { 
+                    echo '<div class="box-shadow mt-3">';
+                    echo '<h2>Faça uma pergunta <i class="bi bi-question-lg" style="font-sze: 20px"></i></h2>';
                     helper('form');
                     echo form_open_multipart('', 'id="publicacao"');
                         echo form_label('Título');
                         echo '<br>';
-                        echo form_input('titulo','', 'id="titulo" required class="form-control"');
-                        echo '<br><br>';
+                        echo form_input('titulo','', 'id="titulo" placeholder="Tente: Me ajude nessa matéria!" required class="form-control"');
+                        echo '<br>';
                         
                         echo form_label('Conteúdo');
                         echo '<br>';
-                        echo form_textarea('conteudo','',  'id="conteudo" required rows="2" class="form-control"');
-                        echo '<br><br>';
+                        echo form_textarea('conteudo','',  'id="conteudo" placeholder="Tente: Preciso de ajuda com esse conteúdo..." required rows="2" class="form-control"');
+                        echo '<br>';
 
                         echo form_label('Imagem');
                         echo '<br>';
                         echo form_upload('img', '', 'id="img" class="form-control"');
-                        echo '<br><br>';
+                        echo '<br>';
 
                         echo form_input('categoria', ''. $idCategoria .'', 'class="d-none" id="categoria" class="form-control"');
 
                         echo '<div class="text-center">';
-                        echo form_submit('submit', 'Publicar', 'class="btn-publicar"');
+                        echo form_submit('submit', 'Publicar', 'class="btn-publicar" title="Clique aqui para publicar"');
                         echo '</div>';
                         echo '<br><br>';
-                    echo form_close();  
+                    echo form_close(); 
+                    echo '</div>'; 
 
                 } //fechamento else
                 ?>
@@ -43,9 +44,36 @@
             </div>
         </div>
         <!-- fim col -->
-        <div class="col-md-5">
+        <div class="col-md-12 col-lg-12 col-xl-5">
             <div>
-                <h2>Em breve...</h2>
+                <h2 class="text-center box-shadow mt-3">Navegue por Categorias</h2>
+                <?php
+                    use App\Controllers\Home;
+                    $objHome = new Home();
+                    $objHome->consulta_categoria();
+                    $data = $objHome->consulta_categoria();
+                    foreach ($data as $key => $value) {
+                        if ($data[$key]['Ativo'] == 1)
+                        { ?>
+                            <div class="my-3 cards-categoria-publi">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-xl-12 box-img-categoria-publi">
+                                        <img src="/FORUM_CODEIGNITER/assets/img/categorias/<?php echo $data[$key]['Imagem']; ?>">
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-xl-12 box-content-categoria-publi">
+                                        <h3 title="<?php echo $data[$key]['Titulo']; ?>" class="pt-3"><?php echo $data[$key]['Titulo']; ?></h3>
+                                        <hr class="linha-categorias">
+                                        <p><?php echo $data[$key]['Conteudo']; ?></p>
+                                        <a href="feed/publicacoes/<?php echo $data[$key]['LinkAmigavel'] ?>/<?php echo $data[$key]['ID'] ?>" class="btn-categoria">Acessar</a><br><br><br>
+                                    </div>
+                                </div>
+                                <!-- fim row -->
+                            </div>
+                    <?php 
+                            } 
+                        }
+                    ?>
             </div>   
         </div>
         <!-- fim col -->
@@ -54,6 +82,51 @@
 </div>
 <!-- fim container -->
 <br><br><br><br><br><br>
+
+
+<!-- Button trigger modal -->
+
+<!-- ==================================================================================================== -->
+<!-- MODAL EDITAR PUBLICAÇÃO -->
+<div class="modal fade" id="ModalEditarPublicacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar publicação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="formPublicacaoEditar">
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-close-modal" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================================================== -->
+<!-- MODAL EDITAR IMAGEM PUBLICAÇÃO -->
+<div class="modal fade" id="ModalEditarImagemPublicacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar imagem publicação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="formPublicacaoEditarImagem">
+              
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-close-modal" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================================================== -->
 
 
 
@@ -127,7 +200,7 @@
                                         '<i class="bi bi-three-dots-vertical"></i>' +
                                     '</a>' +
                                     '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                        '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                                        '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
                                     '</ul>' +
                                 '</li>';
                         } else {
@@ -146,8 +219,10 @@
                             '<i class="bi bi-three-dots-vertical"></i>' +
                         '</a>' +
                         '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Editar Publicação</a></li>' +
-                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                            '<input type="hidden" name="idpublicacao" id="idpublicacao" value="'+ result[i].IDPublicacao +'">' +
+                            '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarPublicacao" href="">Editar Publicação</a></li>' +
+                            '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarImagemPublicacao" href="">Editar Imagem Publicação</a></li>' +
+                            '<li><a class="dropdown-item"  style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
                         '</ul>' +
                     '</li>';
                     
@@ -242,7 +317,7 @@
                                             '<i class="bi bi-three-dots-vertical"></i>' +
                                         '</a>' +
                                         '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                            '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                                            '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
                                         '</ul>' +
                                     '</li>';
                             } else {
@@ -261,8 +336,10 @@
                                 '<i class="bi bi-three-dots-vertical"></i>' +
                             '</a>' +
                             '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">' +
-                                '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Editar Publicação</a></li>' +
-                                '<li><a class="dropdown-item" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
+                                '<input type="hidden" name="idpublicacao" id="idpublicacao" value="'+ result[i].IDPublicacao +'">' +
+                                '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarPublicacao" href="">Editar Publicação</a></li>' +
+                                '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalEditarImagemPublicacao" href="">Editar Imagem Publicação</a></li>' +
+                                '<li><a class="dropdown-item" style="color: #bb262e;" href="/FORUM_CODEIGNITER/public/Feed/excluirPublicacaoSelecionada/'+ result[i].IDPublicacao +'">Excluir Publicação</a></li>' +
                             '</ul>' +
                         '</li>';
                         
@@ -313,5 +390,183 @@
         //fim função getPublicacao
         getPublicacao();
     }, 60000)
+    
+    //====================================================================================================
+    //PARA EXIBIR OS COMENTÁRIOS NA LATERAL
+    $(document).ready(function(){
+        load_data();  
+        function load_data(query)
+        {
+            $.ajax({
+                url:"/FORUM_CODEIGNITER/public/Feed/fetch_comentarios",
+                method:"POST",
+                data:{query:query},
+                success:function(data){
+                    $('#result').html(data);
+                }
+            })
+        }
+
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {load_data(search);}
+            else{ load_data();}
+        });
+
+        setInterval(function load_data() {
+            load_data();
+            function load_data(query)
+            {
+                $.ajax({
+                    url:"/FORUM_CODEIGNITER/public/Feed/fetch_comentarios",
+                    method:"POST",
+                    data:{query:query},
+                    success:function(data){
+                        $('#result').html(data);
+                    }
+                })
+            }
+            $('#search_text').keyup(function(){
+                var search = $(this).val();
+                if(search != '')
+                {load_data(search);}
+                else{load_data();}
+            });
+        }, 60000)
+    });
+
+
+    //====================================================================================================
+    //ALTERAR PUBLICAÇÃO
+    
+    function EditarPublicacao(idpublicacao) {
+        $.ajax({
+            url: '/FORUM_CODEIGNITER/public/Feed/editarPublicacaoSelecionada/'+ idpublicacao,
+            method: 'POST',
+            dataType: 'json'
+        }).done(function(edicaoPublicacao){
+            console.log(edicaoPublicacao)
+            var box_comm = document.querySelector('.formPublicacaoEditar');
+                while(box_comm.firstChild){
+                    box_comm.firstChild.remove();
+                }
+            for (var i = 0; i < edicaoPublicacao.length; i++) {      
+                $('.formPublicacaoEditar').prepend(
+                    '<form id="EditandoPublicacao" method="post">' +
+                        '<input type="hidden" name="idpublicacao" value="'+ edicaoPublicacao[i].IDPublicacao +'" class="form-control"><br>' +
+                        '<input type="hidden" name="idconteudo" value="'+ edicaoPublicacao[i].IDConteudo +'" class="form-control"><br>' +
+                        '<label>Título da publicação</label>' +
+                        '<input type="text" name="titulo" value="'+ edicaoPublicacao[i].Titulo +'" class="form-control" required><br>' +
+                        '<label>Conteúdo da publicação</label>' +
+                        '<textarea name="conteudo" rows="3" class="form-control" required>'+ edicaoPublicacao[i].Conteudo +'</textarea>' +
+                        '<div class="text-center">' +
+                            '<input type="submit" form="EditandoPublicacao" value="Alterar dados" class="button-editar-publi">' +
+                        '</div>' +
+                    '</form>'
+                ); 
+            } 
+            //recebe dados do formulário da publicação
+            $("#EditandoPublicacao").submit(function(e) {
+                e.preventDefault();    
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/FORUM_CODEIGNITER/public/Feed/editarPublicacao',
+                    type: 'POST',
+                    data: formData,
+                    // success: function (data) {
+                    //     alert('Publicação postada com sucesso')
+                    // },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                    
+                }).done(function(){
+                        alert('Publicação alterada com sucesso!')
+                        $('#titulo').val('');
+                        $('#conteudo').val('');
+                        $('#idpublicacao');
+                        $('#idconteudo');
+                        $('.modal').modal('hide');
+                        getPublicacao();
+                    }).fail(function(){
+                        alert('Falha ao alterar dados!')
+                        $('.modal').modal('hide');
+                    });
+            });
+        }); // fim .done
+                
+    }
+
+    //teste modal
+    $('#ModalEditarPublicacao').on('show.bs.modal', function (e) {
+        idpublicacao = $('#idpublicacao').val();
+        EditarPublicacao(idpublicacao);
+        console.log('Modal Editar Publicacao:');
+    });
+
+     //====================================================================================================
+    //ALTERAR IMAGEM PUBLICAÇÃO
+    function EditarImagemPublicacao(idpublicacao) {
+        $.ajax({
+            url: '/FORUM_CODEIGNITER/public/Feed/editarImagemPublicacaoSelecionada/'+ idpublicacao,
+            method: 'POST',
+            dataType: 'json'
+        }).done(function(teste){
+            console.log(teste)
+            var box_comm = document.querySelector('.formPublicacaoEditarImagem');
+                while(box_comm.firstChild){
+                    box_comm.firstChild.remove();
+                }
+            for (var i = 0; i < teste.length; i++) {      
+                $('.formPublicacaoEditarImagem').prepend(
+                    '<form id="EditandoImagemPublicacao" method="post" enctype="multipart/form-data">' +
+                        '<input type="hidden" name="idpublicacao" id="idpublicacao" value="'+ teste[i].IDPublicacao +'" class="form-control"><br>' +
+                        '<input type="hidden" name="idimagem" id="idimagem" value="'+ teste[i].IDImagem +'" class="form-control"><br>' +
+                        '<label>Alterar imagem</label>' +
+                        '<input type="file" name="img[]" id="img" value="'+ teste[i].Imagem +'" class="form-control"><br>' +
+                        '<div class="text-center">' +
+                            '<input type="submit" form="EditandoImagemPublicacao" value="Alterar dados" class="button-editar-publi">' +
+                        '</div>' +
+                    '</form>'
+                ); 
+            } 
+            //recebe dados do formulário da publicação
+            $("#EditandoImagemPublicacao").submit(function(e) {
+                e.preventDefault();    
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/FORUM_CODEIGNITER/public/Feed/editarImagemPublicacao',
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                    
+                }).done(function(){
+                        alert('Imagem da publicação alterada com sucesso!')
+                        $('#img').val('');
+                        $('#idpublicacao');
+                        $('#idimagem');
+                        $('.modal').modal('hide');
+                        getPublicacao();
+                    }).fail(function(){
+                        alert('Falha ao alterar imagem!')
+                        $('.modal').modal('hide');
+                    });
+            });
+        }); // fim .done
+                
+    }
+
+    //teste modal
+    $('#ModalEditarImagemPublicacao').on('show.bs.modal', function (e) {
+        idpublicacao = $('#idpublicacao').val();
+        EditarImagemPublicacao(idpublicacao);
+        console.log('Modal Editar Imagem Publicacao:');
+    });
+    //====================================================================================================
     </script>
     

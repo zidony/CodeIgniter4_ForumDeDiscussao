@@ -1,3 +1,10 @@
+.box-shadow {
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
+    background: #fff;
+    padding: 20px 10px;
+    border-radius: 5px;
+}
+
 .btn-publicar {
     padding: 5px 40px;
     text-decoration: none;
@@ -43,6 +50,7 @@
     border-radius: 100%;
     box-shadow: 1px 1px 5px 1px #4b5b6491;
     width: 70px;
+    height: 70px;
 }
 
 .box-img-publicacao {

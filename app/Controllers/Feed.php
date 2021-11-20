@@ -136,7 +136,7 @@ class Feed extends BaseController
         $query = $builder->get()->getResult();
 
         if ($query == false) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); 
+            $query == false;
         } else {
             $builder = $db->table('publicacao');
             $builder->select('publicacao.ID as IDPublicacao,
@@ -162,10 +162,12 @@ class Feed extends BaseController
             $builder->where('publicacao.Ativo', 1);
             $builder->orderBy('publicacao.ID');
             $query = $builder->get()->getResult();
-            
-            if ($query == true) {
-                echo json_encode($query);
-            } 
+        }
+
+        if ($query == true) {
+            echo json_encode($query);
+        } else {
+            echo json_encode($query);
         }
 
         
@@ -397,6 +399,37 @@ class Feed extends BaseController
         
     }
 
+    public function editarImagemPublicacaoSelecionada($idPublicacao)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('publicacao');
+        $builder->select('publicacao.ID as IDPublicacao,
+                            imagempublicacao.ID as IDImagem,
+                            usuario.Nome,
+                            usuario.Foto,
+                            imagempublicacao.Imagem,
+                            imagemPublicacao.Imagem,
+                            publicacao.Reacao,
+                            publicacao.Ativo,
+                            publicacao.IDUsuario,
+                            DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
+                            TIME_FORMAT(publicacao.DataHora, "%H:%i") as Hora'
+                            );
+        $builder->join('categoria', 'categoria.ID = publicacao.IDCategoria');
+        $builder->join('conteudopublicacao', 'conteudopublicacao.ID = publicacao.IDConteudo
+        and conteudopublicacao.IDPublicacao = publicacao.ID');
+        $builder->join('imagempublicacao', 'imagempublicacao.ID = publicacao.IDImagem
+        and imagempublicacao.IDPublicacao = publicacao.ID');
+        $builder->join('usuario', 'usuario.ID = publicacao.IDUsuario');
+        $builder->where('publicacao.ID', $idPublicacao);
+        $builder->where('publicacao.Ativo', 1);
+        $query = $builder->get()->getResult();
+
+        if ($query == true) {
+            echo json_encode($query);
+        }
+    }
+
     public function editarImagemPublicacao()
     {
         $this->idpublicacao = $this->request->getPost()['idpublicacao'];
@@ -428,10 +461,6 @@ class Feed extends BaseController
         $query = $dbImagemPublicacao->save($data);
 
         return redirect()->back(); 
-
-        // if ($query == true) {
-        //     echo json_encode($query);
-        // }
     }
 
     public function excluirPublicacaoSelecionada($idpublicacao)
@@ -449,7 +478,7 @@ class Feed extends BaseController
     }
 
     //para comentarios
-    public function editarComentarioSelecionado($idComentario)
+    public function editarComentarioSelecionada($idComentario)
     {
         // header('Content-Type: application/json');
         $db      = \Config\Database::connect();
@@ -473,17 +502,15 @@ class Feed extends BaseController
         // var_dump($builder->getCompiledSelect());
         // var_dump($builder->get()->getResult());
 
-        return view('includes/head') .
-                view('titles/title-editar-comentario') .
-                view('includes/nav') .
-                view('curso/editar-comentario', $data) .
-                view('includes/footer');
+        if ($query == true) {
+            echo json_encode($query);
+        }
     }
 
 
     public function editarComentario()
     {
-        $this->idcomentario = $this->request->getPost()['idcomentario'];
+        $this->idcomentario = $this->request->getPost()['idconteudo'];
         $this->conteudo = $this->request->getPost()['conteudo'];
 
         $dbComentario = new \App\Models\ConteudoComentarioModel();
@@ -502,7 +529,6 @@ class Feed extends BaseController
 
     public function editarImagemComentario()
     {
-        $this->idcomentario = $this->request->getPost()['idcomentario'];
         $this->idimagem = $this->request->getPost()['idimagem'];
         $this->img = $this->request->getFiles()['img'];
 
@@ -524,7 +550,6 @@ class Feed extends BaseController
         //recebe dados para inserção na tabela imagem da publicacao
         $data = [
             'ID' => $this->idimagem,
-            'IDComentario' => $this->idcomentario,
             'Imagem' => $Name,
         ];
 
@@ -621,7 +646,7 @@ class Feed extends BaseController
 								<div class="box-content-publicacao-home">
 									<h5 title="'. $row->Titulo .'">'. $row->Titulo .'</h5>
 									<p title="'. $row->Conteudo .'">'. $row->Conteudo .'</p>
-									<a href="/FORUM_CODEIGNITER/public/Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar publicação<br><i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
+									<a href="/FORUM_CODEIGNITER/public/Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar<br><i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
 									<p class="data-publicacao">Categoria: '. $row->linkAmigavel .'</p>
 								</div>
 							</div>
@@ -636,5 +661,7 @@ class Feed extends BaseController
 		$output .= '';
 		echo $output;
 	}
+
+    
 
 }

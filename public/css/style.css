@@ -1,23 +1,14 @@
 /* FONTE GERAL */
 
 @font-face {
-    font-family: NotoSansJP-Regular;
-    src: url('/FORUM_CODEIGNITER/assets/font/NotoSansJP-Regular.otf');
-}
-
-@font-face {
-    font-family: NotoSansJP-Medium;
-    src: url('/FORUM_CODEIGNITER/assets/font/NotoSansJP-Medium.otf');
-}
-
-@font-face {
     font-family: NotoSansJP-Bold;
-    src: url('/FORUM_CODEIGNITER/assets/font/NotoSansJP-Bold.otf');
+    src: url('/assets/font/Roboto/Roboto-Italic.ttf');
 }
 
 body {
-    font-family: NotoSansJP-Regular;
-    background: #fff;
+    /* font-family: NotoSansJP-Regular; */
+    font-family: 'Roboto', sans-serif;
+    background: url('../../assets/img/background-forum.png');
     overflow-x: hidden;
 }
 

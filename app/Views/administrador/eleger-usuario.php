@@ -8,12 +8,10 @@
 <div class="container">
     <br />
     <div class="d-flex flex-wrap">
-        <a href="index" class="button-back p-3 my-3">VOLTAR</a>
-        <a href="../../usuario/registraUsuario" class="button-painel p-3 my-3">REGISTRAR UM USUÁRIO</a>
-        <a href="../usuarios" class="button-painel p-3 my-3">VER USUÁRIOS REGISTRADOS</a>
+        <a href="/FORUM_CODEIGNITER/public/administrador/usuarios" class="button-back p-3 my-3">VOLTAR</a>
     </div>
     <br />
-    <h1>GERAR SENHA PARA USUÁRIO</h1>
+    <h1>ELEGER USUÁRIO PARA UM NOVO NÍVEL</h1>
 <?php
  
 
@@ -57,22 +55,22 @@ helper('form');
         echo form_label('ID');
         echo '<br>';
         echo form_input('ID',$usuario['ID'],  $inputView);
-        echo '<br><br>';
+        echo '<br>';
 
         echo form_label('Nome usuário');
         echo '<br>';
         echo form_input('Nome', $usuario['Nome'],  $inputView);
-        echo '<br><br>';
+        echo '<br>';
 
         echo form_label('E-mail usuário');
         echo '<br>';
         echo form_input('Email', $usuario['Email'],  $inputView);
-        echo '<br><br>';
+        echo '<br>';
 
         echo form_label('Nível do usuário');
         echo '<br>';
         echo form_dropdown('Nivel', $drop, '',  $inputdrop);
-        echo '<br><br>';
+        echo '<br>';
 
         echo '<div class="text-center">';
             echo form_submit('mysubmit', 'Eleger usuário', 'class="button-submit py-3 my-3"');
