@@ -38,15 +38,45 @@ class ValidaSessao extends BaseController
             $recebN = 'Administrador';
         }
         if (!session()->has('id')) {
-            $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a><br><br><br>";
+            $resultado = "<br><a href='/FORUM_CODEIGNITER/public/usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a><br><br><br>";
             
         } else {
             $foto = session()->foto;
             $resultado = '<div class="card-perfil">
             <img src="/FORUM_CODEIGNITER/assets/img/usuarios/'.  $foto .'" alt="'. $foto .'">
             <p class="p-3">'. session()->usuario .' | '. $recebN .'</p>
-            <a href="usuario/perfil/' . session()->id .'" class="button">Acessar perfil de usuário</a>
+            <a href="/FORUM_CODEIGNITER/public/usuario/perfil/' . session()->id .'" class="button">Acessar perfil de usuário</a>
         </div><br><hr>';
+        }
+        
+        echo $resultado;
+    }
+
+    public function mostraBotaoLogarBanner()
+    {
+        $nivel = session()->nivel;
+        if ($nivel == 1){
+            $recebN = 'Usuário';
+        }
+        else if($nivel == 2) {
+            $recebN = 'Moderador';
+        } 
+        else if($nivel == 3) {
+            $recebN = 'Administrador';
+        }
+        if (!session()->has('id')) {
+            $resultado = "  <a href='/FORUM_CODEIGNITER/public/usuario/login'>
+                                <div class='cards-perfil'>
+                                    <h2>SESSÃO:<br>INICIAR SESSÃO</h2>
+                                </div>
+                            </a>";
+            
+        } else {
+            $resultado = "  <a href='/FORUM_CODEIGNITER/public/usuario/perfil/" . session()->id ."'>
+                                <div class='cards-perfil'>
+                                    <h2>PERFIL:<br>ACESSAR PERFIL</h2>
+                                </div>
+                            </a>";
         }
         
         echo $resultado;
@@ -56,7 +86,7 @@ class ValidaSessao extends BaseController
     public function publicar()
     {
         if (!session()->had('id')) {
-            $resultado = "<br><a href='usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
+            $resultado = "<br><a href='/FORUM_CODEIGNITER/public/usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a>";
         }
     }
 

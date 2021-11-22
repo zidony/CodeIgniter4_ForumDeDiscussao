@@ -19,12 +19,13 @@
                     </a>
                 </div> 
                 <div class="col-md-12 col-lg-4 coluna-card">
-                    <a href="Sobre/ajuda">
-                        <div class="cards">
-                        <h2>AJUDA<br>
-                            / PERGUNTE AQUI.</h2>
-                        </div>
-                    </a>
+                    <?php
+                        use App\Controllers\ValidaSessao;
+                        $objValida = new ValidaSessao();
+
+                        echo $objValida->mostraBotaoLogarBanner();
+                    ?>
+                    
                 </div>
             </div>
             <!-- end row -->

@@ -5,7 +5,7 @@
             <div class="">
                 <?php 
                 if (!session()->has('id')) { 
-                    echo '<a class="btn-footer-publicacao" href="/FORUM_CODEIGNITER/public/usuario/login" role="button">
+                    echo '<a class="btn-footer-publicacao-alert mt-3" href="/FORUM_CODEIGNITER/public/usuario/login" role="button">
                             Faça login para fazer uma publicação
                         </a>';
                 } else { 
@@ -65,7 +65,7 @@
                                         <h3 title="<?php echo $data[$key]['Titulo']; ?>" class="pt-3"><?php echo $data[$key]['Titulo']; ?></h3>
                                         <hr class="linha-categorias">
                                         <p><?php echo $data[$key]['Conteudo']; ?></p>
-                                        <a href="feed/publicacoes/<?php echo $data[$key]['LinkAmigavel'] ?>/<?php echo $data[$key]['ID'] ?>" class="btn-categoria">Acessar</a><br><br><br>
+                                        <a href="/FORUM_CODEIGNITER/public/Feed/publicacoes/<?php echo $data[$key]['LinkAmigavel'] ?>/<?php echo $data[$key]['ID'] ?>" class="btn-categoria">Acessar</a><br><br><br>
                                     </div>
                                 </div>
                                 <!-- fim row -->

@@ -235,7 +235,10 @@ class Usuario extends BaseController
 
             $query = $db->save($data);
 
-            // session()->set()->img = $Name;
+            //att a foto na sessão
+            session()->set([
+                'foto' => $Name
+            ]);
         }
         return redirect()->to('Usuario/perfil/'.$this->id);
     }
@@ -294,6 +297,10 @@ class Usuario extends BaseController
 
         $data['usuario'] = $query;
 
-        return view('usuario/perfil-publico', $data);
+        return view('includes/head') .
+                view('titles/title-perfil') .
+                view('includes/nav') .
+                view('usuario/perfil-publico', $data) .
+                view('includes/footer');
     }
 }

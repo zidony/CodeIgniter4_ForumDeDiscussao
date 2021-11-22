@@ -89,6 +89,24 @@
     color: #fff;
 }
 
+.btn-footer-publicacao-alert {
+    padding: 5px 40px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+    background: #4b5b64;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: background-color 1.5s;
+    border-radius: 5px;
+}
+
+.btn-footer-publicacao-alert:hover {
+    background: #3d4a52;
+    color: #fff;
+}
+
 .btn-footer-topico {
     padding: 5px 40px;
     text-decoration: none;

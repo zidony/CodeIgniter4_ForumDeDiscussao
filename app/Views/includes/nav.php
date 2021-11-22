@@ -26,7 +26,7 @@
                                 
                                 $obj = new Usuario();
                                 $obj->consultaNivel();
-                                echo "<li class='nav-item'><a href='#' class='link-nav'>PERFIL</a></li>";
+                                echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/perfil/" . session()->id ."' class='link-nav'>PERFIL</a></li>";
                                 if (session()->nivel == 3)
                                 {
                                     echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/administrador/index' class='link-nav'>PAINEL ADMINISTRATIVO</a></li>";

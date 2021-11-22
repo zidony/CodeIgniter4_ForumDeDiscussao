@@ -34,7 +34,20 @@
     border: 1px dotted #fff;
 }
 
-.coluna-card .cards h2 {
+.cards-perfil {
+    background: #137dbaa1;
+    margin: 5px 10px;
+    border: 1px dotted transparent;
+    transition: background-color 1.5s, border 1.5s;
+}
+
+.cards-perfil:hover {
+    background: #137eba;
+    border: 1px dotted #fff;
+}
+
+.coluna-card .cards h2,
+.coluna-card .cards-perfil h2 {
     color: #fff;
     font-size: 16px;
     padding: 20px 40px

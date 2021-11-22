@@ -9,7 +9,7 @@
 
 .card-perfil img {
     width: 100px;
-    max-height: 100px;
+    height: 100px;
     border-radius: 100%;
     box-shadow: 1px 1px 5px 1px #4b5b6488;
 }
@@ -29,4 +29,52 @@
     color: #fff;
     background: #1276af;
     transition: background-color 1.5s;
+}
+
+
+/* perfil publico */
+
+.card-perfil-publico {
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px 0;
+}
+
+.card-perfil-publico img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
+}
+
+.box-info-perfil {
+    text-align: center;
+}
+
+.box-dados-perfil {
+    padding: 10px 5px;
+}
+
+.botao-alterar-perfil {
+    width: 70%;
+    background: #137eba;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    padding: 5px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.botao-alterar-perfil:hover {
+    color: #fff;
+    background: #1276af;
+    transition: background-color 1.5s;
+}
+
+@media screen and (max-width: 991px) {
+    .botao-alterar-perfil {
+        width: 100%;
+    }
 }
