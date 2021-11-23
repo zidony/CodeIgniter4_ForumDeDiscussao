@@ -33,7 +33,7 @@ else if ($usuario['Nivel'] == 2) {
 				<?php
 					echo '<p>Escolha uma nova foto de perfil</p>';
 					helper('form');
-					echo form_open_multipart('/FORUM_CODEIGNITER/public/Usuario/alterarImagemUsuario');
+					echo form_open_multipart('Usuario/alterarImagemUsuario');
 						echo form_input('id', $usuario['ID'], 'class="d-none" readonly');
 						echo form_upload('image[]', '', 'class="form-control"');
 						echo form_submit('mysubmit', 'Alterar foto', 'class="botao-alterar-perfil my-3"');

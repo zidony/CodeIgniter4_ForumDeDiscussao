@@ -33,7 +33,8 @@
 
                     <!-- submit -->
                     <div class="text-center">
-                        <button type="submit" class="mt-4 py-3 button" title="Clique aqui para fazer login!">INICIAR SESSÃO</button><br>
+                    
+                        <button type="submit" class="mt-4 py-3 button">INICIAR SESSÃO</button><br>
 
                         <!-- VERIFICA SE O LOGIN E SENHA DO USUÁRI EXISTE NO DB -->
                         <?php if (isset($_GET['error'])) { echo '<br><b style="color: red;">Credências incorretas!</b>'; } ?>
@@ -54,4 +55,5 @@
         </div>
     </div>
 <!-- </div> -->
-    
+
+

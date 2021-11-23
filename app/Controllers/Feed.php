@@ -90,7 +90,6 @@ class Feed extends BaseController
                 'DataHora' => $myTime->toDateTimeString(),
                 'IDImagem' => $ultimoIDImagem,
                 'IDUsuario' => session()->id,
-                'Reacao' => '',
                 'Ativo' => 1
             ];
 
@@ -145,7 +144,6 @@ class Feed extends BaseController
                                 conteudopublicacao.Titulo,
                                 conteudopublicacao.Conteudo,
                                 imagemPublicacao.Imagem,
-                                publicacao.Reacao,
                                 publicacao.Ativo,
                                 publicacao.IDUsuario,
                                 categoria.ID as IDCategoria,
@@ -195,7 +193,6 @@ class Feed extends BaseController
                                 conteudopublicacao.Titulo,
                                 conteudopublicacao.Conteudo,
                                 imagemPublicacao.Imagem,
-                                publicacao.Reacao,
                                 publicacao.Ativo,
                                 publicacao.IDUsuario,
                                 DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
@@ -269,7 +266,6 @@ class Feed extends BaseController
             'IDConteudo' => $ultimoIDConteudo,
             'IDImagem' => $ultimoIDImagem,
             'DataHora' => $myTime->toDateTimeString(),
-            'Reacao' => '',
             'Ativo' => 1
         ];
 
@@ -316,7 +312,6 @@ class Feed extends BaseController
                             usuario.Nome,
                             usuario.Foto,
                             conteudoComentario.Conteudo,
-                            Comentario.Reacao,
                             imagemComentario.Imagem,
                             DATE_FORMAT(Comentario.DataHora,"%d/%m/%Y") as Data,
                             TIME_FORMAT(Comentario.DataHora, "%H:%i") as Hora'
@@ -353,7 +348,6 @@ class Feed extends BaseController
                             conteudopublicacao.Titulo,
                             conteudopublicacao.Conteudo,
                             imagemPublicacao.Imagem,
-                            publicacao.Reacao,
                             publicacao.Ativo,
                             publicacao.IDUsuario,
                             DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
@@ -409,7 +403,6 @@ class Feed extends BaseController
                             usuario.Foto,
                             imagempublicacao.Imagem,
                             imagemPublicacao.Imagem,
-                            publicacao.Reacao,
                             publicacao.Ativo,
                             publicacao.IDUsuario,
                             DATE_FORMAT(publicacao.DataHora,"%d/%m/%Y") as Data,
@@ -587,7 +580,6 @@ class Feed extends BaseController
 							conteudopublicacao.Titulo,
 							conteudopublicacao.Conteudo,
 							imagemPublicacao.Imagem,
-							publicacao.Reacao,
 							publicacao.Ativo,
 							publicacao.IDUsuario,
 							categoria.ID as IDCategoria,

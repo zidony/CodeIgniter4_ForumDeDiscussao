@@ -100,4 +100,19 @@ class ValidaSessao extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+
+    public function verificarPrivacidade($id, $privacidade) 
+    {
+        //consulta sql personalizada
+        $db      = \Config\Database::connect();
+        $builder = $db->table('usuario');
+        $builder->select('ID, AlertaPrivacidade');
+        $builder->where('ID', $id);
+        // $builder->where('AlertaPrivacidade', 0);
+        $query = $builder->get()->getResultArray();
+
+        if ($query == true) {
+            echo json_encode($query);
+        }
+    }
 }

@@ -41,7 +41,6 @@ class Home extends BaseController
 							conteudopublicacao.Titulo,
 							conteudopublicacao.Conteudo,
 							imagemPublicacao.Imagem,
-							publicacao.Reacao,
 							publicacao.Ativo,
 							publicacao.IDUsuario,
 							categoria.ID as IDCategoria,

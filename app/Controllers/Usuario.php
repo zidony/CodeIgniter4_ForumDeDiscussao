@@ -38,7 +38,7 @@ class Usuario extends BaseController
         //consulta sql personalizada
         $db      = \Config\Database::connect();
         $builder = $db->table('usuario');
-        $builder->select('ID, Nome, Email, Senha, Foto, Nivel, Ativo');
+        $builder->select('ID, Nome, Email, Senha, Foto, Nivel, Ativo, AlertaPrivacidade');
         $builder->where('Email', $this->usuario);
         $builder->where('Senha', md5($this->senha));
         $builder->where('RM', $this->rm);
@@ -60,6 +60,7 @@ class Usuario extends BaseController
                 'foto' => $query[0]['Foto'],
                 'nivel' => $query[0]['Nivel'],
                 'ativo' => $query[0]['Ativo'],
+                'privacidade' => $query[0]['AlertaPrivacidade'],
             ]);
             return redirect()->to('../');
         }
@@ -76,16 +77,53 @@ class Usuario extends BaseController
         $builder->where('ID', session()->id);
         $query = $builder->get()->getResultArray();
 
-        session()->set([
-            'id' => $query[0]['ID'],
-            'usuario' => $query[0]['Nome'],
-            'nivel' => $query[0]['Nivel'],
-            'ativo' => $query[0]['Ativo'],
-        ]);
-
-        if (session()->ativo != 1) {
-            session()->destroy();
+        if ($query == true) {
+            session()->set([
+                'id' => $query[0]['ID'],
+                'usuario' => $query[0]['Nome'],
+                'nivel' => $query[0]['Nivel'],
+                'ativo' => $query[0]['Ativo'],
+            ]);
+    
+            if (session()->ativo != 1) {
+                session()->destroy();
+            }
+        } else {
+            // session()->destroy();
         }
+
+        
+    }
+
+    //============================================================================
+    #PRIVACIDADE DO USUÁRIO
+    public function privacidadeConfirmar()
+    {
+        $this->idusuario = $this->request->getPost()['idusuario'];
+
+        //consulta sql personalizada
+        $db      = \Config\Database::connect();
+        $builder = $db->table('usuario');
+        $builder->select('ID, AlertaPrivacidade');
+        $builder->where('ID', $this->idusuario);
+        $query = $builder->get()->getResultArray();
+
+        if ($query == true) {
+            
+            $builder = $db->table('usuario');
+            $data = [
+                'AlertaPrivacidade' => 1
+            ];
+            $builder->where('ID',  $this->idusuario);
+            $builder->update($data);
+
+            session()->set([
+                'privacidade' => 1
+            ]);
+
+            // echo json_encode($query);
+        }
+
     }
 
     //============================================================================
@@ -168,6 +206,7 @@ class Usuario extends BaseController
                 'RM' => $this->rm,
                 'Nivel' => 1,
                 'Ativo' => 1,
+                'AlertaPrivacidade' => 0
             ];
 
             $db->save($data);

@@ -2,13 +2,13 @@
 
 @font-face {
     font-family: NotoSansJP-Bold;
-    src: url('/assets/font/Roboto/Roboto-Italic.ttf');
+    src: url('/FORUM_CODEIGNITER/assets/font/Roboto/Roboto-Italic.ttf');
 }
 
 body {
     /* font-family: NotoSansJP-Regular; */
     font-family: 'Roboto', sans-serif;
-    background: url('../../assets/img/background-forum.png');
+    background: url('/FORUM_CODEIGNITER/assets/img/background-forum.png');
     overflow-x: hidden;
 }
 

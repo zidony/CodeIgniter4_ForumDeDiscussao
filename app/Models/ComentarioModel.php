@@ -14,7 +14,7 @@ class ComentarioModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['IDPublicacao', 'IDUsuario', 'IDConteudo', 'IDImagem', 'DataHora', 'Reacao', 'Ativo'];
+    protected $allowedFields = ['IDPublicacao', 'IDUsuario', 'IDConteudo', 'IDImagem', 'DataHora', 'Ativo'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
