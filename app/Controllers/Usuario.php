@@ -264,7 +264,9 @@ class Usuario extends BaseController
                 if ($img->isValid() && !$img->hasMoved()) {
                     $Name = $img->getRandomName();
                     $img->move(WRITEPATH . '../assets/img/usuarios/', $Name);
-                }
+                } else {
+                    $Name = false;
+                } 
             }
 
             $data = [

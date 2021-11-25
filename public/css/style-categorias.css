@@ -27,6 +27,7 @@
 .box-img-categoria img {
     width: 175px !important;
     height: 175px;
+    object-fit: cover;
 }
 
 

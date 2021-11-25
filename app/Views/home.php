@@ -11,7 +11,7 @@
             
         <div class="row">
             <div class="col-md-12 col-lg-12 col-xl-8">
-                <div class="box-categorias">
+                <div class="box-categorias" id="pesquise">
                     <h2>Acesse agora as discussões de um ou mais cursos.</h2>
                     <!-- instancia as categorias -->
                     <?php
@@ -51,6 +51,7 @@
                         $objValida->mostraBotaoLogar();
                         
                     ?>
+                    <hr>
                     <div class="form-group">
                         <h2 class="text-center">Publicações recentes</h2>
                         <div class="input-group">
@@ -167,13 +168,13 @@
                 url:"/FORUM_CODEIGNITER/public/ValidaSessao/verificarPrivacidade/" + <?php echo json_encode(session()->id) ?> + "/" + <?php echo json_encode(session()->privacidade) ?>,
                 method: 'POST',
                 dataType: 'json'
-                }).done(function(teste){
-                    console.log(teste);
+                }).done(function(alertaPrivacidade){
+                    console.log(alertaPrivacidade);
                     // var box_comment = document.querySelector('.resultadoPrivacidade');
                     // while(box_comment.firstChild){
                     //     box_comment.firstChild.remove();
                     // }
-                    for (var i = 0; i < teste.length; i++) {
+                    for (var i = 0; i < alertaPrivacidade.length; i++) {
 
                         if (<?php echo json_encode(session()->has('id')) ?> == false) {
                             
@@ -186,7 +187,7 @@
                         }
                         $('.resultadoA').prepend(
                             '<form method="post" id="formPrivacidade">' +
-                                '<input type="hidden" id="idusuario" name="idusuario" value="'+ teste[i].ID +'">' +
+                                '<input type="hidden" id="idusuario" name="idusuario" value="'+ alertaPrivacidade[i].ID +'">' +
                                 '<button type="submit" form="formPrivacidade" class="btn btn-primary">Concordo</button>' +
                             '</form>');
                     }   

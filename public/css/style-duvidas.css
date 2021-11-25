@@ -45,13 +45,10 @@
     color: #fff;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1199px) {
     .cards-forum {
         padding: 10px 10px;
         margin: 10px 20px;
-    }
-    .button-duvidas {
-        padding: 5px 0;
     }
 }
 
@@ -61,9 +58,12 @@
     }
 }
 
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 767px) {
     .cards-forum {
-        padding: 10px 10px;
+        padding: 10px 30px;
         margin: 10px 20px;
+    }
+    .button-duvidas {
+        padding: 5px 0;
     }
 }

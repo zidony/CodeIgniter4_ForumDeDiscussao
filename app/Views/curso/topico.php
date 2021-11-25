@@ -111,7 +111,28 @@
   </div>
 </div>
 <!-- ==================================================================================================== -->
-
+<!-- MODAL ALERTA DE PRIVACIDADE -->
+<div class="modal fade" id="AlertaPrivacidade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Política de privacidade</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="resultadoPrivacidade">
+                    
+                </div>
+                <p>Termos de politica de privacidade</p>
+                
+            </div>
+            <div class="modal-footer">
+                <a href="/FORUM_CODEIGNITER/public/Usuario/logout" class="btn btn-danger">Discordo</a>
+                <div class="resultadoA"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -225,9 +246,9 @@
                                 '<div class="col-md-12">' +
                                     '<div class="header-publicacao p-3">' +
                                         '<div class="d-flex">' +
-                                            '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ result[i].IDUsuario +'" target="_blank" title="Acessar o perfil do usuário"><img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ result[i].Foto +'" alt="'+ result[i].Foto +'" class="img-perfil"></a>' +
+                                            '<img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ result[i].Foto +'" alt="'+ result[i].Foto +'" class="img-perfil">' +
                                             '<div class="text-left mx-2">' +
-                                                '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ result[i].IDUsuario +'" class="link-usuario " target="_blank" title="Acessar o perfil do usuário"><b class="break-content">'+ result[i].Nome +'</b></a>' +
+                                                '<b class="break-content">'+ result[i].Nome +'</b>' +
                                                 '<br>' +
                                                 '<p>'+ result[i].Data + ' às ' + result[i].Hora +'</p>' +
                                             '</div>' +
@@ -357,9 +378,9 @@
                                             '<div class="header-comentario p-3 comentarios">' +
                                                 '<div class="d-flex">' +
                                                     '<div class="text-center" style="width: 100px; margin-left: 10px">' +
-                                                        '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ resultComentarios[i].IDUsuario +'" target="_blank" title="Acessar o perfil do usuário"><img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ resultComentarios[i].Foto +'" alt="" class="img-perfil"></a>' +
+                                                        '<img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ resultComentarios[i].Foto +'" alt="" class="img-perfil">' +
                                                         '<br>' +
-                                                        '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ resultComentarios[i].IDUsuario +'" class="link-usuario " target="_blank" title="Acessar o perfil do usuário"><b class="p-2 break-content">'+ resultComentarios[i].Nome +'</b></a>' +
+                                                        '<b class="p-2 break-content">'+ resultComentarios[i].Nome +'</b>' +
                                                     '</div>' +
                                                     '<p class="p-4 break-content">'+ resultComentarios[i].Conteudo +'</p>' +
                                                     
@@ -446,9 +467,9 @@
                                                 '<div class="header-comentario p-3 comentarios">' +
                                                     '<div class="d-flex">' +
                                                         '<div class="text-center" style="width: 100px; margin-left: 10px">' +
-                                                            '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ resultComentarios[i].IDUsuario +'" target="_blank" title="Acessar o perfil do usuário"><img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ resultComentarios[i].Foto +'" alt="" class="img-perfil"></a>' +
+                                                            '<img src="/FORUM_CODEIGNITER/assets/img/usuarios/'+ resultComentarios[i].Foto +'" alt="" class="img-perfil">' +
                                                             '<br>' +
-                                                            '<a href="/FORUM_CODEIGNITER/public/Usuario/perfilPublico/'+ resultComentarios[i].IDUsuario +'" class="link-usuario " target="_blank" title="Acessar o perfil do usuário"><b class="p-2 break-content">'+ resultComentarios[i].Nome +'</b></a>' +
+                                                            '<b class="p-2 break-content">'+ resultComentarios[i].Nome +'</b>' +
                                                         '</div>' +
                                                         '<p class="p-4 break-content">'+ resultComentarios[i].Conteudo +'</p>' +
                                                         
@@ -775,6 +796,61 @@
         console.log('Modal Editar Imagem Comentario:');
     });
     //====================================================================================================
+    //ALERTA PRIVACIDADE
+    $(document).ready(function(){
+        function verificar_privacidade()
+        {
+            $.ajax({
+                url:"/FORUM_CODEIGNITER/public/ValidaSessao/verificarPrivacidade/" + <?php echo json_encode(session()->id) ?> + "/" + <?php echo json_encode(session()->privacidade) ?>,
+                method: 'POST',
+                dataType: 'json'
+                }).done(function(alertaPrivacidade){
+                    console.log(alertaPrivacidade);
+                    // var box_comment = document.querySelector('.resultadoPrivacidade');
+                    // while(box_comment.firstChild){
+                    //     box_comment.firstChild.remove();
+                    // }
+                    for (var i = 0; i < alertaPrivacidade.length; i++) {
+
+                        if (<?php echo json_encode(session()->has('id')) ?> == false) {
+                            
+                        } else {
+                            if (<?php echo json_encode(session()->privacidade) ?> == 0) {
+                                $('#AlertaPrivacidade').modal('show');
+                            } else {
+                                $('#AlertaPrivacidade').modal('hide');
+                            }
+                        }
+                        $('.resultadoA').prepend(
+                            '<form method="post" id="formPrivacidade">' +
+                                '<input type="hidden" id="idusuario" name="idusuario" value="'+ alertaPrivacidade[i].ID +'">' +
+                                '<button type="submit" form="formPrivacidade" class="btn btn-primary">Concordo</button>' +
+                            '</form>');
+                    }   
+                    $("#formPrivacidade").submit(function(e) {
+                        e.preventDefault();    
+                        var formData = new FormData(this);
+
+                        $.ajax({
+                            url: '/FORUM_CODEIGNITER/public/Usuario/privacidadeConfirmar',
+                            type: 'POST',
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                            
+                        }).done(function(){
+                            
+                            $('#idusuario');
+                            alert('Você concordou com os dados de privacidade, curta o conteúdo com boas práticas!')
+                            $('#AlertaPrivacidade').modal('hide');
+                        });
+                    });   
+            });
+        }
+        verificar_privacidade();   
+    });
+
     
 </script>
     

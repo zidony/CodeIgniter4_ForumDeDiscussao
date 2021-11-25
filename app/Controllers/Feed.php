@@ -7,6 +7,11 @@ use LengthException;
 
 class Feed extends BaseController
 {
+    public function teste()
+    {
+        return view('curso/teste');
+    }
+    
     public function publicacoes($curso, $categoria)
     {
         //envia para o home-curso o id da categoria
@@ -15,7 +20,7 @@ class Feed extends BaseController
         return view('includes/head') .
             view('titles/title-publicacoes') .
             view('includes/nav') .
-            view('includes/banner-home') .
+            // view('includes/banner-home') .
             view('curso/perguntas', $idCategoria) .
             view('includes/footer');
     }
@@ -29,7 +34,7 @@ class Feed extends BaseController
         return view('includes/head') .
                 view('titles/title-publicacoes') .
                 view('includes/nav') .
-                view('includes/banner-home') .
+                // view('includes/banner-home') .
                 view('curso/topico' , $id) .
                 view('includes/footer');
     }

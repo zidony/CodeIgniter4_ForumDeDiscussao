@@ -5,7 +5,7 @@
             <a href="" title="facebook"><i class="bi bi-facebook icones-topo"></i></a>
             <a href="" title="whatsapp"><i class="bi bi-whatsapp icones-topo"></i></a>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light navegacao">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top navegacao">
         <div class="container-fluid">
             <a class="navbar-brand" href="/FORUM_CODEIGNITER/public/"><img class="navbar-brand logo" src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt=""></a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

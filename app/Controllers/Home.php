@@ -17,6 +17,30 @@ class Home extends BaseController
 			view('includes/footer');
 	}
 
+	# Regras
+	public function regras()
+   	{
+		return 
+			view('includes/head') .
+			view('titles/title-regras') .
+			view('includes/nav') .
+			view('includes/banner-home') .
+			view('sobre/regras') .
+			view('includes/footer');
+   	}  
+
+	#Guias
+   	public function guias()
+   	{
+		return 
+			view('includes/head') .
+			view('titles/title-guias') .
+			view('includes/nav') .
+			view('includes/banner-home') .
+			view('sobre/guias') .
+			view('includes/footer');
+   	}
+
 	public function consulta_categoria()
 	{
 		$db = new \App\Models\CategoriaModel();

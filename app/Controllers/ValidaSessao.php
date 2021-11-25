@@ -46,7 +46,7 @@ class ValidaSessao extends BaseController
             <img src="/FORUM_CODEIGNITER/assets/img/usuarios/'.  $foto .'" alt="'. $foto .'">
             <p class="p-3">'. session()->usuario .' | '. $recebN .'</p>
             <a href="/FORUM_CODEIGNITER/public/usuario/perfil/' . session()->id .'" class="button">Acessar perfil de usuário</a>
-        </div><br><hr>';
+        </div><br>';
         }
         
         echo $resultado;
