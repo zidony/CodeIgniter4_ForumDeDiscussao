@@ -1,0 +1,30 @@
+.card-perfil {
+    /* box-shadow: 1px 1px 5px 1px #4b5b6488; */
+    border: 1px dotted #4b5b64;
+    background: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.card-perfil img {
+    width: 100px;
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px 1px #4b5b6488;
+}
+
+.button {
+    width: 100%;
+    background: #137eba;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.button:hover {
+    color: #fff;
+    background: #1276af;
+    transition: background-color 1.5s;
+}

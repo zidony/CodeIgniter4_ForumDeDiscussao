@@ -1,1 +1,0 @@
-sou a página de ajuda
