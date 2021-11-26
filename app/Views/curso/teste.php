@@ -18,8 +18,11 @@
     <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/bootstrap/icons.css">
 </head>
 <body>
-    
 
+
+
+
+    
     <div class="navegacao">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore ipsum quasi distinctio culpa! Culpa deserunt cupiditate recusandae consequatur dolore dolor ipsum dolorem deleniti est. Similique ipsa a iste eligendi iusto.</p>
     </div>
