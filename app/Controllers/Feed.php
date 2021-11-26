@@ -9,7 +9,9 @@ class Feed extends BaseController
 {
     public function teste()
     {
-        return view('curso/teste');
+        return 
+            view('curso/teste') .
+            view('includes/footer');
     }
     
     public function publicacoes($curso, $categoria)
