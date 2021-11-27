@@ -1,160 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" sizes="16x16"  href="/FORUM_CODEIGNITER/public/favicon.ico">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-
-    <title>Publicações</title>
-    <!-- JQUERY -->
-    <script src="/FORUM_CODEIGNITER/public/js/jquery/jquery.js"></script>
-
-    <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/bootstrap/bootstrap.min.css">
-
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-publicacoes.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-banner.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-categorias.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-perfil.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style.css">
-    
-    <!-- ÍCONES -->
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/bootstrap/icons.css">
-</head>
-<body>
-    
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light navegacao">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/FORUM_CODEIGNITER/public/"><img class="navbar-brand logo" src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt=""></a>
-
-                <div class="itens-view-nav-mobile">
-                    <?php 
-                        use App\Controllers\ValidaSessao;
-                        $objValida = new ValidaSessao();
-                        $objValida->mostrarFotoPerfilNav();
-                    ?>
-                    <a class="navbar-toggler border-0" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
-                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-three-dots-vertical icone-menu"></i>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="link-nav active" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="link-nav" href="/FORUM_CODEIGNITER/public/#sobre">SOBRE O FÓRUM</a>
-                        </li>
-                            <?php
-                                use App\Controllers\Usuario;
-
-                                if (session()->has('id')){
-                                    
-                                    $obj = new Usuario();
-                                    $obj->consultaNivel();
-                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/perfil/" . session()->id ."' class='link-nav'>PERFIL</a></li>";
-                                    if (session()->nivel == 3)
-                                    {
-                                        echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/administrador/index' class='link-nav'>PAINEL ADMINISTRATIVO</a></li>";
-                                    }
-                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/logout' class='link-nav logout'>LOGOUT</a></li>";
-                                } else {
-                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a></li>";
-                                }
-                            ?>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="box-flex">
-        <div class="content-left">
-            <div class="left-content">
+<div class="container">
+    <br><br>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-2 mt-4">
+            <?php 
+                use App\Controllers\ValidaSessao;
+                $objValida = new ValidaSessao();
+                $objValida->mostraBotaoLogar(); 
+            ?>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xl-5">
+            <div class="">
                 <?php 
-                    $objValida = new ValidaSessao();
-                    $objValida->mostraBotaoLogar(); 
-                ?>
-                <div class="row">
-                    <hr>
-                    <h2>Atalhos</h2>
-                    <div class="col-md-12 coluna-card">
-                        <a href="/FORUM_CODEIGNITER/public/Home/regras">
-                            <div class="cards">
-                                <h2>REGRAS<br>
-                                / RESPEITE, POR FAVOR!</h2>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-12 coluna-card">
-                        <a href="/FORUM_CODEIGNITER/public/Home/guias">
-                            <div class="cards">
-                                <h2>GUIAS<br>
-                                / PRIMEIRA VEZ NOS FÓRUM?</h2>
-                            </div>
-                        </a>
-                    </div> 
-                    <div class="col-md-12 coluna-card">
-                        <?php
-                            echo $objValida->mostraBotaoLogarBanner();
-                        ?>
+                if (!session()->has('id')) { 
+                    echo '<a class="btn-footer-publicacao-alert mt-3" href="/FORUM_CODEIGNITER/public/usuario/login" role="button">
+                            Faça login para fazer uma publicação
+                        </a>';
+                } else { 
+                    echo '<div class="box-shadow mt-3">';
+                    echo '<h2>Faça uma pergunta <i class="bi bi-question-lg" style="font-sze: 20px"></i></h2>';
+                    helper('form');
+                    echo form_open_multipart('', 'id="publicacao"');
+                        echo form_label('Título');
+                        echo '<br>';
+                        echo form_input('titulo','', 'id="titulo" placeholder="Tente: Me ajude nessa matéria!" required class="form-control"');
+                        echo '<br>';
                         
-                    </div>
-                </div>
-            <!-- end row -->
-            </div>
-        </div>
-        <div class="content-publi">
+                        echo form_label('Conteúdo');
+                        echo '<br>';
+                        echo form_textarea('conteudo','',  'id="conteudo" placeholder="Tente: Preciso de ajuda com esse conteúdo..." required rows="2" class="form-control"');
+                        echo '<br>';
 
-            <div class="content-publicacao">
-                <?php 
-                    if (!session()->has('id')) { 
-                        echo '<a class="btn-footer-publicacao-alert" href="/FORUM_CODEIGNITER/public/usuario/login" role="button">
-                                Faça login para fazer uma publicação
-                            </a>';
-                    } else { 
-                        echo '<div class="box-shadow">';
-                        echo '<h2>Faça uma pergunta <i class="bi bi-question-lg" style="font-sze: 20px"></i></h2>';
-                        helper('form');
-                        echo form_open_multipart('', 'id="publicacao"');
-                            echo form_label('Título');
-                            echo '<br>';
-                            echo form_input('titulo','', 'id="titulo" placeholder="Tente: Me ajude nessa matéria!" required class="form-control"');
-                            echo '<br>';
-                            
-                            echo form_label('Conteúdo');
-                            echo '<br>';
-                            echo form_textarea('conteudo','',  'id="conteudo" placeholder="Tente: Preciso de ajuda com esse conteúdo..." required rows="2" class="form-control"');
-                            echo '<br>';
+                        echo form_label('Imagem');
+                        echo '<br>';
+                        echo form_upload('img', '', 'id="img" class="form-control"');
+                        echo '<br>';
 
-                            echo form_label('Imagem');
-                            echo '<br>';
-                            echo form_upload('img', '', 'id="img" class="form-control"');
-                            echo '<br>';
+                        echo form_input('categoria', ''. $idCategoria .'', 'class="d-none" id="categoria" class="form-control"');
 
-                            echo form_input('categoria', ''. $idCategoria .'', 'class="d-none" id="categoria" class="form-control"');
+                        echo '<div class="text-center">';
+                        echo form_submit('submit', 'Publicar', 'class="btn-publicar" title="Clique aqui para publicar"');
+                        echo '</div>';
+                        echo '<br><br>';
+                    echo form_close(); 
+                    echo '</div>'; 
 
-                            echo '<div class="text-center">';
-                            echo form_submit('submit', 'Publicar', 'class="btn-publicar" title="Clique aqui para publicar"');
-                            echo '</div>';
-                            echo '<br><br>';
-                        echo form_close(); 
-                        echo '</div>'; 
-
-                    } //fechamento else
+                } //fechamento else
                 ?>
+
                 <div class="box_publicacao"></div>
-                <br><br><br><br>
             </div>
         </div>
-        <div class="content-right">
-            <div class="right-content">
+        <!-- fim col -->
+        <div class="col-md-12 col-lg-12 col-xl-4">
+            <div>
+                <h2 class="text-center box-shadow mt-3">Navegue por Categorias</h2>
                 <?php
                     use App\Controllers\Home;
                     $objHome = new Home();
@@ -163,8 +62,7 @@
                     foreach ($data as $key => $value) {
                         if ($data[$key]['Ativo'] == 1)
                         { ?>
-                            <div class="cards-categoria-publi">
-                                
+                            <div class="my-3 cards-categoria-publi">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-xl-12 box-img-categoria-publi">
                                         <img src="/FORUM_CODEIGNITER/assets/img/categorias/<?php echo $data[$key]['Imagem']; ?>">
@@ -179,15 +77,19 @@
                                 </div>
                                 <!-- fim row -->
                             </div>
-                            <br>
                     <?php 
                             } 
                         }
                     ?>
-                    <br><br><br><br><br><br>
-            </div>
+            </div>   
         </div>
+        <!-- fim col -->
     </div>
+    <!-- fim row -->
+</div>
+<!-- fim container -->
+<br><br><br><br><br><br>
+
 
 <!-- Button trigger modal -->
 
@@ -305,8 +207,11 @@
                 if (verificarImagem == ''){
                     imagem = '';
                 } else {
-                    imagem = '<a href="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'" target="_blank"><img src="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'" class=""></a>';
-                    //imagem = '<img src="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'" class="">';
+                    //imagem = '<a href="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'" target="_blank"></a>';
+                    imagem = '<img src="/FORUM_CODEIGNITER/assets/img/publicacoes/'+ result[i].Imagem +'" class="">';
+                    //TESTAR ZOOM NA IMAGEM
+                    //LINK EXEMPLO: https://pt.stackoverflow.com/questions/106970/aumentar-imagem-quando-o-usu%C3%A1rio-clicar-em-js
+                    
                 }
 
                 //botão de ver comentários
@@ -750,9 +655,4 @@
         verificar_privacidade();   
     });
 </script>
-
-<script src="/FORUM_CODEIGNITER/public/js/popper.min.js"></script>
-<script src="/FORUM_CODEIGNITER/public/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+    

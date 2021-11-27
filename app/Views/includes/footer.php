@@ -17,7 +17,9 @@
             </div>
             <div class="col-md-4">
                 <div class="box-content-footer">
-                    <h2>Regras, guias e ajuda</h2>
+                    <h2>Regras e guias</h2>
+                    <a href="/FORUM_CODEIGNITER/public/Home/regras" title="regras">Regras</a><br>
+                    <a href="/FORUM_CODEIGNITER/public/Home/guias" title="guias">Guias</a>
                 </div>
             </div>
         </div>

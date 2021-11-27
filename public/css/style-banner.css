@@ -68,6 +68,9 @@
 }
 
 @media screen and (max-width:768px) {
+    .banner {
+        height: 300px;
+    }
     .titulo-home h1 {
         font-size: 30px;
     }

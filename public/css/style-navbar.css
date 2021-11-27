@@ -33,11 +33,18 @@
 .icon-home {
     font-size: 25px;
     color: #137eba;
-    transition: font-size 1s;
 }
 
-.icon-home:hover {
-    font-size: 27px;
+.itens-view-nav-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-perfil-nav {
+    width: 40px;
+    border-radius: 100%;
+    margin: 0 5px
 }
 
 .nav-item {

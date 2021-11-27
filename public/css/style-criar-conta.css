@@ -1,6 +1,8 @@
 body {
     font-family: NotoSansJP-Regular;
-    background: linear-gradient(#bb262d36, #137dba3d);
+    background: url('/FORUM_CODEIGNITER/assets/img/background-forum.png');
+    background-attachment: fixed;
+    overflow-x: hidden;
 }
 
 html,

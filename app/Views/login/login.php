@@ -45,7 +45,7 @@
                         <br>
                         <a href="registraUsuario" class="link-login" title="Clique aqui caso não tenha uma conta e deseja se cadastrar!">REGISTRE-SE </a>
                         | 
-                        <a href="ajudaSuporte" class="link-login" title="Clique aqui caso tenha alguma dúvida e deseje solicitar o suporte!"> AJUDA SUPORTE</a>
+                        <a href="/FORUM_CODEIGNITER/public/#sobre" class="link-login" title="Clique aqui caso tenha alguma dúvida e deseje solicitar o suporte!"> SOBRE O FÓRUM</a>
                     </div>
                     
                 </form>

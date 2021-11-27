@@ -32,6 +32,12 @@
     transition: background-color 1.5s;
 }
 
+@media screen and (min-width: 768px) and (max-width: 994px) {
+    .button {
+        padding: 10px 5px;
+    }
+}
+
 
 /* perfil publico */
 

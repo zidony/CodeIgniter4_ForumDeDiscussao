@@ -274,6 +274,7 @@ class Administrador extends BaseController
 						<tr>
 							<th>TÍTULO</th>
                             <th>LINK AMIGÁVEL</th>
+                            <th>EDITAR</th>
 							<th>STATUS</th>
 						</tr>
 		';
@@ -294,6 +295,7 @@ class Administrador extends BaseController
 						<tr>
 							<td>'.$row->Titulo.'</td>
                             <td>'.$row->LinkAmigavel.'</td>
+                            <td><a href="/FORUM_CODEIGNITER/public/Administrador/editar_categoria/'.$row->ID.'" class="nav-link">Editar</a></td>
 							<td>'.$row->Ativo.'</td>
 						</tr>
 				';
@@ -368,6 +370,76 @@ class Administrador extends BaseController
         return redirect()->to('../../');
          
     }
+
+    public function editar_categoria($id)
+    {
+        $db = new \App\Models\CategoriaModel();
+
+        $query = $db->find($id);
+
+        $data['categoria'] = $query;
+        
+        return  view('includes/head') .
+                view('titles/title-editar-categoria') .
+                view('includes/nav') .
+                view('administrador/editar-categoria', $data) .
+                view('includes/footer');    
+    }
+
+    public function editarCategoria()
+    {
+        $db = new \App\Models\CategoriaModel();
+
+        $this->id = $this->request->getPost()['id'];
+        $this->titulo = $this->request->getPost()['titulo'];
+        $this->conteudo = $this->request->getPost()['conteudo'];
+        $this->link = $this->request->getPost()['link'];
+          
+        $data = [
+            'ID' => $this->id,
+            'Titulo' => $this->titulo,
+            'Conteudo' => $this->conteudo,
+            'LinkAmigavel' => $this->link,
+        ];
+
+        $query = $db->save($data);
+
+        return redirect()->to('Administrador/categoria');
+         
+    }
+
+    public function editarImagemCategoria()
+    {
+        $db = new \App\Models\CategoriaModel();
+
+        $this->id = $this->request->getPost()['id'];
+        $this->imagecategoria = $this->request->getFiles()['img'];
+
+        if($imagefile = $this->imagecategoria)
+          {
+             foreach($imagefile as $img)
+             {
+                if ($img->isValid() && ! $img->hasMoved()) {
+                    $Name = $img->getRandomName();
+                    $img->move(WRITEPATH.'../assets/img/categorias/', $Name);   
+                    
+                }  else {
+                    $Name = false;
+                }
+             }
+          }
+          
+        $data = [
+            'ID' => $this->id,
+            'Imagem' => $Name,
+        ];
+
+        $query = $db->save($data);
+
+        return redirect()->to('Administrador/categoria');
+         
+    }
+
 
     //================================================================================================
     public function rm()

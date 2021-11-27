@@ -10,17 +10,27 @@
     color: #fff;
 }
 
-.button-painel {
-    border-right: 1px solid #fff;
-    border-left: 1px solid #fff;
-    background: #4b5b64;
-    color: #fff;
+.box-painel {
     text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px;
 }
 
-.button-painel:hover {
-    background: #323f46;
+.box-painel:hover {
     color: #fff;
+}
+
+.box-painel .box {
+    text-align: center;
+    background: #323f46;
+    padding: 50px;
+    transition: background-color 1.5s;
+}
+
+.box-painel .box:hover {
+    background: #222b30;
 }
 
 .button {

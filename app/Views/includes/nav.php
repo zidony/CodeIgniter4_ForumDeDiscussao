@@ -8,16 +8,24 @@
     <nav class="navbar navbar-expand-lg navbar-light navegacao">
         <div class="container-fluid">
             <a class="navbar-brand" href="/FORUM_CODEIGNITER/public/"><img class="navbar-brand logo" src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt=""></a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="bi bi-three-dots-vertical icone-menu"></i>
-            </button>
+            <div class="itens-view-nav-mobile">
+                <?php 
+                    use App\Controllers\ValidaSessao;
+                    $obj = new ValidaSessao();
+                    $obj->mostrarFotoPerfilNav();
+                ?>
+                <a class="navbar-toggler border-0" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-three-dots-vertical icone-menu"></i>
+                </button>
+            </div>
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="link-nav active" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="link-nav" href="#">SOBRE O FÓRUM</a>
+                        <a class="link-nav" href="/FORUM_CODEIGNITER/public/#sobre">SOBRE O FÓRUM</a>
                     </li>
                         <?php
                             use App\Controllers\Usuario;

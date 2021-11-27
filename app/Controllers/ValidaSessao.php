@@ -82,6 +82,20 @@ class ValidaSessao extends BaseController
         echo $resultado;
     }
 
+    public function mostrarFotoPerfilNav()
+    {
+        if (!session()->has('id')) {
+            $resultado = "";
+            
+        } else {
+            $resultado = "  <a href='/FORUM_CODEIGNITER/public/usuario/perfil/" . session()->id ."' title='Acessar perfil de usuário' class='py-3 navbar-toggler border-0'>
+                                <img src='/FORUM_CODEIGNITER/assets/img/usuarios/". session()->foto ."' alt='imagem-perfil' class='img-perfil-nav'>
+                            </a>";
+        }
+        
+        echo $resultado;
+    }
+
     //para publicações
     public function publicar()
     {

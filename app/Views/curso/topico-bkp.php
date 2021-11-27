@@ -1,139 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" sizes="16x16"  href="/FORUM_CODEIGNITER/public/favicon.ico">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-
-    <title>Pergunta selecionada</title>
-    <!-- JQUERY -->
-    <script src="/FORUM_CODEIGNITER/public/js/jquery/jquery.js"></script>
-
-    <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/bootstrap/bootstrap.min.css">
-
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-publicacoes.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-banner.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-publicacao-telas.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style-perfil.css">
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/style.css">
-    
-    <!-- ÍCONES -->
-    <link rel="stylesheet" href="/FORUM_CODEIGNITER/public/css/bootstrap/icons.css">
-</head>
-<body>
-    
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light navegacao">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/FORUM_CODEIGNITER/public/"><img class="navbar-brand logo" src="/FORUM_CODEIGNITER/assets/img/login/logo.png" alt=""></a>
-
-                <div class="itens-view-nav-mobile">
-                    <?php 
-                        use App\Controllers\ValidaSessao;
-                        $objValida = new ValidaSessao();
-                        $objValida->mostrarFotoPerfilNav();
-                    ?>
-                    <a class="navbar-toggler border-0" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
-                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-three-dots-vertical icone-menu"></i>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="link-nav active" aria-current="page" href="/FORUM_CODEIGNITER/public/" title="home"><i class="bi bi-house-door icon-home"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="link-nav" href="/FORUM_CODEIGNITER/public/#sobre">SOBRE O FÓRUM</a>
-                        </li>
-                            <?php
-                                use App\Controllers\Usuario;
-
-                                if (session()->has('id')){
-                                    
-                                    $obj = new Usuario();
-                                    $obj->consultaNivel();
-                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/perfil/" . session()->id ."' class='link-nav'>PERFIL</a></li>";
-                                    if (session()->nivel == 3)
-                                    {
-                                        echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/administrador/index' class='link-nav'>PAINEL ADMINISTRATIVO</a></li>";
-                                    }
-                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/logout' class='link-nav logout'>LOGOUT</a></li>";
-                                } else {
-                                    echo "<li class='nav-item'><a href='/FORUM_CODEIGNITER/public/usuario/login' class='link-nav start-session'>INICIAR SESSÃO</a></li>";
-                                }
-                            ?>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="box-flex">
-        <div class="content-left">
-            <div class="left-content">
-                <?php 
-                    $objValida = new ValidaSessao();
-                    $objValida->mostraBotaoLogar(); 
-                ?>
-                <div class="row">
-                    <hr>
-                    <h2>Atalhos</h2>
-                    <div class="col-md-12 coluna-card">
-                        <a href="/FORUM_CODEIGNITER/public/Home/regras">
-                            <div class="cards">
-                                <h2>REGRAS<br>
-                                / RESPEITE, POR FAVOR!</h2>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-12 coluna-card">
-                        <a href="/FORUM_CODEIGNITER/public/Home/guias">
-                            <div class="cards">
-                                <h2>GUIAS<br>
-                                / PRIMEIRA VEZ NOS FÓRUM?</h2>
-                            </div>
-                        </a>
-                    </div> 
-                    <div class="col-md-12 coluna-card">
-                        <?php
-                            echo $objValida->mostraBotaoLogarBanner();
-                        ?>
-                        
-                    </div>
-                </div>
-                <!-- end row -->
-            </div>
-        </div>
-        <div class="content-publi">
-
-            <div class="content-publicacao">
+<div class="container">
+    <br><br>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="mt-3">
                 <div class="box_publicacao"></div>
-                <br><br><br><br>
             </div>
         </div>
-        <div class="content-right">
-            <div class="right-content">
-                <div class="form-group box-shadow">
-                    <h2 class="text-center">Publicações recentes</h2>
-                    <div class="input-group">
-                        <input type="text" name="search_text" id="search_text" placeholder="Pesquise por Título, Conteúdo... " class="form-control" />
-                    </div>
+        <!-- fim col -->
+        <div class="col-md-5">
+            <div class="form-group box-shadow mt-3">
+                <h2 class="text-center">Publicações recentes</h2>
+                <div class="input-group">
+                    <input type="text" name="search_text" id="search_text" placeholder="Pesquise por Título, Conteúdo... " class="form-control" />
                 </div>
-                <div id="result" class="mt-2">
+            </div>
+            <div id="result" class="mt-2">
 
-                </div>
-            
-                <div style="clear:both"></div>
-                <br><br><br><br><br><br>
             </div>
+        
+            <div style="clear:both"></div>
         </div>
+        <!-- fim col -->
     </div>
+    <!-- fim row -->
+</div>
+<!-- fim container -->
+<br><br><br><br><br><br>
 
 <!-- Button trigger modal -->
 
@@ -961,8 +853,4 @@
 
     
 </script>
-<script src="/FORUM_CODEIGNITER/public/js/popper.min.js"></script>
-<script src="/FORUM_CODEIGNITER/public/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+    

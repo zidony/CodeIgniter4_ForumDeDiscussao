@@ -1,15 +1,34 @@
 /* FONTE GERAL */
 
 @font-face {
-    font-family: NotoSansJP-Bold;
-    src: url('/FORUM_CODEIGNITER/assets/font/Roboto/Roboto-Italic.ttf');
+    font-family: Roboto-Light;
+    src: url('/FORUM_CODEIGNITER/assets/font/Roboto/Roboto-Light.ttf');
 }
 
 body {
     /* font-family: NotoSansJP-Regular; */
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto-Light;
     background: url('/FORUM_CODEIGNITER/assets/img/background-forum.png');
+    background-attachment: fixed;
     overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: #4b5b6488;
+    /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #137dba7e;
+    /* color of the scroll thumb */
+    border-radius: 5px;
+    /* roundness of the scroll thumb */
+    /* creates padding around scroll thumb */
 }
 
 
@@ -79,8 +98,16 @@ body {
 
 .titulo-sobre {
     color: #137eba;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .conteudo-sobre {
-    color: #323f46;
+    font-size: 16px;
+}
+
+.numeracao {
+    color: #bb262e;
+    font-weight: bold;
+    font-size: 20px;
 }

@@ -7,24 +7,13 @@ use LengthException;
 
 class Feed extends BaseController
 {
-    public function teste()
-    {
-        return 
-            view('curso/teste') .
-            view('includes/footer');
-    }
     
     public function publicacoes($curso, $categoria)
     {
         //envia para o home-curso o id da categoria
         $idCategoria['idCategoria'] = $categoria;
 
-        return view('includes/head') .
-            view('titles/title-publicacoes') .
-            view('includes/nav') .
-            // view('includes/banner-home') .
-            view('curso/perguntas', $idCategoria) .
-            view('includes/footer');
+        return view('curso/perguntas', $idCategoria);
     }
 
 
@@ -33,12 +22,7 @@ class Feed extends BaseController
         //envia para o home-curso o id da categoria
         $id['ids'] = [$idPublicacao, $idCategoria];
 
-        return view('includes/head') .
-                view('titles/title-publicacoes') .
-                view('includes/nav') .
-                // view('includes/banner-home') .
-                view('curso/topico' , $id) .
-                view('includes/footer');
+        return view('curso/topico' , $id);
     }
 
 
@@ -142,7 +126,7 @@ class Feed extends BaseController
         $query = $builder->get()->getResult();
 
         if ($query == false) {
-            $query == false;
+            echo json_encode($query);
         } else {
             $builder = $db->table('publicacao');
             $builder->select('publicacao.ID as IDPublicacao,
@@ -171,8 +155,6 @@ class Feed extends BaseController
 
         if ($query == true) {
             echo json_encode($query);
-        } else {
-            echo json_encode($query);
         }
 
         
@@ -191,7 +173,7 @@ class Feed extends BaseController
         $query = $builder->get()->getResult();
 
         if ($query == false) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); 
+            echo json_encode($query); 
         } else {
             $builder = $db->table('publicacao');
             $builder->select('publicacao.ID as IDPublicacao,
@@ -215,10 +197,10 @@ class Feed extends BaseController
             $builder->where('publicacao.Ativo', 1);
             $builder->orderBy('publicacao.ID');
             $query = $builder->get()->getResult();
-            
-            if ($query == true) {
-                echo json_encode($query);
-            }
+        }
+
+        if ($query == true) {
+            echo json_encode($query);
         }
     }
 
@@ -645,7 +627,7 @@ class Feed extends BaseController
 								<div class="box-content-publicacao-home">
 									<h5 title="'. $row->Titulo .'">'. $row->Titulo .'</h5>
 									<p title="'. $row->Conteudo .'">'. $row->Conteudo .'</p>
-									<a href="/FORUM_CODEIGNITER/public/Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar<br><i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
+									<a href="/FORUM_CODEIGNITER/public/Feed/topico/'.  $row->Titulo .'/'.  $row->IDPublicacao .'/'.  $row->IDCategoria.'" class="acessar-publicacao">Acessar<i class="bi bi-arrow-right-square-fill icone-ir-publicacao"></i></a>
 									<p class="data-publicacao">Categoria: '. $row->linkAmigavel .'</p>
 								</div>
 							</div>

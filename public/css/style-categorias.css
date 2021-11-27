@@ -22,6 +22,7 @@
     box-shadow: 1px 1px 5px 1px #4b5b6488;
     background: #fff;
     border-radius: 5px;
+    padding: 5px;
 }
 
 .box-img-categoria img {
@@ -156,8 +157,8 @@
         text-align: center;
     }
     .box-img-categoria-publi img {
-        width: 200px !important;
-        height: 200px;
+        width: 100% !important;
+        height: 100%;
         border-radius: 100%;
         padding: 5px;
     }
