@@ -108,6 +108,7 @@
                     </div>
                 </div>
             <!-- end row -->
+            <br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
         </div>
         <div class="content-publi">
@@ -310,7 +311,7 @@
                 }
 
                 //botão de ver comentários
-                ver_comentarios = '<a class="btn-footer-publicacao" href="../../topico/'+ result[i].Titulo +'/'+ result[i].IDPublicacao + '/'+ result[i].IDCategoria +'" role="button">' +
+                ver_comentarios = '<a class="btn-footer-publicacao" href="/FORUM_CODEIGNITER/public/Feed/topico/'+ result[i].Titulo +'/'+ result[i].IDPublicacao + '/'+ result[i].IDCategoria +'" role="button">' +
                     '<i class="bi bi-chat-right-text mx-2 icon-comment"></i>' +
                     'Entrar nesse tópico' +
                 '</a>';

@@ -49,6 +49,7 @@
 .img-perfil {
     border-radius: 100%;
     box-shadow: 1px 1px 5px 1px #4b5b6491;
+    object-fit: cover;
     width: 70px;
     height: 70px;
 }

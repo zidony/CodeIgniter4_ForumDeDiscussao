@@ -39,7 +39,7 @@ class Home extends BaseController
 			view('includes/banner-home') .
 			view('sobre/guias') .
 			view('includes/footer');
-   	}
+   	}	   
 
 	public function consulta_categoria()
 	{

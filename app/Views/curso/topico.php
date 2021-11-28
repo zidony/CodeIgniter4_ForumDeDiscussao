@@ -291,7 +291,7 @@
                     '<div class="box-comentario p-3">' +
                         '<div class="box_form">' +
                             '<form enctype="multipart/form-data" method="post" id="comentario">' +
-                                '<textarea rows="3" name="comentar" id="comentar" class="form-control" required></textarea>' +
+                                '<textarea rows="3" name="comentar" placeholder="Tente: Teste fazer este procedimento..." id="comentar" class="form-control" required></textarea>' +
 
                                 '<input type="file" name="img[]" id="img" class="form-control">' +
 

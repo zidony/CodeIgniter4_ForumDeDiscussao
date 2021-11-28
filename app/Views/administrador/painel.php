@@ -11,7 +11,7 @@
     <a href="../" class="button-back p-3 my-3">VOLTAR A INDEX</a>
     <br><br><br><br>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a href="../usuario/registraUsuario" class="box-painel">
                 <div class="box">
                     <i class="bi bi-person-fill"></i> REGISTRAR<br> UM USUÁRIO
@@ -19,7 +19,15 @@
             </a>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <a href="usuarios" class="box-painel">
+                <div class="box">
+                    <i class="bi bi-person-fill"></i> CONSULTAR<br>USUÁRIOS
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
             <a href="categoria" class="box-painel">
                 <div class="box">
                     <i class="bi bi-bookmark-fill"></i> REGISTRAR<br>  CATEGORIA
@@ -27,7 +35,7 @@
             </a>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a href="rm" class="box-painel">
                 <div class="box">
                     <i class="bi bi-people-fill"></i> REGISTRAR<br>  RMs DE ALUNOS NOVOS
@@ -37,7 +45,7 @@
     </div>
     <!-- end row -->
 </div>
-<br><br><br><br>
+<br><br><br><br><br><br><br><br>
 	
 
 

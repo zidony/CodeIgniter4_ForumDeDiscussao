@@ -111,3 +111,8 @@ body::-webkit-scrollbar-thumb {
     font-weight: bold;
     font-size: 20px;
 }
+
+.img-manual {
+    width: 100%;
+    box-shadow: 1px 1px 5px 1px #252525;
+}
