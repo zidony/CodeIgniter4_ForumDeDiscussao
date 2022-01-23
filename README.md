@@ -5,7 +5,7 @@
 * CodeIgniter v.4
 * CSS
 * Bootstrap v.5.1
-* JQuery v.3
+* JQuery v.2.1
 * AJAX
 * MySQL
 * PhotoShop
